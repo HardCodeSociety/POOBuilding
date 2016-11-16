@@ -1,6 +1,6 @@
 package aplicacion;
 import java.util.*;
-
+import java.lang.*;
 /**
 *Clase Heroe 
 *@autor Andres Felipe Pardo Mesa
@@ -40,37 +40,36 @@ public abstract class Heroe {
             int pasos;
             if (energia<50){
                 esLento=true;
-                pasos=1;
-            }else {
-                pasos=5;
+                Thread.sleep(1000); 
             }
             if (direccion=='U'){
-                y+=pasos;
+                y+=2;
             }else if (direccion=='D'){
-                y-=pasos;
+                y-=2;
             }else if (direccion=='L'){
-                x-=pasos;
+                x-=2;
             }else (direccion=='R'){
-                x+=pasos;
+                x+=2;
             }   
             energia-=1;
-            if (energia==0){
-            }        } 
-                debeMorir();
+            if (energia==0){ 
+               debeMorir();
+            }
+        }
     }
 /**
 *Este metodo permite a el Heroe reparar una ventana
 *@param Ventana ventana
 **/
     public void reparar(Ventana ventana){
-        if(!gameOver){
-            if (energia<25){
-                repara=false;   
+        if(!gameOver){  
             }else if(repara){
                 int cantidad = ventana.vidriosReparar()
                 if (cantidad>0){
                     ventana.reparar();
                     energia-=3;
+                if (energia<25){
+                repara=false; 
                 }
             }
         }
@@ -92,8 +91,7 @@ public abstract class Heroe {
         ArrayList<Obstaculo> obstaculos =edifico.getObstaculos();
         for(Obstaculo i:obstaculos){
             if(i instanceof Ladrillo ){
-               if(i.coordenadas().equals coordenadas()){
-                   
+               if(i.coordenadas().equals coordenadas()){           
                }
             }
         }
