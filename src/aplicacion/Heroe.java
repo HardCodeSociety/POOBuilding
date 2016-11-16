@@ -15,6 +15,8 @@ public abstract class Heroe {
     protected int posY;
     protected boolean esLento;
     protected boolean gameOver;
+    protected boolean repara;
+    protected Edificio edificio;
 /**
 *Creador de la clase Heroe
 **/
@@ -27,19 +29,20 @@ public abstract class Heroe {
         y=0;
         esLento=false;
         gameOver=false;
+        repara=true;
     }
 /**
 *Este metodo permite mover en cuatro direcciones posibles dado un caracter /n este caracter puede ser: /n U : arriba /n D : abajo /n L: Izquierda /n R: Derecha
 *@param char direccion 
 **/
-    public void (char direccion){
+    public void mover(char direccion){
         if (!gameOver){
             int pasos;
             if (energia<50){
                 esLento=true;
                 pasos=1;
             }else {
-                pasos=3;
+                pasos=5;
             }
             if (direccion=='U'){
                 y+=pasos;
@@ -52,18 +55,24 @@ public abstract class Heroe {
             }   
             energia-=1;
             if (energia==0){
-                debeMorir();
             }        } 
+                debeMorir();
     }
 /**
 *Este metodo permite a el Heroe reparar una ventana
 *@param Ventana ventana
 **/
     public void reparar(Ventana ventana){
-        int cantidad = ventana.vidriosReparar()
-        if (cantidad>0){
-            ventana.reparar();
-            energia-=3;
+        if(!gameOver){
+            if (energia<25){
+                repara=false;   
+            }else if(repara){
+                int cantidad = ventana.vidriosReparar()
+                if (cantidad>0){
+                    ventana.reparar();
+                    energia-=3;
+                }
+            }
         }
     }
 /**
@@ -73,5 +82,19 @@ public abstract class Heroe {
         vidas-=1;
         if (vidas==0){
             gameOver=True;
+        }
+    }
+/**
+*Este metodo permite saber si el Heroe esta tocando algun obstaculo
+**/
+        
+    public void tocandoObstaculo(){
+        ArrayList<Obstaculo> obstaculos =edifico.getObstaculos();
+        for(Obstaculo i:obstaculos){
+            if(i instanceof Ladrillo ){
+               if(i.coordenadas().equals coordenadas()){
+                   
+               }
+            }
         }
     }
