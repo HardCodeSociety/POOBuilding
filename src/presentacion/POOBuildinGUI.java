@@ -9,7 +9,8 @@ import java.util.*;
 import java.lang.*;
 public class POOBuildinGUI extends JFrame{
 	//private Partida partida;
-	
+
+	private Instrucciones instrucciones;
 	//Menu Principal
 	private JPanel panelLogo;
 	private JPanel panelOpciones;
@@ -21,13 +22,50 @@ public class POOBuildinGUI extends JFrame{
 	private JButton botonAbrir;
 	private JButton botonInstrucciones;
 	private JButton botonImportar;
-	
+
 	public POOBuildinGUI(){
-		//prepareAcciones();
+		prepareAcciones();
 		prepareElementos();
 		//partida = new Partida();
 		//inicie();
 	}
+	public void prepareAcciones(){
+		botonInstrucciones.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					instrucciones();
+				}
+			}
+		);
+		botonAbrir.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						abrir();
+					}
+				}
+			);
+		botonImportar.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						importar();
+					}
+				}
+			);
+
+	}
+
+	public void importar(){
+
+	}
+	
+	public void abrir(){
+
+	}
+	public void instrucciones(){
+		instrucciones = new Instrucciones();
+		instrucciones.setVisible(true);
+	}
+
 	public void prepareElementos(){
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen.width/2,screen.height/2);
@@ -48,26 +86,26 @@ public class POOBuildinGUI extends JFrame{
 	public void elementosPanelBotones(){
 		Font fuente = new Font("Tahoma", Font.BOLD, 25);
 		botonJugar=new JButton("JUGAR");
-		botonJugar.setBackground(Color.BLACK); 
-        botonJugar.setFont(fuente); 
+		botonJugar.setBackground(Color.BLACK);
+        botonJugar.setFont(fuente);
 		botonJugar.setForeground(Color.WHITE);
 		botonAbrir=new JButton("ABRIR");
-		botonAbrir.setBackground(Color.BLACK); 
-        botonAbrir.setFont(fuente); 
+		botonAbrir.setBackground(Color.BLACK);
+        botonAbrir.setFont(fuente);
 		botonAbrir.setForeground(Color.WHITE);
 		botonInstrucciones=new JButton("INSTRUCCIONES");
-		botonInstrucciones.setBackground(Color.BLACK); 
-        botonInstrucciones.setFont(fuente); 
+		botonInstrucciones.setBackground(Color.BLACK);
+        botonInstrucciones.setFont(fuente);
 		botonInstrucciones.setForeground(Color.WHITE);
 		botonImportar=new JButton("IMPORTAR");
-		botonImportar.setBackground(Color.BLACK); 
-        botonImportar.setFont(fuente); 
+		botonImportar.setBackground(Color.BLACK);
+        botonImportar.setFont(fuente);
 		botonImportar.setForeground(Color.WHITE);
 		panelOpciones.add(botonJugar);
 		panelOpciones.add(botonAbrir);
 		panelOpciones.add(botonImportar);
 		panelOpciones.add(botonInstrucciones);
-	}	
+	}
 	public void elementosPanelLogo(){
 		logo=new JLabel();
 		ImageIcon icono=new ImageIcon("imagenes/icono.png");
@@ -75,53 +113,52 @@ public class POOBuildinGUI extends JFrame{
 		logo.setIcon(icono);
 		panelLogo.add(logo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static void main(String[] args){
 		POOBuildinGUI edificio = new POOBuildinGUI();
 		edificio.setVisible(true);
 	}
-	
-	
-	
-}
 
+
+
+}
