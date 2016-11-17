@@ -63,6 +63,13 @@ public class POOBuildinGUI extends JFrame{
 				}
 			}
 		);
+		botonSalir.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					cerrarVentana();
+				}
+			}
+		);
 	}
 	public void jugar(){
 		modoDeJuego=new ModoDeJuego();
