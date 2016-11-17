@@ -1,4 +1,4 @@
-//package aplicacion;
+package aplicacion;
 import java.util.*;
 /**
 *Clase Ventana 

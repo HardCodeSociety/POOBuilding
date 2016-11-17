@@ -1,3 +1,5 @@
+import java.util.*;
+
 public abstract class Obstaculo {
 	protected int posX;
 	protected int posY;
@@ -22,5 +24,11 @@ public abstract class Obstaculo {
 	public void reaccion(){
 		//sf(contacto)
 			//....
+	}
+	public int[] coordenadas(){
+		int [] coordenadas = new int[2];
+		coordenadas[0]=posX;
+		coordenadas[1]=posY;
+		return coordenadas;
 	}
 }
