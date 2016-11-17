@@ -15,7 +15,7 @@ public class Ventana {
 	/**
 	 * Creador de la clase Ventana
 	 */
-	public void veantana(){
+	public void ventana(){
 		reparada=false;
 		numVidrios= 3;
 		vidriosRepar=1;
@@ -33,8 +33,9 @@ public class Ventana {
 	 *Este metodo nos permite cambiar el estado de una ventana a reparada 
 	 */
 	public void reparar(){
-		vidriosRepar=0;
-		reparada=true;
+		vidriosRepar-=1;
+		if (vidriosRepar==0)
+			reparada=true;
 	}
 	/**
 	 * Este metodo nos permite saber si la ventana de algun piso tiene un vecino
@@ -43,4 +44,7 @@ public class Ventana {
 	public boolean tieneVecino(){
 		return tieneVecino;
 	}
+	//public Pared getParedes(){
+		//return paredes;
+	//}
 }
