@@ -31,7 +31,7 @@ public class POOBuildinGUI extends JFrame{
 	public void prepareElementos(){
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen.width/2,screen.height/2);
-		setLayout(new BorderLayout(3,3));
+		setLayout(new BorderLayout());
 		panelLogo = new JPanel();
 		panelLogo.setLayout(new GridLayout(1,1,7,7));
 		panelLogo.setBackground(Color.BLACK);
