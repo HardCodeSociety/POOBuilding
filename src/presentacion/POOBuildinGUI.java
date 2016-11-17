@@ -29,16 +29,18 @@ public class POOBuildinGUI extends JFrame{
 	}
 	//elementosPanelBotones(){}
 	public void prepareElementos(){
+		setBackground(Color.BLACK);
+		setLayout(new BorderLayout(3,3));
 		logo = new JLabel();
 		logo.setBorder(BorderFactory.createEmptyBorder(10,320,10,320));
 		logo.setLayout(new GridLayout(1,4,7,7));
-		ImageIcon icono=new ImageIcon("icono.jpg");
+		ImageIcon icono=new ImageIcon("imagenes/icono.jpg");
 		panelOpciones = new JPanel();
 		//elementosPanelBotones();
-		setLayout(new BorderLayout(3,3));
 		logo.setIcon(icono);
-		add(logo);
-		add(panelOpciones);
+		logo.setBackground(Color.BLACK);
+		add(logo,BorderLayout.NORTH);
+		add(panelOpciones,BorderLayout.CENTER);
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen.width/2,screen.height/2);
 	}
