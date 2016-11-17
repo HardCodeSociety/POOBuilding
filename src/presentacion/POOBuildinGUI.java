@@ -23,6 +23,12 @@ public class POOBuildinGUI extends JFrame{
 	private JButton botonInstrucciones;
 	private JButton botonImportar;
 
+//Otras opciones
+	private JFileChooser abrirArchivo;
+	private JFileChooser importarArchivo;
+
+
+
 	public POOBuildinGUI(){
 		prepareAcciones();
 		prepareElementos();
@@ -55,11 +61,20 @@ public class POOBuildinGUI extends JFrame{
 	}
 
 	public void importar(){
-
+		importarArchivo= new JFileChooser();
+		int desicion = importarArchivo.showOpenDialog(this);
+		if (desicion == JFileChooser.APPROVE_OPTION) {
+            File file = importarArchivo.getSelectedFile();
+            JOptionPane.showMessageDialog(null,"importar esta en construccion. El archivo seleccionado es:  "+file.getName() );
 	}
-	
-	public void abrir(){
 
+	public void abrir(){
+		abrirArchivo= new JFileChooser();
+		int desicion = abrirArchivo.showOpenDialog(this);
+		if (desicion == JFileChooser.APPROVE_OPTION) {
+						File file = abrirArchivo.getSelectedFile();
+						JOptionPane.showMessageDialog(null,"Abrir esta en construccion. El archivo seleccionado es:  "+file.getName() );
+		}
 	}
 	public void instrucciones(){
 		instrucciones = new Instrucciones();
