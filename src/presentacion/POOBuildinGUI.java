@@ -1,4 +1,5 @@
 package presentacion;
+
 import javax.swing.*;
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,8 @@ import java.util.*;
 import java.lang.*;
 public class POOBuildinGUI extends JFrame{
 	//private Partida partida;
-	
+	//Ventanas Externas;
+	private ModoDeJuego modoDeJuego;
 	//Menu Principal
 	private JPanel panelLogo;
 	private JPanel panelOpciones;
@@ -21,10 +23,11 @@ public class POOBuildinGUI extends JFrame{
 	private JButton botonAbrir;
 	private JButton botonInstrucciones;
 	private JButton botonImportar;
+	private JButton botonSalir;
 	
 	public POOBuildinGUI(){
-		//prepareAcciones();
 		prepareElementos();
+		prepareAcciones();
 		//partida = new Partida();
 		//inicie();
 	}
@@ -38,12 +41,39 @@ public class POOBuildinGUI extends JFrame{
 		panelLogo.setBorder(BorderFactory.createEmptyBorder(10,430,10,320));
 		elementosPanelLogo();
 		panelOpciones = new JPanel();
-		panelOpciones.setLayout(new GridLayout(4,1,7,7));
+		panelOpciones.setLayout(new GridLayout(5,1,7,7));
 		panelOpciones.setBackground(Color.BLACK);
 		panelOpciones.setBorder(BorderFactory.createEmptyBorder(10,320,10,320));
 		elementosPanelBotones();
 		add(panelLogo,BorderLayout.NORTH);
 		add(panelOpciones,BorderLayout.CENTER);
+	}
+	public void prepareAcciones(){
+		addWindowListener (
+			new WindowAdapter(){
+				public void windowClosing(WindowEvent e){
+					cerrarVentana();
+				}
+			}
+		);
+		botonJugar.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					jugar();
+				}
+			}
+		);
+	}
+	public void jugar(){
+		modoDeJuego=new ModoDeJuego();
+		modoDeJuego.setVisible(true);
+	}
+	public void cerrarVentana(){
+			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+							setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}else{
+				setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			}
 	}
 	public void elementosPanelBotones(){
 		Font fuente = new Font("Tahoma", Font.BOLD, 25);
@@ -63,10 +93,15 @@ public class POOBuildinGUI extends JFrame{
 		botonImportar.setBackground(Color.BLACK); 
         botonImportar.setFont(fuente); 
 		botonImportar.setForeground(Color.WHITE);
+		botonSalir=new JButton("SALIR");
+		botonSalir.setBackground(Color.BLACK);
+		botonSalir.setFont(fuente);
+		botonSalir.setForeground(Color.WHITE);
 		panelOpciones.add(botonJugar);
 		panelOpciones.add(botonAbrir);
 		panelOpciones.add(botonImportar);
 		panelOpciones.add(botonInstrucciones);
+		panelOpciones.add(botonSalir);
 	}	
 	public void elementosPanelLogo(){
 		logo=new JLabel();
