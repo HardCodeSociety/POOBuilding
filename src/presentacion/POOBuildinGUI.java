@@ -90,22 +90,27 @@ public class POOBuildinGUI extends JFrame{
 	public void elementosPanelBotones(){
 		Font fuente = new Font("Tahoma", Font.BOLD, 25);
 		botonJugar=new JButton("JUGAR");
+		botonJugar.setBorderPainted(false);
 		botonJugar.setBackground(Color.BLACK); 
         botonJugar.setFont(fuente); 
 		botonJugar.setForeground(Color.WHITE);
 		botonAbrir=new JButton("ABRIR");
+		botonAbrir.setBorderPainted(false);
 		botonAbrir.setBackground(Color.BLACK); 
         botonAbrir.setFont(fuente); 
 		botonAbrir.setForeground(Color.WHITE);
 		botonInstrucciones=new JButton("INSTRUCCIONES");
+		botonInstrucciones.setBorderPainted(false);
 		botonInstrucciones.setBackground(Color.BLACK); 
         botonInstrucciones.setFont(fuente); 
 		botonInstrucciones.setForeground(Color.WHITE);
 		botonImportar=new JButton("IMPORTAR");
+		botonImportar.setBorderPainted(false);
 		botonImportar.setBackground(Color.BLACK); 
         botonImportar.setFont(fuente); 
 		botonImportar.setForeground(Color.WHITE);
 		botonSalir=new JButton("SALIR");
+		botonSalir.setBorderPainted(false);
 		botonSalir.setBackground(Color.BLACK);
 		botonSalir.setFont(fuente);
 		botonSalir.setForeground(Color.WHITE);
