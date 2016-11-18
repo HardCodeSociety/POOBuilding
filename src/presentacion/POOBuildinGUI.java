@@ -66,7 +66,7 @@ public class POOBuildinGUI extends JFrame{
 		botonSalir.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					cerrarVentana();
+					cerrar();
 				}
 			}
 		);
@@ -74,6 +74,11 @@ public class POOBuildinGUI extends JFrame{
 	public void jugar(){
 		modoDeJuego=new ModoDeJuego();
 		modoDeJuego.setVisible(true);
+	}
+	public void cerrar(){
+			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+							System.exit(0);
+			}
 	}
 	public void cerrarVentana(){
 			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
