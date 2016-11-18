@@ -55,7 +55,8 @@ public class POOBuildinGUI extends JFrame{
 		}
 	}
 	public void instrucciones(){
-		instrucciones = new Instrucciones();
+		instrucciones = new Instrucciones(this);
+		setVisible(false);
 		instrucciones.setVisible(true);
 	}
 
@@ -121,7 +122,8 @@ public class POOBuildinGUI extends JFrame{
 		);
 	}
 	public void jugar(){
-		modoDeJuego=new ModoDeJuego();
+		modoDeJuego=new ModoDeJuego(this);
+		setVisible(false);
 		modoDeJuego.setVisible(true);
 	}
 	public void cerrar(){
@@ -137,7 +139,7 @@ public class POOBuildinGUI extends JFrame{
 			}
 	}
 	public void elementosPanelBotones(){
-		Font fuente = new Font("Tahoma", Font.BOLD, 25);
+		Font fuente = new Font("<a href="http://www.tiposdeletra.com/Tipos-de-Letras-H/Hilogi71.htm" target="_blank"><img src="http://www.letramania.com/archivos/miniaturas/Hilogi71.jpg" alt="Fuente Hilogi71" border="0" /></a>", Font.BOLD, 25);
 		botonJugar=new JButton("JUGAR");
 		botonJugar.setBorderPainted(false);
 		botonJugar.setBackground(Color.BLACK); 
@@ -176,47 +178,6 @@ public class POOBuildinGUI extends JFrame{
 		logo.setIcon(icono);
 		panelLogo.add(logo);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public static void main(String[] args){
 		POOBuildinGUI edificio = new POOBuildinGUI();
 		edificio.setVisible(true);

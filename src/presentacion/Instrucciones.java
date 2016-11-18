@@ -1,4 +1,4 @@
-package presentacion;
+package  presentacion;
 import javax.swing.*;
 import javax.swing.*;
 import java.awt.*;
@@ -18,13 +18,14 @@ public class Instrucciones extends JDialog{
   //JButton botonInstrucciones;
 
 //Textos
-  JTextField instruc;
+  JLabel instruc;
   JTextField evitar;
   JTextField recoger;
   JTextField mover;
   JTextField arreglar;
 
-  public Instrucciones(){
+  public Instrucciones(JFrame owner){
+    super(owner); 
     prepareElementos();
     prepareAcciones();
   }
@@ -47,8 +48,8 @@ public class Instrucciones extends JDialog{
 
 //Metodos
   public void jugar(){
-    ModoDeJuego jug= new ModoDeJuego();
-    jug.setVisible(true);
+    //ModoDeJuego jug= new ModoDeJuego(super);
+    //jug.setVisible(true);
   }
   public void menu(){
     POOBuildinGUI men= new POOBuildinGUI();
@@ -58,15 +59,16 @@ public class Instrucciones extends JDialog{
   public void prepareElementos(){
     panelInstrucciones=new JPanel();
     panelInstrucciones.setLayout(new GridLayout(6,1,10,10));
+    panelInstrucciones.setBackground(Color.BLACK);
     Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
     setSize(screen.width/2,screen.height/2);
-    Font fuente = new Font("Tahoma", Font.BOLD, 12);
+    Font fuente = new Font("Cooper Black", Font.BOLD, 12);
     ImageIcon imover= new ImageIcon("imagenes/imagenmover.jpg");
     ImageIcon ievitar = new ImageIcon("imagenes/imagenevitar.jpg");
     ImageIcon irecoger = new ImageIcon("imagenes/imagenrecoger.jpg");
     ImageIcon iarreglar = new ImageIcon("imagenes/imagenarreglar.jpg");
-    instruc = new JTextField("Repare todas las ventanas que Ralph rompa, la persona que tenga la mayor cantidad \n de ventanas reparadas al terminar el edificio gana.");
-    //instruc.setLayout(new GridLayout(2,2,10,10));
+    instruc = new JLabel("<html><body> Repare todas las ventanas que Ralph rompa, la persona que tenga la mayor cantidad de ventanas reparadas al terminar el edificio gana. </body></html>");
+    instruc.setLayout(new GridLayout(2,2,10,10));
     instruc.setBackground(Color.BLACK);
     instruc.setFont(fuente);
     instruc.setForeground(Color.WHITE);
