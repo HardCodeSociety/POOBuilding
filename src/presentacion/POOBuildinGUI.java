@@ -12,6 +12,7 @@ public class POOBuildinGUI extends JFrame{
 	//private Partida partida;
 	//Ventanas Externas;
 	private ModoDeJuego modoDeJuego;
+	private Instrucciones instrucciones;
 	//Menu Principal
 	private JPanel panelLogo;
 	private JPanel panelOpciones;
@@ -24,13 +25,40 @@ public class POOBuildinGUI extends JFrame{
 	private JButton botonInstrucciones;
 	private JButton botonImportar;
 	private JButton botonSalir;
-	
+	//Otras opciones
+	private JFileChooser abrirArchivo;
+	private JFileChooser importarArchivo;
+
+
+
 	public POOBuildinGUI(){
 		prepareElementos();
 		prepareAcciones();
 		//partida = new Partida();
 		//inicie();
 	}
+	public void importar(){
+		importarArchivo= new JFileChooser();
+		int desicion = importarArchivo.showOpenDialog(this);
+		if (desicion == JFileChooser.APPROVE_OPTION) {
+            File file = importarArchivo.getSelectedFile();
+            JOptionPane.showMessageDialog(null,"importar esta en construccion. El archivo seleccionado es:  "+file.getName() );
+		}
+	}
+
+	public void abrir(){
+		abrirArchivo= new JFileChooser();
+		int desicion = abrirArchivo.showOpenDialog(this);
+		if (desicion == JFileChooser.APPROVE_OPTION) {
+						File file = abrirArchivo.getSelectedFile();
+						JOptionPane.showMessageDialog(null,"Abrir esta en construccion. El archivo seleccionado es:  "+file.getName() );
+		}
+	}
+	public void instrucciones(){
+		instrucciones = new Instrucciones();
+		instrucciones.setVisible(true);
+	}
+
 	public void prepareElementos(){
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen.width/2,screen.height/2);
@@ -67,6 +95,27 @@ public class POOBuildinGUI extends JFrame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					cerrar();
+				}
+			}
+		);
+		botonInstrucciones.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					instrucciones();
+				}
+			}
+		);
+		botonAbrir.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						abrir();
+				}
+			}
+		);
+		botonImportar.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						importar();
 				}
 			}
 		);
@@ -127,53 +176,52 @@ public class POOBuildinGUI extends JFrame{
 		logo.setIcon(icono);
 		panelLogo.add(logo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static void main(String[] args){
 		POOBuildinGUI edificio = new POOBuildinGUI();
 		edificio.setVisible(true);
 	}
-	
-	
-	
-}
 
+
+
+}
