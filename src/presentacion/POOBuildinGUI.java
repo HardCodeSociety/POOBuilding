@@ -61,6 +61,8 @@ public class POOBuildinGUI extends JFrame{
 	}
 
 	public void prepareElementos(){
+		//GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		//sge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Sega-Logo-Font.ttf")));
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen.width/2,screen.height/2);
 		setLayout(new BorderLayout());
@@ -139,7 +141,7 @@ public class POOBuildinGUI extends JFrame{
 			}
 	}
 	public void elementosPanelBotones(){
-		Font fuente = new Font("<a href="http://www.tiposdeletra.com/Tipos-de-Letras-H/Hilogi71.htm" target="_blank"><img src="http://www.letramania.com/archivos/miniaturas/Hilogi71.jpg" alt="Fuente Hilogi71" border="0" /></a>", Font.BOLD, 25);
+		Font fuente = new Font("Sega-Logo-Font",Font.TRUETYPE_FONT, 25);
 		botonJugar=new JButton("JUGAR");
 		botonJugar.setBorderPainted(false);
 		botonJugar.setBackground(Color.BLACK); 

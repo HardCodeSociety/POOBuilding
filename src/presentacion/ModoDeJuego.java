@@ -15,8 +15,10 @@ public class ModoDeJuego extends JDialog{
     private JButton unoVsMaquina;
     private JButton volver;
     private JPanel panelVolver;
-   
-    public ModoDeJuego(){
+    private JFrame principal;
+    public ModoDeJuego(JFrame owner){
+        super(owner);
+        principal=owner;
         prepareElementos();
         prepareAcciones();
     }
@@ -55,6 +57,7 @@ public class ModoDeJuego extends JDialog{
     }
     public void cerrarVentana(){
 			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+                super.setVisible(true);
                 setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			}else{
 				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -62,6 +65,8 @@ public class ModoDeJuego extends JDialog{
 	}
     public void cerrar(){
         if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+            setVisible(true);
+            principal.setVisible(true);
             dispose();
         }
     }
