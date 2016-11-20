@@ -80,7 +80,6 @@ public class ModoDeJuego extends JDialog{
     }
     public void elegirJugador(int modo){
         ElegirJugador elegir=new ElegirJugador(modo);
-        setVisible(false);
         elegir.setVisible(true);
     }
     public void elementosPanelBotones(){

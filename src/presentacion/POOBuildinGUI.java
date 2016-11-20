@@ -62,7 +62,7 @@ public class POOBuildinGUI extends JFrame{
 
 	public void prepareElementos(){
 		File archivo= new File("Sega-Logo-Font.ttf");
-		System.out.println(archivo.exists());
+		//System.out.println(archivo.exists());
         //GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
         //Font wreckFont = Font.createFont(Font.BOLD,archivo);
         //	ge.registerFont(wreckFont);
