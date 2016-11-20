@@ -61,15 +61,22 @@ public class POOBuildinGUI extends JFrame{
 	}
 
 	public void prepareElementos(){
+		File archivo= new File("Sega-Logo-Font.ttf");
+		System.out.println(archivo.exists());
+        //GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //Font wreckFont = Font.createFont(Font.BOLD,archivo);
+        //	ge.registerFont(wreckFont);
+    	 // TODO : cambiar por funcion de log
+		//Font miFuente =Font.createFont(Font.TRUETYPE_FONT, new File("Sega-Logo-Font.ttf"));
 		//GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		//sge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Sega-Logo-Font.ttf")));
+		//ge.registerFont(miFuente);
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(screen.width/2,screen.height/2);
+		setSize(4*screen.width/6,4*screen.height/6);
 		setLayout(new BorderLayout());
 		panelLogo = new JPanel();
 		panelLogo.setLayout(new GridLayout(1,1,7,7));
 		panelLogo.setBackground(Color.BLACK);
-		panelLogo.setBorder(BorderFactory.createEmptyBorder(10,430,10,320));
+		panelLogo.setBorder(BorderFactory.createEmptyBorder(10,400,10,320));
 		elementosPanelLogo();
 		panelOpciones = new JPanel();
 		panelOpciones.setLayout(new GridLayout(5,1,7,7));

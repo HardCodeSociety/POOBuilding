@@ -54,10 +54,18 @@ public class ModoDeJuego extends JDialog{
                 }
             }
         );
+        unoVsUno.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    elegirJugador(1);    
+                }
+            }
+        );
     }
     public void cerrarVentana(){
 			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
-                super.setVisible(true);
+                setVisible(false);
+                principal.setVisible(true);
                 setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			}else{
 				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -65,10 +73,15 @@ public class ModoDeJuego extends JDialog{
 	}
     public void cerrar(){
         if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
-            setVisible(true);
+            setVisible(false);
             principal.setVisible(true);
             dispose();
         }
+    }
+    public void elegirJugador(int modo){
+        ElegirJugador elegir=new ElegirJugador(modo);
+        setVisible(false);
+        elegir.setVisible(true);
     }
     public void elementosPanelBotones(){
         unoVsUno=new JButton();
