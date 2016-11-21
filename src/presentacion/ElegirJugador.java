@@ -17,7 +17,7 @@ public class ElegirJugador extends JDialog{
     //Elementos panelImagenes
     JButton jugador1;
     JButton jugador2;
-    //Elementos panelNombres 
+    //Elementos panelNombres
     JLabel indicador1;
     JLabel indicador2;
     JTextField cambiarJugador1;
@@ -41,11 +41,11 @@ public class ElegirJugador extends JDialog{
 
     public void prepareElementos(){
         Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(4*screen.width/6,4*screen.height/6);
+		    setSize(4*screen.width/6,4*screen.height/6);
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelImagenes=new JPanel();
-        //panelImagenes.setSize(200,200); 
+        //panelImagenes.setSize(200,200);
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
         panelImagenes.setBorder(BorderFactory.createEmptyBorder(20,200,0,200));
@@ -136,12 +136,16 @@ public class ElegirJugador extends JDialog{
                 if(jugador==1){
                     if ((!color.equals(color2))){
                         jugador1.setBackground(color);
+                    }else{
+                      JOptionPane.showMessageDialog(null, "El jugador 2 ya esta usando ese color");
                     }
                 }else if(jugador==2){
                     if((!color.equals(color1))){
                         jugador2.setBackground(color);
+                    }else{
+                      JOptionPane.showMessageDialog(null, "El jugador 1 ya esta usando ese color");
                     }
                 }
-        }   
+        }
     }
 }
