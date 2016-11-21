@@ -11,10 +11,20 @@ import java.lang.*;
 public class ElegirJugador extends JDialog{
     JPanel panelImagenes;
     JPanel panelNombres;
+    JPanel panelMaquina;
+    JPanel panelOpciones;
     int tipoDeJuego;
     //Elementos panelImagenes
     JButton jugador1;
     JButton jugador2;
+    //Elementos panelNombres 
+    JLabel indicador1;
+    JLabel indicador2;
+    JTextField cambiarJugador1;
+    JTextField cambiarJugador2;
+    String nombreJugador1;
+    String nombreJugador2;
+    //Elementos panelMaquina
     JRadioButton candy;
     JRadioButton calhoun;
     JRadioButton candy2;
@@ -35,14 +45,43 @@ public class ElegirJugador extends JDialog{
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelImagenes=new JPanel();
-        panelImagenes.setSize(200,200); 
+        //panelImagenes.setSize(200,200); 
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
-        panelImagenes.setBorder(BorderFactory.createEmptyBorder(0,200,200,300));
+        panelImagenes.setBorder(BorderFactory.createEmptyBorder(20,200,0,200));
         elementosPanelImagenes();
         panelNombres=new JPanel();
-        panelNombres.setLayout(new GridLayout(3,2,200,7));
-        add(panelImagenes,BorderLayout.CENTER);
+        panelNombres.setBackground(Color.BLACK);
+        panelNombres.setLayout(new GridLayout(1,4,300,7));
+        panelNombres.setBorder(BorderFactory.createEmptyBorder(0,0,400,200));
+        elementosPanelNombres();
+        add(panelImagenes,BorderLayout.NORTH);
+        add(panelNombres,BorderLayout.CENTER);
+    }
+    public void elementosPanelNombres(){
+        indicador1=new JLabel("Jugador 1");
+        indicador2=new JLabel("Jugador 2");
+        indicador1.setForeground(Color.WHITE);
+        indicador2.setForeground(Color.WHITE);
+        indicador1.setBackground(Color.BLACK);
+        indicador2.setBackground(Color.BLACK);
+        indicador2.setBorder(BorderFactory.createEmptyBorder(0,0,200,0));
+        cambiarJugador1=new JTextField(20);
+        cambiarJugador2=new JTextField(20);
+        panelNombres.add(indicador1);
+        panelNombres.add(cambiarJugador1);
+        panelNombres.add(indicador2);
+        panelNombres.add(cambiarJugador2);
+    }
+    public void elementosPanelMaquina(){
+        candy=new JRadioButton("CANDY");
+        calhoun=new JRadioButton("CALHOUN");
+        candy.setMnemonic(KeyEvent.VK_A);
+        calhoun.setMnemonic(KeyEvent.VK_B);
+        calhoun.setBackground(color2);
+        candy2=new JRadioButton();
+        calhoun2=new JRadioButton();
+
     }
     public void elementosPanelImagenes(){
         ImageIcon icono=new ImageIcon("imagenes/felix.png");
@@ -50,29 +89,13 @@ public class ElegirJugador extends JDialog{
         jugador1=new JButton();
         jugador1.setIcon(icono);
         jugador1.setBackground(color1);
-        jugador1.setSize(236,236);
         jugador1.setBorderPainted(false);
-        candy=new JRadioButton("CANDY");
-        calhoun=new JRadioButton("CALHOUN");
-        candy.setMnemonic(KeyEvent.VK_A);
-        calhoun.setMnemonic(KeyEvent.VK_B);
-        calhoun.setBackground(color2);
         jugador2=new JButton();
         jugador2.setIcon(icono);
-        jugador2.setBackground(Color.BLUE);
-        candy2=new JRadioButton();
-        calhoun2=new JRadioButton();
-        if(tipoDeJuego==1|tipoDeJuego==2){
-            panelImagenes.add(jugador1);
-        }if(tipoDeJuego==2|tipoDeJuego==3){
-            panelImagenes.add(candy);
-            panelImagenes.add(calhoun);
-        } if (tipoDeJuego==1){
-            panelImagenes.add(jugador2);
-        } if (tipoDeJuego==3){
-            panelImagenes.add(candy2);
-            panelImagenes.add(calhoun2);
-        }
+        jugador2.setBackground(color2);
+        jugador2.setBorderPainted(false);
+        panelImagenes.add(jugador1);
+        panelImagenes.add(jugador2);
     }
 
     public void prepareAcciones(){
@@ -83,10 +106,18 @@ public class ElegirJugador extends JDialog{
 				}
 			}
 		);
+
         jugador1.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    elegirColor();
+                    elegirColor(1);
+                }
+            }
+        );
+        jugador2.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    elegirColor(2);
                 }
             }
         );
@@ -98,11 +129,19 @@ public class ElegirJugador extends JDialog{
 				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 			}
 	}
-    public void elegirColor(){
+    public void elegirColor(int jugador){
         cambiarColor=new JColorChooser();
-        color1=cambiarColor.showDialog(null,"Seleccione un color",Color.GRAY);
-        if ((color1 != null)&&(!color1.equals(color2))){
-            jugador1.setBackground(color1);;
-        }
+        Color color=cambiarColor.showDialog(null,"Seleccione un color",Color.GRAY);
+        if(color!=null){
+                if(jugador==1){
+                    if ((!color.equals(color2))){
+                        jugador1.setBackground(color);
+                    }
+                }else if(jugador==2){
+                    if((!color.equals(color1))){
+                        jugador2.setBackground(color);
+                    }
+                }
+        }   
     }
 }
