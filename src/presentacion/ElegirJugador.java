@@ -45,7 +45,7 @@ public class ElegirJugador extends JDialog{
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelImagenes=new JPanel();
-        //panelImagenes.setSize(200,200); 
+        panelImagenes.setSize(200,400); 
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
         panelImagenes.setBorder(BorderFactory.createEmptyBorder(20,200,0,200));
@@ -55,8 +55,13 @@ public class ElegirJugador extends JDialog{
         panelNombres.setLayout(new GridLayout(1,4,300,7));
         panelNombres.setBorder(BorderFactory.createEmptyBorder(0,0,400,200));
         elementosPanelNombres();
+        panelMaquina=new JPanel();
+        panelMaquina.setLayout(new GridLayout(1,4,300,7));
+        panelMaquina.setBackground(Color.BLACK);
+        //elementosPanelMaquina();
         add(panelImagenes,BorderLayout.NORTH);
         add(panelNombres,BorderLayout.CENTER);
+        add(panelMaquina,BorderLayout.CENTER);
     }
     public void elementosPanelNombres(){
         indicador1=new JLabel("Jugador 1");
