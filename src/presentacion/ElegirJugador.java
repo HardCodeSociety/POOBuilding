@@ -13,11 +13,12 @@ public class ElegirJugador extends JDialog{
     JPanel panelNombres;
     JPanel panelMaquina;
     JPanel panelOpciones;
+    JPanel jugar;
     int tipoDeJuego;
     //Elementos panelImagenes
     JButton jugador1;
     JButton jugador2;
-    //Elementos panelNombres 
+    //Elementos panelNombres
     JLabel indicador1;
     JLabel indicador2;
     JTextField cambiarJugador1;
@@ -30,9 +31,11 @@ public class ElegirJugador extends JDialog{
     JRadioButton candy2;
     JRadioButton calhoun2;
     ButtonGroup maquinas;
+    ButtonGroup maquinas2;
     JColorChooser cambiarColor;
     Color color1=Color.RED;
     Color color2=Color.BLUE;
+    //Elementos panelOpciones
     public ElegirJugador(int tipoDeJuego){
         this.tipoDeJuego=tipoDeJuego;
         prepareElementos();
@@ -40,37 +43,38 @@ public class ElegirJugador extends JDialog{
     }
 
     public void prepareElementos(){
-        Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(4*screen.width/6,4*screen.height/6);
+        setTitle("CONFIGURACION DE JUGADORES");
+		setSize(1366,710);
+        setResizable(false);
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelImagenes=new JPanel();
         panelImagenes.setSize(200,400); 
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
-        panelImagenes.setBorder(BorderFactory.createEmptyBorder(20,200,0,200));
+        panelImagenes.setBorder(BorderFactory.createEmptyBorder(100,200,400,200));
         elementosPanelImagenes();
         panelNombres=new JPanel();
         panelNombres.setBackground(Color.BLACK);
-        panelNombres.setLayout(new GridLayout(1,4,300,7));
-        panelNombres.setBorder(BorderFactory.createEmptyBorder(0,0,400,200));
+        panelNombres.setLayout(new GridLayout(1,4,40,7));
+        panelNombres.setBorder(BorderFactory.createEmptyBorder(40,30,0,30));
         elementosPanelNombres();
         panelMaquina=new JPanel();
         panelMaquina.setLayout(new GridLayout(1,4,300,7));
         panelMaquina.setBackground(Color.BLACK);
-        //elementosPanelMaquina();
-        add(panelImagenes,BorderLayout.NORTH);
-        add(panelNombres,BorderLayout.CENTER);
-        add(panelMaquina,BorderLayout.CENTER);
+        elementosPanelMaquina();
+        add(panelNombres,BorderLayout.NORTH);
+        add(panelImagenes,BorderLayout.CENTER);
+        //if(tipoDeJuego==2)
+            add(panelMaquina,BorderLayout.SOUTH);
     }
     public void elementosPanelNombres(){
-        indicador1=new JLabel("Jugador 1");
-        indicador2=new JLabel("Jugador 2");
+        indicador1=new JLabel("Nombre Jugador 1");
+        indicador2=new JLabel("Nombre Jugador 2");
         indicador1.setForeground(Color.WHITE);
         indicador2.setForeground(Color.WHITE);
         indicador1.setBackground(Color.BLACK);
         indicador2.setBackground(Color.BLACK);
-        indicador2.setBorder(BorderFactory.createEmptyBorder(0,0,200,0));
         cambiarJugador1=new JTextField(20);
         cambiarJugador2=new JTextField(20);
         panelNombres.add(indicador1);
@@ -79,14 +83,12 @@ public class ElegirJugador extends JDialog{
         panelNombres.add(cambiarJugador2);
     }
     public void elementosPanelMaquina(){
+        maquinas=new ButtonGroup();
         candy=new JRadioButton("CANDY");
         calhoun=new JRadioButton("CALHOUN");
-        candy.setMnemonic(KeyEvent.VK_A);
-        calhoun.setMnemonic(KeyEvent.VK_B);
-        calhoun.setBackground(color2);
-        candy2=new JRadioButton();
-        calhoun2=new JRadioButton();
-
+        maquinas.add(candy);
+        maquinas.add(calhoun);
+        panelMaquina.add(candy);
     }
     public void elementosPanelImagenes(){
         ImageIcon icono=new ImageIcon("imagenes/felix.png");
@@ -141,12 +143,18 @@ public class ElegirJugador extends JDialog{
                 if(jugador==1){
                     if ((!color.equals(color2))){
                         jugador1.setBackground(color);
+                        color1=color;
+                    }else{
+                      JOptionPane.showMessageDialog(null, "El jugador 2 ya esta usando ese color");
                     }
                 }else if(jugador==2){
                     if((!color.equals(color1))){
                         jugador2.setBackground(color);
+                        color2=color;
+                    }else{
+                      JOptionPane.showMessageDialog(null, "El jugador 1 ya esta usando ese color");
                     }
                 }
-        }   
+        }
     }
 }

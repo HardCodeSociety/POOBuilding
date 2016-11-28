@@ -24,11 +24,11 @@ public class ModoDeJuego extends JDialog{
     }
     public void prepareElementos(){
         Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(screen.width/2,2*screen.height/3);
+		    setSize(screen.width/2,2*screen.height/3);
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         botones=new JPanel();
-		botones.setLayout(new  GridLayout(4,1,20,20));
+		    botones.setLayout(new  GridLayout(4,1,20,20));
         botones.setBackground(Color.BLACK);
         botones.setBorder(BorderFactory.createEmptyBorder(20,100,-130,-50));
         elementosPanelBotones();
@@ -41,23 +41,23 @@ public class ModoDeJuego extends JDialog{
     }
     public void prepareAcciones(){
         addWindowListener (
-			new WindowAdapter(){
-				public void windowClosing(WindowEvent e){
-					cerrarVentana();
-				}
-			}
-		);
+			     new WindowAdapter(){
+				         public void windowClosing(WindowEvent e){
+					              cerrarVentana();
+				          }
+			    }
+		    );
         volver.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                cerrar();    
+                cerrar();
                 }
             }
         );
         unoVsUno.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    elegirJugador(1);    
+                    elegirJugador(1);
                 }
             }
         );
@@ -83,11 +83,14 @@ public class ModoDeJuego extends JDialog{
         elegir.setVisible(true);
     }
     public void elementosPanelBotones(){
+        setTitle("MODO DE JUEGO");
+		setSize(1366,710);
+        setResizable(false);
         unoVsUno=new JButton();
         unoVsUno.setBorderPainted(false);
         maquinaVsMaquina=new JButton();
         maquinaVsMaquina.setBorderPainted(false);
-        unoVsMaquina=new JButton(); 
+        unoVsMaquina=new JButton();
         unoVsMaquina.setBorderPainted(false);
         unoVsUno.setBackground(Color.BLACK);
         maquinaVsMaquina.setBackground(Color.BLACK);
@@ -101,7 +104,7 @@ public class ModoDeJuego extends JDialog{
         botones.add(unoVsUno);
         botones.add(unoVsMaquina);
         botones.add(maquinaVsMaquina);
-        
+
     }
     public void elementosPanelVolver(){
         volver=new JButton();
@@ -111,5 +114,5 @@ public class ModoDeJuego extends JDialog{
         volver.setIcon(icono);
         panelVolver.add(volver);
     }
-    
+
 }

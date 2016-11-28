@@ -20,7 +20,7 @@ public class PantallaJuego extends JDialog {
     }
     public void prepareElementos(){
         Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(screen.width/2,2*screen.height/3);
+		    setSize(screen.width/2,2*screen.height/3);
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelJugadores=new JPanel();

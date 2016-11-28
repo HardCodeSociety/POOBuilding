@@ -70,8 +70,9 @@ public class POOBuildinGUI extends JFrame{
 		//Font miFuente =Font.createFont(Font.TRUETYPE_FONT, new File("Sega-Logo-Font.ttf"));
 		//GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		//ge.registerFont(miFuente);
-		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(4*screen.width/6,4*screen.height/6);
+		setTitle("MENU PRINCIPAL");
+		setSize(1366,710);
+        setResizable(false);
 		setLayout(new BorderLayout());
 		panelLogo = new JPanel();
 		panelLogo.setLayout(new GridLayout(1,1,7,7));
@@ -151,23 +152,23 @@ public class POOBuildinGUI extends JFrame{
 		Font fuente = new Font("Sega-Logo-Font",Font.TRUETYPE_FONT, 25);
 		botonJugar=new JButton("JUGAR");
 		botonJugar.setBorderPainted(false);
-		botonJugar.setBackground(Color.BLACK); 
-        botonJugar.setFont(fuente); 
+		botonJugar.setBackground(Color.BLACK);
+    botonJugar.setFont(fuente);
 		botonJugar.setForeground(Color.WHITE);
 		botonAbrir=new JButton("ABRIR");
 		botonAbrir.setBorderPainted(false);
-		botonAbrir.setBackground(Color.BLACK); 
-        botonAbrir.setFont(fuente); 
+		botonAbrir.setBackground(Color.BLACK);
+    botonAbrir.setFont(fuente);
 		botonAbrir.setForeground(Color.WHITE);
 		botonInstrucciones=new JButton("INSTRUCCIONES");
 		botonInstrucciones.setBorderPainted(false);
-		botonInstrucciones.setBackground(Color.BLACK); 
-        botonInstrucciones.setFont(fuente); 
+		botonInstrucciones.setBackground(Color.BLACK);
+    botonInstrucciones.setFont(fuente);
 		botonInstrucciones.setForeground(Color.WHITE);
 		botonImportar=new JButton("IMPORTAR");
 		botonImportar.setBorderPainted(false);
-		botonImportar.setBackground(Color.BLACK); 
-        botonImportar.setFont(fuente); 
+		botonImportar.setBackground(Color.BLACK);
+    botonImportar.setFont(fuente);
 		botonImportar.setForeground(Color.WHITE);
 		botonSalir=new JButton("SALIR");
 		botonSalir.setBorderPainted(false);
@@ -179,7 +180,7 @@ public class POOBuildinGUI extends JFrame{
 		panelOpciones.add(botonImportar);
 		panelOpciones.add(botonInstrucciones);
 		panelOpciones.add(botonSalir);
-	}	
+	}
 	public void elementosPanelLogo(){
 		logo=new JLabel();
 		ImageIcon icono=new ImageIcon("imagenes/icono.png");
