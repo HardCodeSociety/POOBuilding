@@ -61,15 +61,12 @@ public class POOBuildinGUI extends JFrame{
 	}
 
 	public void prepareElementos(){
-		File archivo= new File("Sega-Logo-Font.ttf");
-		//System.out.println(archivo.exists());
-        //GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
-        //Font wreckFont = Font.createFont(Font.BOLD,archivo);
-        //	ge.registerFont(wreckFont);
-    	 // TODO : cambiar por funcion de log
-		//Font miFuente =Font.createFont(Font.TRUETYPE_FONT, new File("Sega-Logo-Font.ttf"));
-		//GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		//ge.registerFont(miFuente);
+		File archivo= new File("font/ka1.ttf");
+        GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
+		try{
+        Font wreckFont = Font.createFont(Font.TRUETYPE_FONT,archivo);
+        ge.registerFont(wreckFont);
+		}catch(Exception e){}
 		setTitle("MENU PRINCIPAL");
 		setSize(1366,710);
         setResizable(false);
@@ -77,7 +74,7 @@ public class POOBuildinGUI extends JFrame{
 		panelLogo = new JPanel();
 		panelLogo.setLayout(new GridLayout(1,1,7,7));
 		panelLogo.setBackground(Color.BLACK);
-		panelLogo.setBorder(BorderFactory.createEmptyBorder(10,400,10,320));
+		panelLogo.setBorder(BorderFactory.createEmptyBorder(30,520,10,320));
 		elementosPanelLogo();
 		panelOpciones = new JPanel();
 		panelOpciones.setLayout(new GridLayout(5,1,7,7));
@@ -149,32 +146,32 @@ public class POOBuildinGUI extends JFrame{
 			}
 	}
 	public void elementosPanelBotones(){
-		Font fuente = new Font("Sega-Logo-Font",Font.TRUETYPE_FONT, 25);
+		Font fuente = new Font("Karmatic Arcade",Font.TRUETYPE_FONT, 25);
 		botonJugar=new JButton("JUGAR");
 		botonJugar.setBorderPainted(false);
 		botonJugar.setBackground(Color.BLACK);
-    botonJugar.setFont(fuente);
-		botonJugar.setForeground(Color.WHITE);
+    	botonJugar.setFont(fuente);
+		botonJugar.setForeground(Color.RED);
 		botonAbrir=new JButton("ABRIR");
 		botonAbrir.setBorderPainted(false);
 		botonAbrir.setBackground(Color.BLACK);
-    botonAbrir.setFont(fuente);
-		botonAbrir.setForeground(Color.WHITE);
+    	botonAbrir.setFont(fuente);
+		botonAbrir.setForeground(Color.RED);
 		botonInstrucciones=new JButton("INSTRUCCIONES");
 		botonInstrucciones.setBorderPainted(false);
 		botonInstrucciones.setBackground(Color.BLACK);
     botonInstrucciones.setFont(fuente);
-		botonInstrucciones.setForeground(Color.WHITE);
+		botonInstrucciones.setForeground(Color.RED);
 		botonImportar=new JButton("IMPORTAR");
 		botonImportar.setBorderPainted(false);
 		botonImportar.setBackground(Color.BLACK);
     botonImportar.setFont(fuente);
-		botonImportar.setForeground(Color.WHITE);
+		botonImportar.setForeground(Color.RED);
 		botonSalir=new JButton("SALIR");
 		botonSalir.setBorderPainted(false);
 		botonSalir.setBackground(Color.BLACK);
 		botonSalir.setFont(fuente);
-		botonSalir.setForeground(Color.WHITE);
+		botonSalir.setForeground(Color.RED);
 		panelOpciones.add(botonJugar);
 		panelOpciones.add(botonAbrir);
 		panelOpciones.add(botonImportar);

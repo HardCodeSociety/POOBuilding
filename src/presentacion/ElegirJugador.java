@@ -8,12 +8,13 @@ import java.lang.Thread;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import javax.swing.border.*;
 public class ElegirJugador extends JDialog{
     JPanel panelImagenes;
     JPanel panelNombres;
     JPanel panelMaquina;
     JPanel panelOpciones;
-    JPanel jugar;
+    JPanel panelJugar;
     int tipoDeJuego;
     //Elementos panelImagenes
     JButton jugador1;
@@ -36,6 +37,8 @@ public class ElegirJugador extends JDialog{
     Color color1=Color.RED;
     Color color2=Color.BLUE;
     //Elementos panelOpciones
+    JButton jugar;
+    JButton volver;
     public ElegirJugador(int tipoDeJuego){
         this.tipoDeJuego=tipoDeJuego;
         prepareElementos();
@@ -52,21 +55,21 @@ public class ElegirJugador extends JDialog{
         panelImagenes.setSize(200,400); 
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
-        panelImagenes.setBorder(BorderFactory.createEmptyBorder(100,200,400,200));
+        panelImagenes.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(100,200,50,200),(new TitledBorder("Colores"))));
+        panelImagenes.setForeground(Color.RED);
         elementosPanelImagenes();
         panelNombres=new JPanel();
         panelNombres.setBackground(Color.BLACK);
         panelNombres.setLayout(new GridLayout(1,4,40,7));
-        panelNombres.setBorder(BorderFactory.createEmptyBorder(40,30,0,30));
+        panelNombres.setBorder(BorderFactory.createEmptyBorder(70,30,0,30));
         elementosPanelNombres();
-        panelMaquina=new JPanel();
-        panelMaquina.setLayout(new GridLayout(1,4,300,7));
-        panelMaquina.setBackground(Color.BLACK);
-        elementosPanelMaquina();
+        panelOpciones=new JPanel();
+        panelOpciones.setLayout(new GridLayout(1,2,20,7));
+        panelOpciones.setBackground(Color.BLACK);
+        elementosPanelOpciones();
         add(panelNombres,BorderLayout.NORTH);
         add(panelImagenes,BorderLayout.CENTER);
-        //if(tipoDeJuego==2)
-            add(panelMaquina,BorderLayout.SOUTH);
+        add(panelOpciones,BorderLayout.SOUTH);
     }
     public void elementosPanelNombres(){
         indicador1=new JLabel("Nombre Jugador 1");
@@ -83,12 +86,23 @@ public class ElegirJugador extends JDialog{
         panelNombres.add(cambiarJugador2);
     }
     public void elementosPanelMaquina(){
+        panelMaquina=new JPanel();
+        panelMaquina.setBorder(BorderFactory.createEmptyBorder(0,300,300,0));
+        panelMaquina.setLayout(new GridLayout(2,1,10,6));
+        panelMaquina.setBackground(Color.BLACK);
         maquinas=new ButtonGroup();
         candy=new JRadioButton("CANDY");
-        calhoun=new JRadioButton("CALHOUN");
+        candy.setBackground(Color.BLACK);
+        candy.setForeground(Color.WHITE);
+        calhoun=new JRadioButton("CALHOUN"); 
+        calhoun.setBackground(Color.BLACK);
+        calhoun.setForeground(Color.WHITE);       
         maquinas.add(candy);
         maquinas.add(calhoun);
-        panelMaquina.add(candy);
+        if(tipoDeJuego==2){
+            panelMaquina.add(candy);
+            panelMaquina.add(calhoun);
+        }
     }
     public void elementosPanelImagenes(){
         ImageIcon icono=new ImageIcon("imagenes/felix.png");
@@ -103,6 +117,31 @@ public class ElegirJugador extends JDialog{
         jugador2.setBorderPainted(false);
         panelImagenes.add(jugador1);
         panelImagenes.add(jugador2);
+    }
+    public void elementosPanelJugar(){
+        panelJugar=new JPanel();
+        panelJugar.setLayout(new GridLayout(1,2,20,7));
+        panelJugar.setBackground(Color.BLACK);
+        jugar=new JButton();
+        volver=new JButton();
+        ImageIcon icono=new  ImageIcon("imagenes/volver.png");
+        volver.setBorderPainted(false);
+        volver.setBackground(Color.BLACK);
+        volver.setIcon(icono);
+        volver.setBorder(BorderFactory.createEmptyBorder(200,200,0,0));
+        icono=new ImageIcon("imagenes/jugar.png");
+        jugar.setBorderPainted(false);
+        jugar.setBackground(Color.BLACK);
+        jugar.setIcon(icono);
+        jugar.setBorder(BorderFactory.createEmptyBorder(200,0,20,0));
+        panelJugar.add(volver);
+        panelJugar.add(jugar);
+    }
+    public void elementosPanelOpciones(){
+        elementosPanelMaquina();
+        elementosPanelJugar();
+        panelOpciones.add(panelMaquina);
+        panelOpciones.add(panelJugar);
     }
 
     public void prepareAcciones(){
@@ -128,13 +167,10 @@ public class ElegirJugador extends JDialog{
                 }
             }
         );
+        
     }
     public void cerrarVentana(){
-			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
-                setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			}else{
-				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-			}
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
     public void elegirColor(int jugador){
         cambiarColor=new JColorChooser();
