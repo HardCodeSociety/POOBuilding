@@ -61,12 +61,14 @@ public class POOBuildinGUI extends JFrame{
 	}
 
 	public void prepareElementos(){
-		File archivo= new File("font/ka1.ttf");
+		File archivo= new File("font/Sega-Logo-Font.ttf");
         GraphicsEnvironment ge =GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try{
         Font wreckFont = Font.createFont(Font.TRUETYPE_FONT,archivo);
         ge.registerFont(wreckFont);
 		}catch(Exception e){}
+		//String[] fontNames=ge.getAvailableFontFamilyNames();
+		//System.out.println(Arrays.toString(fontNames));
 		setTitle("MENU PRINCIPAL");
 		setSize(1366,710);
         setResizable(false);
@@ -146,7 +148,7 @@ public class POOBuildinGUI extends JFrame{
 			}
 	}
 	public void elementosPanelBotones(){
-		Font fuente = new Font("Karmatic Arcade",Font.TRUETYPE_FONT, 25);
+		Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 25);
 		botonJugar=new JButton("JUGAR");
 		botonJugar.setBorderPainted(false);
 		botonJugar.setBackground(Color.BLACK);
