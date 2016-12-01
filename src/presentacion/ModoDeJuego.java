@@ -70,8 +70,8 @@ public class ModoDeJuego extends JDialog{
         );
     }
     public void cerrarVentana(){
-			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
                 setVisible(false);
+			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
                 principal.setVisible(true);
                 setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			}else{
@@ -84,7 +84,8 @@ public class ModoDeJuego extends JDialog{
             dispose();
     }
     public void elegirJugador(int modo){
-        ElegirJugador elegir=new ElegirJugador(modo);
+        ElegirJugador elegir=new ElegirJugador(principal,modo);
+        setVisible(false);
         elegir.setVisible(true);
     }
     public void elementosPanelBotones(){
@@ -107,7 +108,6 @@ public class ModoDeJuego extends JDialog{
         volver.setBorderPainted(false);
         volver.setBackground(Color.BLACK);
         volver.setIcon(icono);
-        //volver.setBorder(BorderFactory.createEmptyBorder(600,100,0,30));
         panelVolver.add(volver);
     }
 
