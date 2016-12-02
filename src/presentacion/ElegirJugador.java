@@ -82,9 +82,9 @@ public class ElegirJugador extends JDialog{
         indicador1.setBackground(Color.BLACK);
         indicador2.setBackground(Color.BLACK);
         cambiarJugador1=new JTextField(20);
-        cambiarJugador1.setText("Nombre del jugador");
+        cambiarJugador1.setText("Nombre del jugador uno");
         cambiarJugador2=new JTextField(20);
-        cambiarJugador2.setText("Nombre del jugador");
+        cambiarJugador2.setText("Nombre del jugador dos");
         panelNombres.add(indicador1);
         panelNombres.add(cambiarJugador1);
         panelNombres.add(indicador2);
