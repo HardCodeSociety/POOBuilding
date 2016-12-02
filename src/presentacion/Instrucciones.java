@@ -47,25 +47,35 @@ public class Instrucciones extends JDialog{
         }
       }
     );
-    botonJuego.addActionListener(
-			new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					jugar();
-				}
-			}
-		);
+     addWindowListener (
+			     new WindowAdapter(){
+				         public void windowClosing(WindowEvent e){
+					              cerrarVentana();
+				          }
+			    }
+		  );
   }
 
 //Metodos
+public void cerrarVentana(){
+                setVisible(false);
+			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+                ventanaPrincipal.setVisible(true);
+                setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			}else{
+				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+			}
+	}
   public void jugar(){
 		ModoDeJuego modoDeJuego=new ModoDeJuego(ventanaPrincipal);
 		setVisible(false);
 		modoDeJuego.setVisible(true);
 	}
   public void menu(){
-    POOBuildinGUI menu= new POOBuildinGUI();
-    menu.setVisible(true);
-  }
+    setVisible(false);
+    ventanaPrincipal.setVisible(true);
+    dispose();  
+}
 
   public void prepareElementos(){
     setTitle("INSTRUCCIONES");
