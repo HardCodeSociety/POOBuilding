@@ -54,6 +54,7 @@ public class Instrucciones extends JDialog{
   public void menu(){
     POOBuildinGUI men= new POOBuildinGUI();
     men.setVisible(true);
+    this.setVisible(false);
   }
 
   public void prepareElementos(){
