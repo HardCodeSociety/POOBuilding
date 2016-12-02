@@ -13,7 +13,10 @@ public class PantallaJuego extends JDialog {
     private int tipoDeJuego;
     private JPanel panelJugadores;
     private JPanel panelJuego;
-    private JLabel jugador1;
+    private JLabel nombreJugador1;
+    private JLabel energia1;
+    private JLabel nombreJugador2;
+    private JLabel energia2;
     private JLabel jugador2;
     private String tipoMaquina;
     private Color color1;
@@ -42,12 +45,18 @@ public class PantallaJuego extends JDialog {
         panelJugadores=new JPanel();
         panelJugadores.setBackground(Color.BLACK);
         panelJuego=new JPanel();
-        panelJugadores.setLayout(new GridLayout(3,3,7,7));
-        prepararPanelJugadores();
+        panelJugadores.setLayout(new GridLayout(4,3,7,7));
+        panelJugadores.setBorder(BorderFactory.createEmptyBorder(10,30,0,20));
+        elementosPanelJugadores();
+        add(panelJugadores,BorderLayout.NORTH);
         add(panelJuego,BorderLayout.CENTER);
     }
-    private void prepararPanelJugadores(){
-        jugador1=new JLabel();
+    private void elementosPanelJugadores(){
+        Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 15);
+        nombreJugador1=new JLabel(nombre1);
+        nombreJugador1.setFont(fuente);
+		nombreJugador1.setForeground(color1);
+        panelJugadores.add(nombreJugador1);
 
     }
 }
