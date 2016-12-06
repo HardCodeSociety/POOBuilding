@@ -72,18 +72,10 @@ public void cerrarVentana(){
 		modoDeJuego.setVisible(true);
 	}
   public void menu(){
-<<<<<<< HEAD
-    POOBuildinGUI men= new POOBuildinGUI();
-    men.setVisible(true);
-    this.setVisible(false);
-  }
-=======
     setVisible(false);
     ventanaPrincipal.setVisible(true);
     dispose();  
 }
->>>>>>> 0859d8a6ea749ef71b504324fa799e7caa7b05c8
-
   public void prepareElementos(){
     setTitle("INSTRUCCIONES");
 		setSize(1366,710);

@@ -1,28 +1,29 @@
 package presentacion;
-import java.awt.Graphics;
-import javax.swing.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.lang.Thread;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class PantallaJuego extends JDialog {
     private JFrame pantallaPrincipal;
     private int tipoDeJuego;
     private String tipoMaquina;
     private JPanel panelJugadores;
-    private JPanel panelJuego;
+    private PanelJuego panelJuego;
+    private JPanel panelJugadores3; 
 
     private JLabel nombreJugador1;
-    private JLabel energia1;
+    private JProgressBar energia1;
     private JLabel vidas1;
     private JLabel poderes1;
     private Color color1;
     private String nombre1;
     private JLabel nombreJugador2;
-    private JLabel energia2;
+    private JProgressBar energia2;
     private JLabel poderes2;
     private JLabel vidas2;
     private Color color2;
@@ -30,8 +31,14 @@ public class PantallaJuego extends JDialog {
     private JTextField puntaje1;
     private JTextField puntaje2;
     private JLabel principal; 
-    private JLabel ventana;
-
+    private ArrayList<JLabel> ventanas; 
+    private JLabel ralph;
+    private Timer tiempo ;
+    private TimerTask task;
+    private int speed = 60;
+    private int frame=0;
+    private boolean run = false;
+    private int parar=0;
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
         pantallaPrincipal=owner;
@@ -53,34 +60,38 @@ public class PantallaJuego extends JDialog {
         setBackground(Color.BLACK);
         panelJugadores=new JPanel();
         panelJugadores.setBackground(Color.BLACK);
-        panelJuego=new JPanel();
-        panelJuego.setBackground(Color.BLACK);
-        panelJuego.repaint();
+        panelJuego=new PanelJuego();
+        panelJuego.setLayout(null);
+        panelJuego.setImagen("imagenes/edificio.jpg");
         elementosPanelJuego();
         panelJugadores.setLayout(new GridLayout(5,3,100,0));
         panelJugadores.setBorder(BorderFactory.createEmptyBorder(0,200,0,200));
         elementosPanelJugadores();
+        panelJugadores3=new JPanel();
+        panelJugadores3.setOpaque(true);
         add(panelJugadores,BorderLayout.NORTH);
         add(panelJuego,BorderLayout.CENTER);
+        //add(panelJugadores3,BorderLayout.CENTER);
     }
     private void elementosPanelJugadores(){
-        Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 14);
+        Font fuente = new Font("SEGA LOGO FONventanaT",Font.TRUETYPE_FONT, 14);
         nombreJugador1=new JLabel(nombre1);
         nombreJugador2=new JLabel(nombre2);
         nombreJugador1.setFont(fuente);
         nombreJugador2.setFont(fuente);
 		nombreJugador1.setForeground(color1);
         nombreJugador2.setForeground(color2);
-        energia1=new JLabel();
-        energia2=new JLabel();
-        energia1.setOpaque(true);
-        energia2.setOpaque(true);
-        energia1.setBackground(color1);
-        energia2.setBackground(color2);
-        ImageIcon icono=new ImageIcon("imagenes/barra.png");
-        energia1.setIcon(icono);
-        energia2.setIcon(icono);
-        icono=new ImageIcon("imagenes/vidas.png");
+        energia1=new JProgressBar(0,100);
+        energia2=new JProgressBar(0,100);
+        energia1.setValue(100);
+        energia1.setOpaque(false);
+        energia1.setForeground(color1);
+        energia1.setStringPainted(true);
+        energia2.setValue(100);
+        energia2.setOpaque(false);
+        energia2.setForeground(color2);
+        energia2.setStringPainted(true);
+        ImageIcon icono=new ImageIcon("imagenes/vidas.png");
         vidas1=new JLabel();
         vidas2=new JLabel();
         vidas1.setOpaque(true);
@@ -116,20 +127,94 @@ public class PantallaJuego extends JDialog {
         panelJugadores.add(poderes1);
         panelJugadores.add(poderes2);
     }
-    public void elementosPanelJuego(){
-        ventana=new JLabel();
-        ImageIcon icono=new ImageIcon("imagenes/ventana.png");
-        ventana.setIcon(icono);
-        ventana.setLocation(200,200);
-        panelJuego.add(ventana);
+    private void elementosPanelJuego(){
+        ventanas=new ArrayList<JLabel>();
+        int factorY=367;
+        int factorX;
+        ImageIcon icono;
+        icono=new ImageIcon("imagenes/ralphFrente.png");
+        ralph=new JLabel();
+        ralph.setIcon(icono);
+        panelJuego.add(ralph);
+        ralph.setBounds(656,278,83,150);
+        for (int i=0;i<4;i++){
+            factorX=0;
+            for(int j=0;j<5;j++){
+                JLabel ventana=new JLabel();
+                if(i==0&&j==2)
+                     icono=new ImageIcon("imagenes/puerta.png");
+                else if(i==1&&j==2)
+                     icono=new ImageIcon("imagenes/ventanaCentro.png");              
+                else
+                     icono=new ImageIcon("imagenes/ventana.png");
+                ventana.setIcon(icono);
+                panelJuego.add(ventana);
+                factorX=(68*j);
+                ventana.setBounds(491+factorX,factorY,83,150);
+                ventanas.add(ventana);
+            }
+            factorY=factorY-(95+(i*10));
+        }
+        comenzarAnimacion();
 
     }
-       public void paint(Graphics g) {
-        ImageIcon imagen=new ImageIcon("imagenes/edificio.jpg");
-        g.drawImage(imagen.getImage(), 0, 0, getWidth(), getHeight(),panelJuego);
-        panelJuego.setOpaque(false);
-        super.paint(g);
+       //para la animacion  
+    public void comenzarAnimacion() {    
+           run=true;
+           parar=0;
+           ImageIcon icono1=new ImageIcon("imagenes/ralphFrente.png"); 
+           ImageIcon icono2=new ImageIcon("imagenes/ralphBravo.png");
+           tiempo = new Timer();
+           task = new TimerTask() {               
+               public void run() {
+                   parar++;
+                   frame++;   
+                   ralph.setIcon(icono1);                
+                   if (frame==2){
+                     ralph.setIcon(icono2);   
+                   }
+                   else
+                    frame=0;
+                   if (parar==20){
+                       //pararAnimation();
+                   }
+               }
+           };
+           //se inicia la animacion
+           System.out.println("Se inicia la animacion");                                             
+           tiempo.schedule(task,0,speed); 
     }
+    //detiene la animacion
+     public void pararAnimation() {        
+        tiempo.cancel();
+        task.cancel();
+        run=false;
+        System.out.println("La animacion fue detenida");                                             
+    }
+     
+    public class PanelJuego extends JPanel{
+        private Image imagen;
+        public PanelJuego(){
+        }
+        public void setImagen(String nombreImagen) {
+            if (nombreImagen != null) {
+                imagen = new ImageIcon(nombreImagen).getImage();
+             } else {
+                imagen = null;
+            }
  
-
+            repaint();
+        }
+        @Override
+        public void paint(Graphics g) {
+            if (imagen != null) {
+                g.drawImage(imagen, 0, 0, getWidth(), getHeight(),this);
+                setOpaque(false);
+            } else {
+                setOpaque(true);
+            }   
+            super.paint(g);
+        }
+    }
+   
 }
