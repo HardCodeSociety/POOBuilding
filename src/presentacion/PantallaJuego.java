@@ -7,6 +7,7 @@ import java.util.*;
 import java.lang.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.*;
 
 public class PantallaJuego extends JDialog {
     private JFrame pantallaPrincipal;
@@ -30,15 +31,18 @@ public class PantallaJuego extends JDialog {
     private String nombre2;
     private JTextField puntaje1;
     private JTextField puntaje2;
-    private JLabel principal; 
     private ArrayList<JLabel> ventanas; 
     private JLabel ralph;
     private Timer tiempo ;
     private TimerTask task;
-    private int speed = 60;
-    private int frame=0;
-    private boolean run = false;
+    private TimerTask task2;
     private int parar=0;
+    private int principal=0;
+    private JLabel jugador1;
+    private JLabel jugador2;
+    private int animacion;
+    private boolean jugar;
+
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
         pantallaPrincipal=owner;
@@ -50,7 +54,7 @@ public class PantallaJuego extends JDialog {
         if (tipoDeJuego==2)
             tipoMaquina=nombres.get(2);
         prepareElementos();
-        //prepareAcciones();
+        prepareAcciones();
     }
     public void prepareElementos(){
         setTitle("PANTALLA DE JUEGO");
@@ -71,7 +75,6 @@ public class PantallaJuego extends JDialog {
         panelJugadores3.setOpaque(true);
         add(panelJugadores,BorderLayout.NORTH);
         add(panelJuego,BorderLayout.CENTER);
-        //add(panelJugadores3,BorderLayout.CENTER);
     }
     private void elementosPanelJugadores(){
         Font fuente = new Font("SEGA LOGO FONventanaT",Font.TRUETYPE_FONT, 14);
@@ -128,15 +131,52 @@ public class PantallaJuego extends JDialog {
         panelJugadores.add(poderes2);
     }
     private void elementosPanelJuego(){
-        ventanas=new ArrayList<JLabel>();
-        int factorY=367;
-        int factorX;
-        ImageIcon icono;
-        icono=new ImageIcon("imagenes/ralphFrente.png");
+        jugar=false;
+        prepareJugador1();
+        prepareJugador2();
+        prepareRalph();
+        prepareVentanas();
+        animacionRalph();
+        jugar=true;
+    }
+    private void romperVentanas(){
+        for(int i=0;i<15;i++){
+            if (i==7){
+                ventanas.get(i).setIcon(new ImageIcon("imagenes/ventanaCentroRota.png"));
+            }else if (i==2){
+                ventanas.get(i).setIcon(new ImageIcon("imagenes/puertaRota.png"));
+            }else{
+                ventanas.get(i).setIcon(new ImageIcon("imagenes/ventanaRota.png"));
+            }
+        }
+    }
+    private void prepareJugador1(){
+        jugador1=new JLabel();
+        jugador1.setBackground(color1);
+        ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
+        jugador1.setIcon(icono);
+        panelJuego.add(jugador1);
+        jugador1.setBounds(656,400,83,150);
+    }
+    private void prepareJugador2(){
+        jugador2=new JLabel();
+        ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
+        jugador2.setIcon(icono);
+        panelJuego.add(jugador2);
+        jugador2.setBounds(690,400,83,150);
+    }
+    private void prepareRalph(){
         ralph=new JLabel();
+        ImageIcon icono=new ImageIcon("imagenes/ralph/1.png");
         ralph.setIcon(icono);
         panelJuego.add(ralph);
         ralph.setBounds(656,278,83,150);
+    }
+    private void prepareVentanas(){
+        ImageIcon icono;
+        ventanas=new ArrayList<JLabel>();
+        int factorY=367;
+        int factorX;
         for (int i=0;i<4;i++){
             factorX=0;
             for(int j=0;j<5;j++){
@@ -155,42 +195,127 @@ public class PantallaJuego extends JDialog {
             }
             factorY=factorY-(95+(i*10));
         }
-        comenzarAnimacion();
-
     }
-       //para la animacion  
-    public void comenzarAnimacion() {    
-           run=true;
-           parar=0;
-           ImageIcon icono1=new ImageIcon("imagenes/ralphFrente.png"); 
-           ImageIcon icono2=new ImageIcon("imagenes/ralphBravo.png");
-           tiempo = new Timer();
-           task = new TimerTask() {               
+    private void animacionRalph() {
+        animacion=0;
+        tiempo = new Timer();
+        task = new TimerTask() {               
                public void run() {
-                   parar++;
-                   frame++;   
-                   ralph.setIcon(icono1);                
-                   if (frame==2){
-                     ralph.setIcon(icono2);   
-                   }
-                   else
-                    frame=0;
-                   if (parar==20){
-                       //pararAnimation();
+                   parar+=1;
+                   principal+=1;
+                   if (parar>1){
+                        if(parar<=6){               
+                            animacionRalphLenvantaBrazos();
+                        }else if(parar<=27){
+                            animacionRalphSubeEdificio();
+                        }else if(parar<=33){
+                            animacionRalphLenvantaBrazos();
+                            principal=4;
+                        }else if(parar<=42){
+                            animacionRalphDestruye();
+                        }else{
+                            romperVentanas();
+                            ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
+                            pararAnimacion(); 
+                        }
                    }
                }
-           };
-           //se inicia la animacion
-           System.out.println("Se inicia la animacion");                                             
-           tiempo.schedule(task,0,speed); 
+           };                                        
+           tiempo.schedule(task,0,600); 
     }
-    //detiene la animacion
-     public void pararAnimation() {        
+    private void animacionRalphLenvantaBrazos(){
+        ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png"); 
+        ImageIcon icono2=new ImageIcon("imagenes/ralph/2.png");
+        if (principal==1){
+            ralph.setIcon(icono2);   
+        }else{
+            ralph.setIcon(icono1);
+            principal=0;
+        }
+    }
+    private void animacionRalphSubeEdificio(){
+        animacion+=1;
+         ImageIcon icono3=new ImageIcon("imagenes/ralph/3.png");
+         ImageIcon icono4=new ImageIcon("imagenes/ralph/4.png");              
+         if (principal==1){
+            ralph.setIcon(icono3);
+            ralph.setBounds(656,278-(animacion*10),83,150); 
+         }else{
+           ralph.setIcon(icono4);
+           ralph.setBounds(656,278-(animacion*10),83,150); 
+           principal=0;
+        }
+    }
+    private void animacionRalphDestruye(){
+        ImageIcon icono1=new ImageIcon("imagenes/ralph/8.png"); 
+        ImageIcon icono2=new ImageIcon("imagenes/ralph/9.png");
+        if (principal<=8){
+            ralph.setIcon(new ImageIcon("imagenes/ralph/"+Integer.toString(principal)+".png"));   
+        }else{
+            principal=4;
+        }
+    }   
+     public void pararAnimacion() {        
         tiempo.cancel();
-        task.cancel();
-        run=false;
-        System.out.println("La animacion fue detenida");                                             
+            task.cancel();
+                                 
     }
+    public void prepareAcciones(){
+         addWindowListener (
+			     new WindowAdapter(){
+                        @Override
+				         public void windowClosing(WindowEvent e){
+                                    System.out.println("entra");
+					              cerrarVentana();
+				          }
+			    }
+		);
+        addKeyListener(
+            new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    System.out.println("entra");
+                    System.out.println(e.getKeyCode());
+                    //if (e.getKeyCode()==KeyEvent.VK_UP){
+                    //    moverArriba();
+                    //} 
+                }
+            }   
+        );
+    }
+    public void cerrarVentana(){
+			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+                pantallaPrincipal.setVisible(true);
+                setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			}else{
+				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+			}
+	}
+    public void moverArriba(){
+        int x=jugador1.getX();
+        int y=jugador1.getY();
+        ImageIcon icono=new ImageIcon("imagenes/felix/2.png");
+        jugador1.setIcon(icono);
+        jugador1.setLocation(600,400);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
      
     public class PanelJuego extends JPanel{
         private Image imagen;

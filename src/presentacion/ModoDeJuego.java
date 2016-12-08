@@ -70,7 +70,6 @@ public class ModoDeJuego extends JDialog{
         );
     }
     public void cerrarVentana(){
-                setVisible(false);
 			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
                 principal.setVisible(true);
                 setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
