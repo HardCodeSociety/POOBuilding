@@ -1,17 +1,16 @@
 package aplicacion;
+import java.util.*;
+import java.lang.*;
 
 public class Edificio {
   private boolean arreglado;
-  private ArrayList <Obstaculo> obstaculos;
-  private ArrayList<Heroe> herores;
-  private ArrayList<Sorpresa> sorpresas;
+  private ArrayList <Obstaculo> obstaculos = new ArrayList<Obstaculo>();
+  private ArrayList<Heroe> heroes = new ArrayList<Heroe>();
+  private ArrayList<Sorpresa> sorpresas = new ArrayList<Sorpresa>();
   private int cantVentanas;
   private int cantPisos;
   public Edificio(){
     arreglado=false;
-    obstaculos= new ArrayList<Obstaculo>():
-    heroes = new ArrayList<Heroe>();
-    sorpresas= new Arraylist<Sorpresa>();
     cantVentanas=8;
     cantPisos=8;
   }
@@ -27,7 +26,4 @@ public class Edificio {
   public int getCantPisos(){
     return cantPisos;
   }
-
-
-
 }

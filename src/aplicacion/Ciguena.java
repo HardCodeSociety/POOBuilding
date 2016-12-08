@@ -3,31 +3,37 @@ import java.util.*;
 import java.lang.*;
 
 public class Ciguena extends Obstaculo{
-  public Ciguena(){
+  private int cantVentanas;
+  private int cantPisos;
+  private int posX;
+  private int posY;
+  private boolean sentidoDer= true;
+  private ArrayList <Heroe> heroes= new ArrayList<Heroe>();
+  public Ciguena(int posX, int posY){
     super(posX,posY);
-    boolean sentidoDer = true;
+
   }
   public void muevase(){
-    int c = super.super.getCantVentanas();
-    heroes= new Arraylist<>();
+    cantVentanas=15;
+    cantPisos=5;
   	heroes= super.getHeroes();
-  	if(posX < c && sentidoDer=true){
+  	if((posX<cantVentanas) && sentidoDer==true){
       posX+=1;
-      if(posX.equals(c)){
+      if(posX==cantVentanas){
         sentidoDer=false;
       }
-    }else if(posX.equals(c) && sentidoDer=true){
+    }else if(posX==cantVentanas && sentidoDer==true){
       posX-=1;
-      sentidoDer=false
-    } else if(posX < c && sentidoDer=false){
+      sentidoDer=false;
+    } else if(posX < cantVentanas && sentidoDer==false){
       posX-=1;
-    }else if(posX.equals(0) && sentidoDer=false){
+    }else if(posX==0 && sentidoDer==false){
       posX+=1;
       sentidoDer=true;
     }
-  	for(Heroe h: heroes){
-  		if (h.getPosicion().equals(this.coordenadas())){
-  				this.reaccion(h);
+  	for(Heroe her: heroes){
+  		if ((her.getPosicion()).equals(this.coordenadas())){
+  				this.reaccion(her);
   			}
   	}
   }
@@ -36,13 +42,12 @@ public class Ciguena extends Obstaculo{
   }
 
   public void ascender(int cantPisos){
-    for (i=posY; i<=cantPisos; i++){
+    for (int i=posY; i<=cantPisos; i++){
       this.setPosY(i);
     }
   }
   public void reaccion(Heroe h){
-    int p = super.super.getCantPisos();
-    h.ascender(p);
-    this.ascender(p);
+    h.ascender(cantPisos);
+    this.ascender(cantPisos);
   }
 }

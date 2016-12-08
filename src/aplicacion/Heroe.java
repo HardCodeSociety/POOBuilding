@@ -7,6 +7,7 @@ import java.lang.*;
 *@autor David Felipe Vaca Santa
 **/
 public abstract class Heroe {
+    protected Edificio edificio;
     protected int energia;
     protected int vidas;
     protected int puntos;
@@ -59,7 +60,7 @@ public abstract class Heroe {
                debeMorir();
             }
             tocandoObstaculo();
-            tocandoSorpresa();
+            //tocandoSorpresa();
         }
     }
     /**
@@ -77,7 +78,7 @@ public abstract class Heroe {
      posY= newPosY;
    }
    public void ascender(int pisos){
-     for (i=posY; i<=pisos; i++){
+     for (int i=posY; i<=pisos; i++){
        this.setPosY(i);
      }
    }
@@ -108,14 +109,20 @@ public abstract class Heroe {
             gameOver=true;
         }
     }
+    public int[] getPosicion(){
+      int [] coordenadas = new int[2];
+  		coordenadas[0]=posX;
+  		coordenadas[1]=posY;
+  		return coordenadas;
+    }
     /**
      *Este metodo permite saber si el Heroe esta tocando algun obstaculo
      **/
 
     public void tocandoObstaculo(){
-        ArrayList<Obstaculo> obstaculos =edifico.getObstaculos();
+        ArrayList<Obstaculo> obstaculos =edificio.getObstaculos();
         for(Obstaculo i:obstaculos){
-          if(i.coordenadas().equals(coordenadas())){
+          if(i.coordenadas().equals(this.getPosicion())){
             if(i instanceof Ladrillo ){
                  this.agredir();
             }else if (i instanceof Pato){

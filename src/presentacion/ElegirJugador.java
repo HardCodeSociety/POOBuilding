@@ -55,7 +55,7 @@ public class ElegirJugador extends JDialog{
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         panelImagenes=new JPanel();
-        panelImagenes.setSize(200,400); 
+        panelImagenes.setSize(200,400);
         panelImagenes.setLayout(new GridLayout(1,3,200,7));
         panelImagenes.setBackground(Color.BLACK);
         panelImagenes.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(100,200,30,200),(new TitledBorder("Colores"))));
@@ -98,9 +98,9 @@ public class ElegirJugador extends JDialog{
         candy=new JRadioButton("CANDY");
         candy.setBackground(Color.BLACK);
         candy.setForeground(Color.WHITE);
-        calhoun=new JRadioButton("CALHOUN"); 
+        calhoun=new JRadioButton("CALHOUN");
         calhoun.setBackground(Color.BLACK);
-        calhoun.setForeground(Color.WHITE);       
+        calhoun.setForeground(Color.WHITE);
         if(tipoDeJuego==2){
             panelMaquina.add(candy);
             panelMaquina.add(calhoun);
@@ -182,7 +182,7 @@ public class ElegirJugador extends JDialog{
                 }
             }
         );
-        
+
     }
     public void cerrarVentana(){
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -219,9 +219,9 @@ public class ElegirJugador extends JDialog{
        nombre2=cambiarJugador2.getText();
        String tipoDeMaquina=null;
        if (nombre1.equals("")||nombre2.equals("")){
-            JOptionPane.showMessageDialog(null,"Debe definir el nombre de los jugadores");    
+            JOptionPane.showMessageDialog(null,"Debe definir el nombre de los jugadores");
        }else{
-           
+
            if (tipoDeJuego==2){
                if (!candy.isSelected()&&!calhoun.isSelected())
                     JOptionPane.showMessageDialog(null,"Debe definir el tipo de la maquina");
@@ -231,7 +231,7 @@ public class ElegirJugador extends JDialog{
                    }else{
                        tipoDeMaquina="calhoun";
                    }
-                    pantallaDeJuego(tipoDeMaquina);    
+                    pantallaDeJuego(tipoDeMaquina);
                }
            }else{
                pantallaDeJuego(tipoDeMaquina);

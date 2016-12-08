@@ -7,6 +7,7 @@ public abstract class Obstaculo {
 	protected int posX;
 	protected int posY;
 	protected boolean contacto;
+	protected Edificio edificio;
 	protected ArrayList<Heroe> heroes;
 	/**
 	*Creador de la clase Obstaculo
@@ -18,9 +19,19 @@ public abstract class Obstaculo {
 	public Obstaculo(int posX, int posY){
 		this.posX=posX;
 		this.posY=posY;
+		edificio = new Edificio();
 	}
-	abstract public void muevase();
-	abstract public void reaccion();
+	public int getCantVentanas(){
+		return 15;
+	}
+	public int getCantPisos(){
+		return 5;
+	}
+	public ArrayList<Heroe> getHeroes(){
+		return edificio.getHeroes();
+	}
+  abstract public void muevase();
+	abstract public void reaccion(Heroe h);
 	public int[] coordenadas(){
 		int [] coordenadas = new int[2];
 		coordenadas[0]=posX;
