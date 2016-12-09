@@ -18,6 +18,8 @@ public class Heroe {
     protected boolean gameOver;
     protected boolean repara;
     protected boolean castigado;
+
+    protected int puntaje;
     /**
      *Creador de la clase Heroe
      **/
@@ -93,8 +95,13 @@ public class Heroe {
                   }else{
                     ventana.reparar();
                   }
+<<<<<<< HEAD
                   energia-=5;
                   puntos+=1;
+=======
+                  energia-=10;
+                  puntaje+=10;
+>>>>>>> origin/master
                 }
                 if (energia<25){
                 repara=false;

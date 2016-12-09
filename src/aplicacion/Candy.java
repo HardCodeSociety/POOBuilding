@@ -14,6 +14,7 @@ public class Candy extends Heroe{
   private boolean gameOver;
   private boolean repara;
   private int[] posi;
+  private int puntaje;
   ArrayList <Heroe> heroes= new ArrayList<Heroe>();
   public Candy(){
     energia=100;
@@ -25,6 +26,7 @@ public class Candy extends Heroe{
     esLento=false;
     gameOver=false;
     repara=true;
+    puntaje=0;
   }
   public void mover(char direccion){
     for(Heroe her: heroes){

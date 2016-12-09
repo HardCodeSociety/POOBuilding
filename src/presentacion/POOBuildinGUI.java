@@ -29,8 +29,9 @@ public class POOBuildinGUI extends JFrame{
 	private JFileChooser abrirArchivo;
 	private JFileChooser importarArchivo;
 
-
-
+	/**
+	 * Creador JFrame POOBuildinGU
+	 **/
 	public POOBuildinGUI(){
 		prepareElementos();
 		prepareAcciones();
