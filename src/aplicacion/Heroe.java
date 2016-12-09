@@ -6,7 +6,7 @@ import java.lang.*;
 *@autor Andres Felipe Pardo Mesa
 *@autor David Felipe Vaca Santa
 **/
-public abstract class Heroe {
+public class Heroe {
     protected Edificio edificio;
     protected int energia;
     protected int vidas;
@@ -17,10 +17,11 @@ public abstract class Heroe {
     protected boolean esLento;
     protected boolean gameOver;
     protected boolean repara;
+    protected boolean castigado;
     /**
      *Creador de la clase Heroe
      **/
-    public void heroe(){
+    public  Heroe(){
         energia=100;
         vidas=3;
         puntos=0;
@@ -30,12 +31,23 @@ public abstract class Heroe {
         esLento=false;
         gameOver=false;
         repara=true;
+        castigado=false;
     }
     /**
      *Este metodo permite mover en cuatro direcciones posibles dado un caracter /n este caracter puede ser: /n U : arriba /n D : abajo /n L: Izquierda /n R: Derecha
      *@param char direccion
      **/
-    abstract public void mover(char direccion);
+   public void mover(int posX,int posY){
+     if(!gameOver){
+     this.posX=posX;
+     this.posY=posY;
+     energia-=1;
+     if (energia==0){
+       debeMorir();
+       energia=100;
+     }
+     }
+   }
     /**
      * [agredir description]
      */
@@ -44,17 +56,22 @@ public abstract class Heroe {
        this.debeMorir();
      }
    }
-   public void setPosX(int newPosX){
-     posX= newPosX;
+   public int getPuntaje(){
+      return puntos;
    }
-   public void setPosY(int newPosY){
-     posY= newPosY;
+   public int getVidas(){
+      return vidas;
    }
-   public void ascender(int pisos){
-     for (int i=posY; i<=pisos; i++){
-       this.setPosY(i);
-     }
+   public void setPosY(int nPosY){
+     posY=nPosY;
    }
+   public void setPosX(int nPosX){
+     posX=nPosX;
+   }
+   public ArrayList<String> getBonificaciones(){
+      return bonificaciones;
+   }
+
    public void setBonificaciones(String nombre){
       if(bonificaciones.contains(nombre)){
         bonificaciones.remove(nombre);
@@ -68,7 +85,7 @@ public abstract class Heroe {
      **/
     public void reparar(Ventana ventana){
         if(!gameOver){
-            }else if(repara){
+             if(repara){
               int cantidad = ventana.vidriosReparar();
                 if (cantidad>0){
                   if(bonificaciones.contains("Pastel")){
@@ -76,13 +93,15 @@ public abstract class Heroe {
                   }else{
                     ventana.reparar();
                   }
-                  energia-=10;
+                  energia-=5;
+                  puntos+=1;
                 }
                 if (energia<25){
                 repara=false;
                 }
 
-    	}
+    	    }
+        }
     }
     /**
      *Este metodo permite quitar vidas a un Heroe cuando se le acaba la energia
@@ -108,13 +127,32 @@ public abstract class Heroe {
     /**
      *Este metodo permite saber si el Heroe esta tocando algun obstaculo
      **/
-    public void tocandoSorpresa(){
-      ArrayList<Sorpresa> sorpresas =edificio.getSorpresas();
-      for (Sorpresa sor: sorpresas){
-        if(sor.coordenadas().equals(this.getPosicion())){
-          sor.efecto(this);
+    //public void tocandoSorpresa(){
+      //for (Sorpresa sor: sorpresas){
+        //if(sor.coordenadas().equals(this.getPosicion())){
+          //sor.efecto(this);
+        //}
+      //}
+    //}
+    public void seTocan(Heroe heroe2){
+      if(!gameOver){
+      int[] posicion1 = this.getPosicion();
+      int[] posicion2 = heroe2.getPosicion();
+    if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
+        castigado=true;
+         energia-=posX;
+         if (energia==0){
+         debeMorir();
+        energia=100;
         }
+        if(posX==0 && posY>0){
+          posY-=1;  
+        }else if (posY==0 && posX==0){
+          heroe2.setPosY(1);
+        }
+        posX=0;
       }
+    }
     }
     public void tocandoObstaculo(){
       ArrayList<Obstaculo> obstaculos =edificio.getObstaculos();
@@ -128,4 +166,8 @@ public abstract class Heroe {
           }
         }
     }
+  public boolean getCastigado(){
+    return castigado;
+  }
+
 }

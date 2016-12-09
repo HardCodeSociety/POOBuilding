@@ -8,46 +8,40 @@ import java.util.*;
 public class Ventana {
 	private boolean reparada;
 	private int numVidrios;
-	private int vidriosRepar;
+	private int vidriosReparados;
 	private boolean tieneVecino;
 	private boolean tieneSorpresa;
-	//private Arraylist<Pared> paredes;
+	private boolean esPuerta;
+	private boolean conSorpresa;
 	/**
 	 * Creador de la clase Ventana
 	 */
-	public void ventana(){
+	public Ventana(){
 		reparada=false;
-		numVidrios= 3;
-		vidriosRepar=1;
-		Random rand = new Random();
-		tieneVecino= rand.nextBoolean();
-	}
+		numVidrios= 2;
+		vidriosReparados=0;
+		esPuerta=false;
+		}
 	/**
 	 * Nos permite saber la cantidad de vidrios por reparar.
 	 * @return int vidriosRepar
 	 */
 	public int vidriosReparar(){
-		return vidriosRepar;
+		return numVidrios-vidriosReparados;
 	}
 	/**
 	 *Este metodo nos permite cambiar el estado de una ventana a reparada
 	 */
 	public void reparar(){
-		vidriosRepar-=1;
-		if (vidriosRepar==0)
+		vidriosReparados+=1;
+		if (vidriosReparar()==0)
 			reparada=true;
 	}
 	public void reparaRapido(){
 		reparada=true;
 	}
-	/**
-	 * Este metodo nos permite saber si la ventana de algun piso tiene un vecino
-	 * @return boolean tieneVecino
-	 */
-	public boolean tieneVecino(){
-		return tieneVecino;
+	public void esPuerta(boolean resp){
+		esPuerta=resp;
 	}
-	//public Pared getParedes(){
-		//return paredes;
-	//}
+
 }

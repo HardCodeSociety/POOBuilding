@@ -1,5 +1,5 @@
 package presentacion;
-
+import aplicacion.Edificio;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -44,6 +44,7 @@ public class PantallaJuego extends JDialog {
     private boolean jugar=false;
     private String rutaColor1;
     private String rutaColor2;
+    private Edificio edificio;
    
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
@@ -58,6 +59,7 @@ public class PantallaJuego extends JDialog {
             tipoMaquina=nombres.get(2);
         prepareElementos();
         prepareAcciones();
+        edificio=Edificio.demeEdificio(3,5);
     }
     public void prepareElementos(){
         setTitle("PANTALLA DE JUEGO");
@@ -135,13 +137,11 @@ public class PantallaJuego extends JDialog {
         panelJugadores.add(poderes2);
     }
     private void elementosPanelJuego(){
-        jugar=false;
         prepareJugador1();
         prepareJugador2();
         prepareRalph();
         prepareVentanas();
-        //animacionRalph();
-        jugar=true;
+        animacionRalph();
     }
     private void romperVentanas(){
         for(int i=0;i<3;i++){
@@ -174,7 +174,7 @@ public class PantallaJuego extends JDialog {
         jugador1.setBackground(color1);
         jugador1.setIcon(icono);
         panelJuego.add(jugador1);
-        jugador1.setBounds(500,420,83,150);
+        jugador1.setBounds(536,420,83,150);
     }
     private void prepareJugador2(){
         if(color2.equals(Color.YELLOW))
@@ -193,7 +193,7 @@ public class PantallaJuego extends JDialog {
         jugador2=new JLabel();
         jugador2.setIcon(icono);
         panelJuego.add(jugador2);
-        jugador2.setBounds(850,420,83,150);
+        jugador2.setBounds(808,420,83,150);
     }
     private void prepareRalph(){
         ralph=new JLabel();
@@ -444,36 +444,69 @@ public class PantallaJuego extends JDialog {
 			}
 	}
     public void moverArriba(int jugador){
-        int x;
-        int y;
         if(jugar){
             if(jugador==1){
-                x=ventanas.get(0).get(0).getX();
-                y=ventanas.get(0).get(0).getY();
-                //x=jugador1.getX();
-                //y=jugador1.getY();
-                jugador1.setIcon(new ImageIcon(rutaColor1+"2.png"));
-                jugador1.setLocation(x+45,y+7);
-                System.out.println(x+50);
-                System.out.println(y+5);
-                jugador1.setIcon(new ImageIcon(rutaColor1+"1.png"));
+                 int[] posicion=edificio.posicionHeroe(1);
+                 if(posicion[0]<3){
+                    edificio.moverHeroe(1,posicion[0]+1,posicion[1]);
+                 }
             }else if (jugador==2){
-                x=jugador2.getX();
-                y=jugador2.getY();
-                jugador2.setIcon(new ImageIcon(rutaColor2+"2.png"));
-                jugador2.setLocation(x,y-95 );
-                jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
+                int[] posicion=edificio.posicionHeroe(2);
+                if(posicion[0]<3){
+                    edificio.moverHeroe(2,posicion[0]+1,posicion[1]);
+                }
             }
+            actualice();
         }
 
     }
     private void moverAbajo(int  jugador){
-
+         if(jugar){
+            if(jugador==1){
+                 int[] posicion=edificio.posicionHeroe(1);
+                 if(posicion[0]>0){
+                    edificio.moverHeroe(1,posicion[0]-1,posicion[1]);
+                 }
+            }else if (jugador==2){
+                int[] posicion=edificio.posicionHeroe(2);
+                if(posicion[0]>0){
+                    edificio.moverHeroe(2,posicion[0]-1,posicion[1]);
+                }
+            }
+            actualice();
+        }
     }
     private void moverIzquierda(int jugador){
-
+        if(jugar){
+            if(jugador==1){
+                 int[] posicion=edificio.posicionHeroe(1);
+                 if(posicion[1]>0){
+                    edificio.moverHeroe(1,posicion[0],posicion[1]-1);
+                 }
+            }else if (jugador==2){
+                int[] posicion=edificio.posicionHeroe(2);
+                if(posicion[1]>0){
+                    edificio.moverHeroe(2,posicion[0],posicion[1]-1);
+                }
+            }
+            actualice();
+        }
     }
     private  void moverDerecha(int jugador){
+         if(jugar){
+            if(jugador==1){
+                 int[] posicion=edificio.posicionHeroe(1);
+                 if(posicion[1]<4){
+                    edificio.moverHeroe(1,posicion[0],posicion[1]+1);
+                 }
+            }else if (jugador==2){
+                int[] posicion=edificio.posicionHeroe(2);
+                if(posicion[1]<4){
+                        edificio.moverHeroe(2,posicion[0],posicion[1]+1);
+                }
+            }
+            actualice();
+        }
 
     }
     private void pausaJuego(){
@@ -484,10 +517,94 @@ public class PantallaJuego extends JDialog {
     }
 
     private void actualice(){
-
+        actualizarPos(jugador1,rutaColor1);
+        actualiceBarra(1);
+        actualicePoder(1);
+        actualiceVida(1);
+        actualicePuntaje(1);
+        actualizarPos(jugador2,rutaColor2);
+        actualiceBarra(2);
+        actualicePoder(2);
+        actualiceVida(2);
+        actualicePuntaje(2);
     }   
     private void reparar(int jugador){
-        
+        ImageIcon icono=null;
+        int[] posicion=edificio.posicionHeroe(jugador);
+         System.out.println("pantalla de juego");
+        System.out.println(posicion[0]);
+        System.out.println(posicion[1]);
+        if (posicion[0]!=0){
+            edificio.repara(jugador);
+            int cantidadVidrios=edificio.vidriosSinReparar(posicion[0]-1,posicion[1]);
+            System.out.println("VIDRIOS");
+            System.out.println(cantidadVidrios);
+             if (cantidadVidrios==1){
+                icono=new ImageIcon("imagenes/ventanaRota2.png");        
+            }else if(cantidadVidrios==0){
+                icono=new ImageIcon("imagenes/ventana.png");
+            }
+        ventanas.get(posicion[0]-1).get(posicion[1]).setIcon(icono);    
+        }
+        if(jugador==1){
+          jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
+        }else{
+          jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
+        }
+        actualice();
+    }
+    private void actualizarPos(JLabel jugador,String ruta){
+        int[] pos;
+        int numJugador;
+        if(jugador.equals(jugador1)){
+            pos=edificio.posicionHeroe(1);
+             numJugador=1;
+        }else{
+             pos=edificio.posicionHeroe(2);
+             numJugador=2;
+        }
+        if(pos[0]!=0){
+            int x=ventanas.get(pos[0]-1).get(pos[1]).getX();
+            int y=ventanas.get(pos[0]-1).get(pos[1]).getY();
+            if (edificio.estaCastigado(numJugador)){
+                jugador.setIcon(new ImageIcon(ruta+"3.png"));
+            }else{
+            jugador.setIcon(new ImageIcon(ruta+"2.png"));
+            }
+            jugador.setLocation(x+45,(y+7)-(pos[0]-1*2));
+            jugador.setIcon(new ImageIcon(ruta+"1.png"));
+        }else{
+             int x=ventanas.get(pos[0]).get(pos[1]).getX();
+            if (edificio.estaCastigado(numJugador)){
+                jugador.setIcon(new ImageIcon(ruta+"3.png"));
+            }else{
+            jugador.setIcon(new ImageIcon(ruta+"2.png"));
+            }
+            jugador.setLocation(x+45,420);
+            jugador.setIcon(new ImageIcon(ruta+"1.png"));
+        }
+    }
+    private void actualiceBarra(int jugador){
+        int nuevo= edificio.energiaHeroe(jugador);
+        if (jugador==1){
+            energia1.setValue(nuevo);
+        }else{
+            energia2.setValue(nuevo);
+        }
+    }
+    private void actualicePoder(int jugador){
+
+    }
+    private void actualiceVida(int jugador){
+
+    }
+    private void actualicePuntaje(int jugador){
+        int nuevo= edificio.puntajeHeroe(jugador);
+        if (jugador==1){
+            puntaje1.setText(Integer.toString(nuevo));
+        }else{
+            puntaje2.setText(Integer.toString(nuevo));
+        }
     }
 
 

@@ -33,7 +33,7 @@ public class Usuario extends Heroe{
              debeMorir();
           }
           tocandoObstaculo();
-          tocandoSorpresa();
+          //tocandoSorpresa();
       }
   }
 

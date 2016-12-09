@@ -25,7 +25,7 @@ public class Instrucciones extends JDialog{
   private JLabel recoger;
   private JLabel mover;
   private JLabel arreglar;
-  
+
 
   public Instrucciones(JFrame owner){
     super(owner);
@@ -132,7 +132,7 @@ public void cerrarVentana(){
     evitar.setIcon(ievitar);
     evitar.setForeground(Color.WHITE);
     evitar.setIcon(new ImageIcon(ievitar.getImage().getScaledInstance(400,200,Image.SCALE_SMOOTH)));
-    arreglar = new JLabel("<html><body>Presione la tecla espacio para reparar y para hacer caer a su rival del edificio</html></body>");
+    arreglar = new JLabel("<html><body>Presione la siguiente tecla para reparar las ventanas del edificio </html></body>");
     //arreglar.setLayout(new GridLayout(2,2,10,10));
     ImageIcon iarreglar= new ImageIcon("imagenes/espacio.png");
     arreglar.setBackground(Color.BLACK);

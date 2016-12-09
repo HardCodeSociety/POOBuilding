@@ -26,9 +26,6 @@ public abstract class Obstaculo {
 	public int getCantPisos(){
 		return 5;
 	}
-	public ArrayList<Heroe> getHeroes(){
-		return edificio.getHeroes();
-	}
   abstract public void muevase();
 	abstract public void reaccion(Heroe h);
 	public int[] coordenadas(){
