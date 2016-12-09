@@ -15,7 +15,7 @@ public class PantallaJuego extends JDialog {
     private String tipoMaquina;
     private JPanel panelJugadores;
     private PanelJuego panelJuego;
-    private JPanel panelJugadores3; 
+    private JPanel panelJugadores3;
 
     private JLabel nombreJugador1;
     private JProgressBar energia1;
@@ -31,7 +31,7 @@ public class PantallaJuego extends JDialog {
     private String nombre2;
     private JTextField puntaje1;
     private JTextField puntaje2;
-    private ArrayList<JLabel> ventanas; 
+    private ArrayList<JLabel> ventanas;
     private JLabel ralph;
     private Timer tiempo ;
     private TimerTask task;
@@ -101,7 +101,7 @@ public class PantallaJuego extends JDialog {
         vidas1.setOpaque(true);
         vidas2.setOpaque(true);
         vidas1.setBackground(color1);
-        vidas2.setBackground(color2);   
+        vidas2.setBackground(color2);
         vidas1.setIcon(icono);
         vidas2.setIcon(icono);
         poderes1=new JLabel();
@@ -184,7 +184,7 @@ public class PantallaJuego extends JDialog {
                 if(i==0&&j==2)
                      icono=new ImageIcon("imagenes/puerta.png");
                 else if(i==1&&j==2)
-                     icono=new ImageIcon("imagenes/ventanaCentro.png");              
+                     icono=new ImageIcon("imagenes/ventanaCentro.png");
                 else
                      icono=new ImageIcon("imagenes/ventana.png");
                 ventana.setIcon(icono);
@@ -196,15 +196,15 @@ public class PantallaJuego extends JDialog {
             factorY=factorY-(95+(i*10));
         }
     }
-    private void animacionRalph() {
+    private void animacionRalph(){
         animacion=0;
         tiempo = new Timer();
-        task = new TimerTask() {               
+        task = new TimerTask() {
                public void run() {
                    parar+=1;
                    principal+=1;
                    if (parar>1){
-                        if(parar<=6){               
+                        if(parar<=6){
                             animacionRalphLenvantaBrazos();
                         }else if(parar<=27){
                             animacionRalphSubeEdificio();
@@ -225,10 +225,10 @@ public class PantallaJuego extends JDialog {
            tiempo.schedule(task,0,400); 
     }
     private void animacionRalphLenvantaBrazos(){
-        ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png"); 
+        ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
         ImageIcon icono2=new ImageIcon("imagenes/ralph/2.png");
         if (principal==1){
-            ralph.setIcon(icono2);   
+            ralph.setIcon(icono2);
         }else{
             ralph.setIcon(icono1);
             principal=0;
@@ -237,29 +237,29 @@ public class PantallaJuego extends JDialog {
     private void animacionRalphSubeEdificio(){
         animacion+=1;
          ImageIcon icono3=new ImageIcon("imagenes/ralph/3.png");
-         ImageIcon icono4=new ImageIcon("imagenes/ralph/4.png");              
+         ImageIcon icono4=new ImageIcon("imagenes/ralph/4.png");
          if (principal==1){
             ralph.setIcon(icono3);
-            ralph.setBounds(656,278-(animacion*10),83,150); 
+            ralph.setBounds(656,278-(animacion*10),83,150);
          }else{
            ralph.setIcon(icono4);
-           ralph.setBounds(656,278-(animacion*10),83,150); 
+           ralph.setBounds(656,278-(animacion*10),83,150);
            principal=0;
         }
     }
     private void animacionRalphDestruye(){
-        ImageIcon icono1=new ImageIcon("imagenes/ralph/8.png"); 
+        ImageIcon icono1=new ImageIcon("imagenes/ralph/8.png");
         ImageIcon icono2=new ImageIcon("imagenes/ralph/9.png");
         if (principal<=8){
-            ralph.setIcon(new ImageIcon("imagenes/ralph/"+Integer.toString(principal)+".png"));   
+            ralph.setIcon(new ImageIcon("imagenes/ralph/"+Integer.toString(principal)+".png"));
         }else{
             principal=4;
         }
-    }   
-     public void pararAnimacion() {        
+    }
+     public void pararAnimacion() {
         tiempo.cancel();
             task.cancel();
-                                 
+
     }
     public void prepareAcciones(){
          addWindowListener (
@@ -275,11 +275,19 @@ public class PantallaJuego extends JDialog {
             new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
+<<<<<<< HEAD
                     if (e.getKeyCode()==KeyEvent.VK_W){
                         moverArriba(2);
                     } 
+=======
+                    System.out.println("entra");
+                    System.out.println(e.getKeyCode());
+                    //if (e.getKeyCode()==KeyEvent.VK_UP){
+                    //    moverArriba();
+                    //}
+>>>>>>> origin/master
                 }
-            }   
+            }
         );
         addKeyListener(
              new KeyAdapter(){
@@ -336,8 +344,8 @@ public class PantallaJuego extends JDialog {
 
 
 
-    
-     
+
+
     public class PanelJuego extends JPanel{
         private Image imagen;
         public PanelJuego(){
@@ -348,7 +356,7 @@ public class PantallaJuego extends JDialog {
              } else {
                 imagen = null;
             }
- 
+
             repaint();
         }
         @Override
@@ -358,9 +366,9 @@ public class PantallaJuego extends JDialog {
                 setOpaque(false);
             } else {
                 setOpaque(true);
-            }   
+            }
             super.paint(g);
         }
     }
-   
+
 }
