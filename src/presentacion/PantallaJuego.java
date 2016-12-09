@@ -41,7 +41,7 @@ public class PantallaJuego extends JDialog {
     private JLabel jugador1;
     private JLabel jugador2;
     private int animacion;
-    private boolean jugar;
+    private boolean jugar=false;
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
@@ -65,6 +65,7 @@ public class PantallaJuego extends JDialog {
         panelJugadores=new JPanel();
         panelJugadores.setBackground(Color.BLACK);
         panelJuego=new PanelJuego();
+        setFocusable(true);
         panelJuego.setLayout(null);
         panelJuego.setImagen("imagenes/edificio.jpg");
         elementosPanelJuego();
@@ -137,7 +138,6 @@ public class PantallaJuego extends JDialog {
         prepareRalph();
         prepareVentanas();
         animacionRalph();
-        jugar=true;
     }
     private void romperVentanas(){
         for(int i=0;i<15;i++){
@@ -160,7 +160,6 @@ public class PantallaJuego extends JDialog {
     }
     private void prepareJugador2(){
         jugador2=new JLabel();
-        jugador2.setBackground(color2);
         ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
         jugador2.setIcon(icono);
         panelJuego.add(jugador2);
@@ -217,12 +216,13 @@ public class PantallaJuego extends JDialog {
                         }else{
                             romperVentanas();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
+                            jugar=true;
                             pararAnimacion();
                         }
                    }
                }
            };
-           tiempo.schedule(task,0,600);
+           tiempo.schedule(task,0,400);
     }
     private void animacionRalphLenvantaBrazos(){
         ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
@@ -275,13 +275,30 @@ public class PantallaJuego extends JDialog {
             new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
+<<<<<<< HEAD
+                    if (e.getKeyCode()==KeyEvent.VK_W){
+                        moverArriba(2);
+                    }
+=======
                     System.out.println("entra");
                     System.out.println(e.getKeyCode());
                     //if (e.getKeyCode()==KeyEvent.VK_UP){
                     //    moverArriba();
                     //}
+>>>>>>> origin/master
                 }
             }
+        );
+        addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_UP){
+                        moverArriba(1);
+                    }
+                }
+            }
+
         );
     }
     public void cerrarVentana(){
@@ -292,12 +309,23 @@ public class PantallaJuego extends JDialog {
 				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 			}
 	}
-    public void moverArriba(){
-        int x=jugador1.getX();
-        int y=jugador1.getY();
+    public void moverArriba(int jugador){
+        int x;
+        int y;
         ImageIcon icono=new ImageIcon("imagenes/felix/2.png");
-        jugador1.setIcon(icono);
-        jugador1.setLocation(600,400);
+        if(jugar){
+            if(jugador==1){
+                x=jugador1.getX();
+                y=jugador1.getY();
+                jugador1.setIcon(icono);
+                jugador1.setLocation(x,y-95 );
+            }else if (jugador==2){
+                x=jugador2.getX();
+                y=jugador2.getY();
+                jugador2.setIcon(icono);
+                jugador2.setLocation(x,y-95 );
+            }
+        }
     }
 
 
