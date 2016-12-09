@@ -86,7 +86,7 @@ public void cerrarVentana(){
     panelIntroduccion.setLayout(new BorderLayout());
     panelIntroduccion.setBackground(Color.BLACK);
     elementosPanelIntroduccion();
-    panelInstrucciones.setLayout(new GridLayout(3,2,10,10));
+    panelInstrucciones.setLayout(new GridLayout(4,2,10,10));
     panelInstrucciones.setBackground(Color.BLACK);
     elementosPanelInstrucciones();
     add(panelIntroduccion,BorderLayout.NORTH);
