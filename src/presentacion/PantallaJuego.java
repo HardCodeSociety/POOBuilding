@@ -31,7 +31,7 @@ public class PantallaJuego extends JDialog {
     private String nombre2;
     private JTextField puntaje1;
     private JTextField puntaje2;
-    private ArrayList<JLabel> ventanas;
+    private ArrayList<ArrayList<JLabel>> ventanas;
     private JLabel ralph;
     private Timer tiempo ;
     private TimerTask task;
@@ -42,6 +42,9 @@ public class PantallaJuego extends JDialog {
     private JLabel jugador2;
     private int animacion;
     private boolean jugar=false;
+    private String rutaColor1;
+    private String rutaColor2;
+   
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
@@ -140,30 +143,45 @@ public class PantallaJuego extends JDialog {
         animacionRalph();
     }
     private void romperVentanas(){
-        for(int i=0;i<15;i++){
-            if (i==7){
-                ventanas.get(i).setIcon(new ImageIcon("imagenes/ventanaCentroRota.png"));
-            }else if (i==2){
-                ventanas.get(i).setIcon(new ImageIcon("imagenes/puertaRota.png"));
-            }else{
-                ventanas.get(i).setIcon(new ImageIcon("imagenes/ventanaRota.png"));
+        for(int i=0;i<3;i++){
+            for(int j=0;j<5;j++){
+                if (i==0 && j==2){
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/puertaRota.png"));
+                }else if (i==1 && j==2){
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaCentroRota.png"));
+                }else{
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaRota.png"));
+                }
             }
         }
     }
     private void prepareJugador1(){
+        ImageIcon icono;
+        if(color1.equals(Color.YELLOW))
+            icono =new ImageIcon("imagenes/felix/felixAmarillo1.png");
+        else if(color1.equals(Color.BLACK))
+
+        else if(color1.equals(Color.BLUE))
+
+        else if(color1.equals(new Color(127, 0, 255))
+
+        else if(color1.equals(Color.RED))
+
+        else
+
         jugador1=new JLabel();
         jugador1.setBackground(color1);
-        ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
+       
         jugador1.setIcon(icono);
         panelJuego.add(jugador1);
-        jugador1.setBounds(656,400,83,150);
+        jugador1.setBounds(500,420,83,150);
     }
     private void prepareJugador2(){
         jugador2=new JLabel();
         ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
         jugador2.setIcon(icono);
         panelJuego.add(jugador2);
-        jugador2.setBounds(690,400,83,150);
+        jugador2.setBounds(850,420,83,150);
     }
     private void prepareRalph(){
         ralph=new JLabel();
@@ -174,11 +192,12 @@ public class PantallaJuego extends JDialog {
     }
     private void prepareVentanas(){
         ImageIcon icono;
-        ventanas=new ArrayList<JLabel>();
+        ventanas=new ArrayList<ArrayList<JLabel>>();
         int factorY=367;
         int factorX;
         for (int i=0;i<4;i++){
             factorX=0;
+            ArrayList<JLabel> ventanasDePiso =new ArrayList<JLabel>();
             for(int j=0;j<5;j++){
                 JLabel ventana=new JLabel();
                 if(i==0&&j==2)
@@ -191,8 +210,9 @@ public class PantallaJuego extends JDialog {
                 panelJuego.add(ventana);
                 factorX=(68*j);
                 ventana.setBounds(491+factorX,factorY,83,150);
-                ventanas.add(ventana);
+                ventanasDePiso.add(ventana);
             }
+            ventanas.add(ventanasDePiso);
             factorY=factorY-(95+(i*10));
         }
     }
@@ -275,17 +295,9 @@ public class PantallaJuego extends JDialog {
             new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
-<<<<<<< HEAD
-                    if (e.getKeyCode()==KeyEvent.VK_W){
+                    if(e.getKeyCode()==KeyEvent.VK_W){
                         moverArriba(2);
                     } 
-=======
-                    System.out.println("entra");
-                    System.out.println(e.getKeyCode());
-                    //if (e.getKeyCode()==KeyEvent.VK_UP){
-                    //    moverArriba();
-                    //}
->>>>>>> origin/master
                 }
             }
         );
@@ -312,18 +324,22 @@ public class PantallaJuego extends JDialog {
     public void moverArriba(int jugador){
         int x;
         int y;
-        ImageIcon icono=new ImageIcon("imagenes/felix/2.png");
+        ImageIcon icono1=new ImageIcon("imagenes/felix/2.png");
+         ImageIcon icono2=new ImageIcon("imagenes/felix/1.png");
         if(jugar){
             if(jugador==1){
                 x=jugador1.getX();
                 y=jugador1.getY();
-                jugador1.setIcon(icono);
+                jugador1.setIcon(icono1);
                 jugador1.setLocation(x,y-95 );
+                jugador1.setIcon(icono2);
             }else if (jugador==2){
                 x=jugador2.getX();
                 y=jugador2.getY();
-                jugador2.setIcon(icono);
+                jugador2.setIcon(icono1);
+                
                 jugador2.setLocation(x,y-95 );
+                jugador2.setIcon(icono2);
             }
         }
     }

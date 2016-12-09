@@ -40,6 +40,8 @@ public class ElegirJugador extends JDialog{
     //Elementos panelOpciones
     private JButton jugar;
     private JButton volver;
+    private Color color;
+    private boolean revisa=false;
     public ElegirJugador(JFrame owner,int tipoDeJuego){
         super(owner);
         principal=owner;
@@ -194,26 +196,31 @@ public class ElegirJugador extends JDialog{
             dispose();
     }
     public void elegirColor(int jugador){
-        cambiarColor=new ElegirColor();
-        cambiarColor.setVisible(true);
-        //Color color=cambiarColor.showDialog(null,"Seleccione un color",Color.GRAY);
-        //if(color!=null){//
-          //      if(jugador==1){
-            //        if ((!color.equals(color2))){
-              //          jugador1.setBackground(color);
-                //        color1=color;
-                  //  }else{
-                    //  JOptionPane.showMessageDialog(null, "El jugador 2 ya esta usando ese color");
-                    //}
-               // }else if(jugador==2){
-                 //   if((!color.equals(color1))){
-                   //     jugador2.setBackground(color);
-                     //   color2=color;
-                    //}else{
-                      //JOptionPane.showMessageDialog(null, "El jugador 1 ya esta usando ese color");
-                    //}
-                //}
-        //}
+        cambiarColor=new ElegirColor(this,jugador);
+        cambiarColor.elegirPersonaje();
+    }
+    private void asignaColores(int jugador){
+        if(color!=null){
+              if(jugador==1){
+                if ((!color.equals(color2))){
+                      jugador1.setBackground(color);
+                      color1=color;
+                }else{
+                      JOptionPane.showMessageDialog(null, "El jugador 2 ya esta usando ese color");
+                }
+              }else if(jugador==2){
+                if((!color.equals(color1))){
+                    jugador2.setBackground(color);
+                    color2=color;
+              }else{
+                 JOptionPane.showMessageDialog(null, "El jugador 1 ya esta usando ese color");
+                }
+            }
+        }
+    }
+    public void setColor(Color color,int jugador){
+        this.color=color;
+        asignaColores(jugador);
     }
     private void jugar(){
        nombre1= cambiarJugador1.getText();

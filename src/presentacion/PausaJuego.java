@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 
-public class ElegirColor extends JDialog{
+public class PausaJuego extends JDialog{
     private JPanel panelBotones;
     private JPanel panelOpciones;
     private JButton color1;
@@ -20,10 +20,11 @@ public class ElegirColor extends JDialog{
     private JButton color6;
     private JButton cancelar;
     private JButton aceptar;
-    public ElegirColor(){
+    public PausaJuego(){
         prepareElementos();
-        prepareAcciones();
+        //prepareAcciones();
     }
     public void prepareElementos(){
         
     }
+}
