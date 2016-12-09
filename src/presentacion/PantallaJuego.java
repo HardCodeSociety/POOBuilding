@@ -217,12 +217,21 @@ public class PantallaJuego extends JDialog {
                             romperVentanas();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
                             jugar=true;
+<<<<<<< HEAD
                             pararAnimacion();
                         }
                    }
                }
            };
            tiempo.schedule(task,0,400);
+=======
+                            pararAnimacion();
+                        }
+                   }
+               }
+           };
+           tiempo.schedule(task,0,400);
+>>>>>>> origin/master
     }
     private void animacionRalphLenvantaBrazos(){
         ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
@@ -275,19 +284,16 @@ public class PantallaJuego extends JDialog {
             new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
-<<<<<<< HEAD
                     if (e.getKeyCode()==KeyEvent.VK_W){
                         moverArriba(2);
                     }
-=======
+                }
                     System.out.println("entra");
                     System.out.println(e.getKeyCode());
                     //if (e.getKeyCode()==KeyEvent.VK_UP){
                     //    moverArriba();
                     //}
->>>>>>> origin/master
                 }
-            }
         );
         addKeyListener(
              new KeyAdapter(){
@@ -298,7 +304,6 @@ public class PantallaJuego extends JDialog {
                     }
                 }
             }
-
         );
     }
     public void cerrarVentana(){
