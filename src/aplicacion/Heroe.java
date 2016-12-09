@@ -17,6 +17,7 @@ public abstract class Heroe {
     protected boolean esLento;
     protected boolean gameOver;
     protected boolean repara;
+    protected int puntaje;
     /**
      *Creador de la clase Heroe
      **/
@@ -30,6 +31,7 @@ public abstract class Heroe {
         esLento=false;
         gameOver=false;
         repara=true;
+        puntaje=0;
     }
     /**
      *Este metodo permite mover en cuatro direcciones posibles dado un caracter /n este caracter puede ser: /n U : arriba /n D : abajo /n L: Izquierda /n R: Derecha
@@ -77,6 +79,7 @@ public abstract class Heroe {
                     ventana.reparar();
                   }
                   energia-=10;
+                  puntaje+=10;
                 }
                 if (energia<25){
                 repara=false;

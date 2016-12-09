@@ -3,6 +3,18 @@ import java.util.*;
 import java.lang.*;
 
 public class Usuario extends Heroe{
+  public Usuario(){
+    energia=100;
+    vidas=3;
+    puntos=0;
+    posX=0;
+    bonificaciones=new ArrayList<String>();
+    posY=0;
+    esLento=false;
+    gameOver=false;
+    repara=true;
+    puntaje=0;
+  }
   public void mover(char direccion){
       if (!gameOver){
           int pasos;

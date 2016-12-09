@@ -11,6 +11,7 @@ public class Calhoun extends Heroe{
   private int posX;
   private int posY;
   private boolean esLento;
+  private int puntaje;
   private boolean gameOver;
   private boolean repara;
   ArrayList <Heroe> heroes= new ArrayList<Heroe>();
@@ -24,6 +25,7 @@ public class Calhoun extends Heroe{
     esLento=false;
     gameOver=false;
     repara=true;
+    puntaje=0;
   }
   public void mover(char direccion){
     char[] cad = {'U','D','L','R'};

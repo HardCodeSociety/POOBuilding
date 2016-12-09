@@ -20,6 +20,12 @@ public class Edificio {
   public void setObstaculos(Obstaculo o){
     obstaculos.add(o);
   }
+  public void setHeroes(Heroe h){
+    heroes.add(h);
+  }
+  public void setSorpresas(Sorpresa s){
+    sorpresas.add(s);
+  }
   public ArrayList<Heroe> getHeroes(){
     return heroes;
   }
