@@ -160,6 +160,7 @@ public class PantallaJuego extends JDialog {
     }
     private void prepareJugador2(){
         jugador2=new JLabel();
+        jugador2.setBackground(color2);
         ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
         jugador2.setIcon(icono);
         panelJuego.add(jugador2);
