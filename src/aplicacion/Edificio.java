@@ -9,13 +9,16 @@ public class Edificio {
   private ArrayList<Sorpresa> sorpresas = new ArrayList<Sorpresa>();
   private int cantVentanas;
   private int cantPisos;
-  public Edificio(){
+  public Edificio(int cantPisos, int cantVentanas){
     arreglado=false;
-    cantVentanas=5;
-    cantPisos=4;
+    this.cantVentanas=cantVentanas;
+    this.cantPisos=cantPisos;
   }
   public ArrayList<Obstaculo> getObstaculos(){
     return obstaculos;
+  }
+  public void setObstaculos(Obstaculo o){
+    obstaculos.add(o);
   }
   public ArrayList<Heroe> getHeroes(){
     return heroes;
