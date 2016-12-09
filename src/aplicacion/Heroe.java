@@ -24,8 +24,8 @@ public abstract class Heroe {
         energia=100;
         vidas=3;
         puntos=0;
-        bonificaciones=new ArrayList<String>();
         posX=0;
+        bonificaciones=new ArrayList<String>();
         posY=0;
         esLento=false;
         gameOver=false;
@@ -35,39 +35,7 @@ public abstract class Heroe {
      *Este metodo permite mover en cuatro direcciones posibles dado un caracter /n este caracter puede ser: /n U : arriba /n D : abajo /n L: Izquierda /n R: Derecha
      *@param char direccion
      **/
-    public void mover(char direccion){
-        if (!gameOver){
-            int pasos;
-            if (energia<50){
-            	try {
-            	    Thread.sleep(1000);
-            	} catch(InterruptedException ex) {
-            	    Thread.currentThread().interrupt();
-            	}
-            }
-            if (direccion=='U'){
-                posY+=2;
-                if (bonificaciones.contains("Pastel")){
-                  bonificaciones.remove("Pastel");
-                }
-            }else if (direccion=='D'){
-                posY-=2;
-                if (bonificaciones.contains("Pastel")){
-                  bonificaciones.remove("Pastel");
-                }
-            }else if (direccion=='L'){
-                posX-=2;
-            }else if(direccion=='R'){
-                posX+=2;
-            }
-            energia-=1;
-            if (energia==0){
-               debeMorir();
-            }
-            tocandoObstaculo();
-            tocandoSorpresa();
-        }
-    }
+    abstract public void mover(char direccion);
     /**
      * [agredir description]
      */

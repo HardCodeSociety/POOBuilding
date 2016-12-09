@@ -19,7 +19,6 @@ public abstract class Obstaculo {
 	public Obstaculo(int posX, int posY){
 		this.posX=posX;
 		this.posY=posY;
-		edificio = new Edificio();
 	}
 	public int getCantVentanas(){
 		return 15;
