@@ -25,6 +25,7 @@ public class Instrucciones extends JDialog{
   private JLabel recoger;
   private JLabel mover;
   private JLabel arreglar;
+  
 
   public Instrucciones(JFrame owner){
     super(owner);

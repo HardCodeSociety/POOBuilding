@@ -140,7 +140,8 @@ public class PantallaJuego extends JDialog {
         prepareJugador2();
         prepareRalph();
         prepareVentanas();
-        animacionRalph();
+        //animacionRalph();
+        jugar=true;
     }
     private void romperVentanas(){
         for(int i=0;i<3;i++){
@@ -156,29 +157,40 @@ public class PantallaJuego extends JDialog {
         }
     }
     private void prepareJugador1(){
-        ImageIcon icono;
         if(color1.equals(Color.YELLOW))
-            icono =new ImageIcon("imagenes/felix/felixAmarillo1.png");
+            rutaColor1="imagenes/felix/felixAmarillo/";
         else if(color1.equals(Color.BLACK))
-
+            rutaColor1="imagenes/felix/felixNegro/";
         else if(color1.equals(Color.BLUE))
-
-        else if(color1.equals(new Color(127, 0, 255))
-
+            rutaColor1="imagenes/felix/felixAzul/";
+        else if(color1.equals(new Color(127, 0, 255)))
+            rutaColor1="imagenes/felix/felixMorado/";
         else if(color1.equals(Color.RED))
-
+            rutaColor1="imagenes/felix/felixRojo/";
         else
-
+            rutaColor1="imagenes/felix/felixVerde/";
+        ImageIcon icono =new ImageIcon(rutaColor1+"1.png");
         jugador1=new JLabel();
         jugador1.setBackground(color1);
-       
         jugador1.setIcon(icono);
         panelJuego.add(jugador1);
         jugador1.setBounds(500,420,83,150);
     }
     private void prepareJugador2(){
+        if(color2.equals(Color.YELLOW))
+            rutaColor2="imagenes/felix/felixAmarillo/";
+        else if(color2.equals(Color.BLACK))
+            rutaColor2="imagenes/felix/felixNegro/";
+        else if(color2.equals(Color.BLUE))
+            rutaColor2="imagenes/felix/felixAzul/";
+        else if(color2.equals(new Color(127, 0, 255)))
+            rutaColor2="imagenes/felix/felixMorado/";
+        else if(color2.equals(Color.RED))
+            rutaColor2="imagenes/felix/felixRojo/";
+        else
+            rutaColor2="imagenes/felix/felixVerde/";
+        ImageIcon icono =new ImageIcon(rutaColor2+"1.png");
         jugador2=new JLabel();
-        ImageIcon icono=new ImageIcon("imagenes/felix/1.png");
         jugador2.setIcon(icono);
         panelJuego.add(jugador2);
         jugador2.setBounds(850,420,83,150);
@@ -291,7 +303,28 @@ public class PantallaJuego extends JDialog {
 				          }
 			    }
 		);
+
         addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_P){
+                        pausaJuego();
+                    } 
+                }
+            }   
+
+        );
+
+        prepareAccionesJugador1();
+        if (tipoDeJuego==1){
+        prepareAccionesJugador2();
+        }else{
+            juegoMaquina(tipoMaquina);
+        }
+    }
+    public void prepareAccionesJugador2(){
+         addKeyListener(
             new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
@@ -301,7 +334,54 @@ public class PantallaJuego extends JDialog {
                 }
             }
         );
+         addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_S){
+                        moverAbajo(2);
+                    } 
+                }
+            }   
+
+        );
         addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_A){
+                        moverIzquierda(2);
+                    } 
+                }
+            }   
+
+        );
+         addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_D){
+                        moverDerecha(2);
+                    } 
+                }
+            }   
+        );
+         addKeyListener(
+            new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                        reparar(2);
+                    } 
+                }
+            }
+        );
+    }
+
+
+
+    public void prepareAccionesJugador1(){
+         addKeyListener(
              new KeyAdapter(){
                 @Override
                 public void keyPressed(KeyEvent e){
@@ -311,6 +391,48 @@ public class PantallaJuego extends JDialog {
                 }
             }   
 
+        );
+        addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_DOWN){
+                        moverAbajo(1);
+                    } 
+                }
+            }   
+
+        );
+        addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_LEFT){
+                        moverIzquierda(1);
+                    } 
+                }
+            }   
+
+        );
+         addKeyListener(
+             new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if (e.getKeyCode()==KeyEvent.VK_RIGHT){
+                        moverDerecha(1);
+                    } 
+                }
+            }   
+        );
+         addKeyListener(
+            new KeyAdapter(){
+                @Override
+                public void keyPressed(KeyEvent e){
+                    if(e.getKeyCode()==KeyEvent.VK_SHIFT){
+                        reparar(1);
+                    } 
+                }
+            }
         );
     }
     public void cerrarVentana(){
@@ -324,27 +446,49 @@ public class PantallaJuego extends JDialog {
     public void moverArriba(int jugador){
         int x;
         int y;
-        ImageIcon icono1=new ImageIcon("imagenes/felix/2.png");
-         ImageIcon icono2=new ImageIcon("imagenes/felix/1.png");
         if(jugar){
             if(jugador==1){
-                x=jugador1.getX();
-                y=jugador1.getY();
-                jugador1.setIcon(icono1);
-                jugador1.setLocation(x,y-95 );
-                jugador1.setIcon(icono2);
+                x=ventanas.get(0).get(0).getX();
+                y=ventanas.get(0).get(0).getY();
+                //x=jugador1.getX();
+                //y=jugador1.getY();
+                jugador1.setIcon(new ImageIcon(rutaColor1+"2.png"));
+                jugador1.setLocation(x+45,y+7);
+                System.out.println(x+50);
+                System.out.println(y+5);
+                jugador1.setIcon(new ImageIcon(rutaColor1+"1.png"));
             }else if (jugador==2){
                 x=jugador2.getX();
                 y=jugador2.getY();
-                jugador2.setIcon(icono1);
-                
+                jugador2.setIcon(new ImageIcon(rutaColor2+"2.png"));
                 jugador2.setLocation(x,y-95 );
-                jugador2.setIcon(icono2);
+                jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
             }
         }
+
+    }
+    private void moverAbajo(int  jugador){
+
+    }
+    private void moverIzquierda(int jugador){
+
+    }
+    private  void moverDerecha(int jugador){
+
+    }
+    private void pausaJuego(){
+
+    }
+    private void juegoMaquina(String tipoMaquina){
+
     }
 
+    private void actualice(){
 
+    }   
+    private void reparar(int jugador){
+        
+    }
 
 
 

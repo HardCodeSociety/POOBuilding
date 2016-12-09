@@ -17,7 +17,6 @@ public abstract class Heroe {
     protected boolean esLento;
     protected boolean gameOver;
     protected boolean repara;
-    //protected Edificio edificio;
     /**
      *Creador de la clase Heroe
      **/
@@ -48,8 +47,14 @@ public abstract class Heroe {
             }
             if (direccion=='U'){
                 posY+=2;
+                if (bonificaciones.contains("Pastel")){
+                  bonificaciones.remove("Pastel");
+                }
             }else if (direccion=='D'){
                 posY-=2;
+                if (bonificaciones.contains("Pastel")){
+                  bonificaciones.remove("Pastel");
+                }
             }else if (direccion=='L'){
                 posX-=2;
             }else if(direccion=='R'){
@@ -60,7 +65,7 @@ public abstract class Heroe {
                debeMorir();
             }
             tocandoObstaculo();
-            //tocandoSorpresa();
+            tocandoSorpresa();
         }
     }
     /**
@@ -82,6 +87,13 @@ public abstract class Heroe {
        this.setPosY(i);
      }
    }
+   public void setBonificaciones(String nombre){
+      if(bonificaciones.contains(nombre)){
+        bonificaciones.remove(nombre);
+      }else{
+        bonificaciones.add(nombre);
+      }
+    }
     /**
      *Este metodo permite a el Heroe reparar una ventana
      *@param Ventana ventana
@@ -89,10 +101,14 @@ public abstract class Heroe {
     public void reparar(Ventana ventana){
         if(!gameOver){
             }else if(repara){
-                int cantidad = ventana.vidriosReparar();
+              int cantidad = ventana.vidriosReparar();
                 if (cantidad>0){
+                  if(bonificaciones.contains("Pastel")){
+                    ventana.reparaRapido();
+                  }else{
                     ventana.reparar();
-                    energia-=10;
+                  }
+                  energia-=10;
                 }
                 if (energia<25){
                 repara=false;
@@ -115,19 +131,30 @@ public abstract class Heroe {
   		coordenadas[1]=posY;
   		return coordenadas;
     }
+    public int getEnergia(){
+      return energia;
+    }
+    public void setEnergia(int newEner){
+      this.energia=newEner;
+    }
     /**
      *Este metodo permite saber si el Heroe esta tocando algun obstaculo
      **/
-
+    public void tocandoSorpresa(){
+      ArrayList<Sorpresa> sorpresas =edificio.getSorpresas();
+      for (Sorpresa sor: sorpresas){
+        if(sor.coordenadas().equals(this.getPosicion())){
+          sor.efecto(this);
+        }
+      }
+    }
     public void tocandoObstaculo(){
-        ArrayList<Obstaculo> obstaculos =edificio.getObstaculos();
+      ArrayList<Obstaculo> obstaculos =edificio.getObstaculos();
         for(Obstaculo i:obstaculos){
           if(i.coordenadas().equals(this.getPosicion())){
             if(i instanceof Ladrillo ){
                  this.agredir();
-            }else if (i instanceof Pato){
-                i.reaccion(this);
-            }else if (i instanceof Ciguena){
+            }else{
                 i.reaccion(this);
             }
           }

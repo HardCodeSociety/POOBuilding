@@ -1,9 +1,9 @@
-package aplicacion;
+	package aplicacion;
 import java.util.*;
 /**
-*Clase Ventana 
+*Clase Ventana
 *@autor Andres Felipe Pardo Mesa
-*@autor David Felipe Vaca Santa 
+*@autor David Felipe Vaca Santa
 **/
 public class Ventana {
 	private boolean reparada;
@@ -20,22 +20,25 @@ public class Ventana {
 		numVidrios= 3;
 		vidriosRepar=1;
 		Random rand = new Random();
-		tieneVecino= rand.nextBoolean();	
+		tieneVecino= rand.nextBoolean();
 	}
 	/**
 	 * Nos permite saber la cantidad de vidrios por reparar.
-	 * @return int vidriosRepar 
+	 * @return int vidriosRepar
 	 */
 	public int vidriosReparar(){
 		return vidriosRepar;
 	}
 	/**
-	 *Este metodo nos permite cambiar el estado de una ventana a reparada 
+	 *Este metodo nos permite cambiar el estado de una ventana a reparada
 	 */
 	public void reparar(){
 		vidriosRepar-=1;
 		if (vidriosRepar==0)
 			reparada=true;
+	}
+	public void reparaRapido(){
+		reparada=true;
 	}
 	/**
 	 * Este metodo nos permite saber si la ventana de algun piso tiene un vecino

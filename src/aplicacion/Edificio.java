@@ -11,8 +11,8 @@ public class Edificio {
   private int cantPisos;
   public Edificio(){
     arreglado=false;
-    cantVentanas=8;
-    cantPisos=8;
+    cantVentanas=5;
+    cantPisos=4;
   }
   public ArrayList<Obstaculo> getObstaculos(){
     return obstaculos;
@@ -25,5 +25,8 @@ public class Edificio {
   }
   public int getCantPisos(){
     return cantPisos;
+  }
+  public ArrayList<Sorpresa> getSorpresas(){
+    return sorpresas;
   }
 }
