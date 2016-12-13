@@ -15,7 +15,7 @@ public abstract class Obstaculo {
 		isVisible=false;
 	}
 	public abstract void makeVisible();
-	public abstract void mover();
+	protected abstract void mover();
 	public void makeInvisible(){
 		isVisible=false;
 		posI=0;

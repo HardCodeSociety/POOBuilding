@@ -10,6 +10,7 @@ public class Pato extends Obstaculo{
 	contacto=false;
 	}
 	public void makeVisible(){
+		if(isVisible)mover();
 		if(contacto){
 			contacto=false;
 			makeInvisible();

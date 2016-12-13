@@ -84,7 +84,7 @@ public abstract class Heroe {
     		bonificaciones.remove(i);
     	}
     }
-    public void mover(int posI,int posJ)throws PartidaException{
+    protected void mover(int posI,int posJ)throws PartidaException{
     	if(!gameOver){
     			if(energia<50){
     				esLento=true;
@@ -96,7 +96,7 @@ public abstract class Heroe {
     			automatico();
     	}
    }
-   public boolean puedeMoverse(char direccion)throws PartidaException{
+   protected boolean puedeMoverse(char direccion)throws PartidaException{
 	   boolean resp=false;
 	   if(posI>0){
 		   Ventana ventana=edificio.ventana(posI-1, posJ);
@@ -117,9 +117,7 @@ public abstract class Heroe {
 	   }
 	   return resp;
    }
-   public boolean seMueveLento(){
-     return esLento;
-   }
+   
    protected void automatico()throws PartidaException{}
   /**
   *Este metodo permite a el Heroe reparar una ventana
@@ -127,6 +125,15 @@ public abstract class Heroe {
   **/
    public void reparar(Ventana ventana)throws PartidaException{
 	   if(!gameOver){
+		   if (energia<25){
+				if (contRepara<2){
+					contRepara+=1;
+					repara=false;
+				}else if(contRepara==2){
+					contRepara=0;
+					repara=true;
+				}
+		    }
 		   if(repara){
 			   int cantidad = ventana.vidriosReparar();
 	    		if (cantidad>0){
@@ -138,15 +145,6 @@ public abstract class Heroe {
 	    			setEnergia(energia-5);
 	    			debeMorir();
 	    			setPuntaje(puntos+1);
-	    			if (energia<25){
-	    				if (contRepara<2){
-	    					contRepara+=1;
-	    					repara=false;
-	    				}else if(contRepara==2){
-	    					contRepara=0;
-	    					repara=true;
-	    				}
-	    			}
 	    		}
 	    	}
 	    }
@@ -164,24 +162,8 @@ public abstract class Heroe {
 	   bonificaciones.add(sorpresa);
 	   hacenInmune.add(sorpresa);
    }
-   public boolean esRapido(){
-	  return esRapido;
-   }
-   public int getPuntaje(){
-      return puntos;
-   }
-   public int getVidas(){
-      return vidas;
-   }
-   public void setPosJ(int nPosJ){
-     posJ=nPosJ;
-   }
-   public void setPosI(int nPosI){
-     posI=nPosI;
-   }
-   public ArrayList<String> getBonificaciones(){
-      return bonificaciones;
-   }
+  
+
    public void debeMorir() throws PartidaException{
       if(!esInmune){
         setVidas(vidas-1);
@@ -191,15 +173,7 @@ public abstract class Heroe {
         }
       }
     }
-    public int[] getPosicion(){
-      int [] coordenadas = new int[2];
-  		coordenadas[0]=posI;
-  		coordenadas[1]=posJ;
-  		return coordenadas;
-    }
-    public int getEnergia(){
-      return energia;
-    }
+
     public void setEnergia(int energia)throws PartidaException {
       if (energia>100||energia<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
       this.energia=energia;
@@ -229,7 +203,7 @@ public abstract class Heroe {
     	subenEnergia.add(sorpresa);
     }
     public void seTocan(Heroe heroe2)throws PartidaException{
-    	if(!gameOver){
+    	if(!gameOver){  
     		int[] posicion1 = this.getPosicion();
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
@@ -263,7 +237,35 @@ public abstract class Heroe {
     		setPosI(edificio.cantidades()[0]);
     	}
     }
-    public boolean getdebeCaer(){
-    	return debeCaer;
+    protected void ejecuta()throws PartidaException{}
+    public boolean estaMuerto(){
+    	return gameOver;
+    }    
+    public boolean seMueveLento(){
+        return esLento;
     }
+    public int getPuntaje(){
+        return puntos;
+     }
+     public int getVidas(){
+        return vidas;
+     }
+     public void setPosJ(int nPosJ){
+       posJ=nPosJ;
+     }
+     public void setPosI(int nPosI){
+       posI=nPosI;
+     }
+     public ArrayList<String> getBonificaciones(){
+         return bonificaciones;
+      }
+     public int[] getPosicion(){
+         int [] coordenadas = new int[2];
+     		coordenadas[0]=posI;
+     		coordenadas[1]=posJ;
+     		return coordenadas;
+     }
+     public int getEnergia(){
+         return energia;
+     }
 }

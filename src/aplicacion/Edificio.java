@@ -1,7 +1,5 @@
 package aplicacion;
 import java.util.*;
-import java.lang.*;
-import java.awt.*;
 import java.io.*;
 
 public class Edificio implements Serializable{
@@ -15,6 +13,8 @@ public class Edificio implements Serializable{
   private int cantPisos;
   private int[] tiposPartida;
   private static Edificio edificio=null;
+  private int nivel;
+  
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
     this.cantPisos=cantPisos;
@@ -22,6 +22,7 @@ public class Edificio implements Serializable{
     heroes=new ArrayList<Heroe>();
     sorpresas=new ArrayList<Sorpresa>();
     ventanas=new ArrayList<ArrayList<Ventana>>();
+    nivel=1;
     this.tiposPartida=tiposPartida;
     inicio();
   }
@@ -52,80 +53,87 @@ public class Edificio implements Serializable{
     sorpresas.add(new Pastel(this));
     sorpresas.add(new Kriptonita(this));
     sorpresas.add(new Bebida(this));
+    ponerBarreras();
   }
-  public Heroe tomarHeroe(int numero){
-    return heroes.get(numero-1);
+  private void ponerBarreras(){
+	  Random rand= new Random();
+	  for(int i=0;i<(nivel*2);i++){
+		  char sentido;
+		  int posI=(int)(rand.nextInt()*(cantPisos-1));
+		  int posJ=(int)(rand.nextInt()*(cantVentanas-1));
+		  int opcion=(int)(rand.nextInt()*2+1);
+		  if (opcion==1)sentido='H';
+		  else sentido='V';
+		  try{
+			  ventanas.get(posI).get(posJ).conBarrera(sentido,true);			  
+		  }catch(PartidaException e){}
+	  }
   }
   public void moverHeroe(int numero,char direccion){
-	   try{
+   try{
+	  if(tiposPartida[0]==2){
+		  heroes.get(0).mover(direccion);
+		  heroes.get(0).seTocan(heroes.get(1));
+		  if(heroes.get(1) instanceof Maquina){
+			  heroes.get(1).ejecuta();
+			  heroes.get(1).seTocan(heroes.get(0));
+		  }
+	  }else{
 		  heroes.get(numero-1).mover(direccion);
-		  if(numero==1){
-			  heroes.get(numero).seTocan(heroes.get(numero-1));
-		  }
-		  else if(numero==2){
-			  heroes.get(numero-2).seTocan(heroes.get(numero-1));
-		  }
-	   }catch(PartidaException e){}
+	  	  if(numero==1) heroes.get(numero-1).seTocan(heroes.get(numero));	  		  
+	  	  else heroes.get(numero-1).seTocan(heroes.get(numero-2));
+   	  }
+	  		  
+   }catch(PartidaException e){}
   }
-  public int energiaHeroe(int numero){
-    return heroes.get(numero-1).getEnergia();
+  public Heroe tomarHeroe(int numero){
+	  return heroes.get(numero-1);
   }
-  public int puntajeHeroe(int numero){
-     return heroes.get(numero-1).getPuntaje();
-  }
-  public int vidasHeroe(int numero){
-    return heroes.get(numero-1).getVidas();
-  }
-  public ArrayList<String> poderesHeroe(int numero){
-    return heroes.get(numero-1).getBonificaciones();
-  }
-  public int[] posicionHeroe(int numero){
-    int[] posicion = heroes.get(numero-1).getPosicion();
-    return  posicion;
-  } 
-  public int getCantVentanas(){
-    return cantVentanas;
-  }
-  public int getCantPisos(){
-    return cantPisos;
-  }
-   public boolean estaCastigado(int numero){
-    return heroes.get(numero-1).getCastigado();
-  } 
-
+  
   public void repara(int numero){
-    System.out.println("repara");
-    int[] posicion = heroes.get(numero-1).getPosicion();
-    if(posicion[0]!=0){
-      heroes.get(numero-1).reparar(ventanas.get(posicion[0]-1).get(posicion[1]));
-       System.out.println("repara");
-      System.out.println(posicion[0]-1);
-     System.out.println(posicion[1]);
-
-    }
+	 Ventana ventana;
+	 try{
+		 if(tiposPartida[0]==2){
+			 int[] posicion=heroes.get(0).getPosicion();
+			 if(posicion[0]>0){
+				 ventana=ventana(posicion[0]-1,posicion[1]);
+				 heroes.get(0).reparar(ventana);
+			 }
+			 if(heroes.get(1) instanceof Maquina)heroes.get(1).ejecuta();
+		  }else{
+			  int[] posicion=heroes.get(numero-1).getPosicion();
+				 if(posicion[0]>0){
+					 ventana=ventana(posicion[0]-1,posicion[1]);
+					 heroes.get(numero-1).reparar(ventana);
+				 }
+	   	  }
+		  		  
+	  }catch(PartidaException e){}
   }
-<<<<<<< HEAD
-  public int vidriosSinReparar(int i,int j){   
-       return ventanas.get(i).get(j).vidriosReparar();
+  public void cargarObstaculos(){
+	  for(Obstaculo i:obstaculos){
+		  i.makeVisible();
+		  try{
+			  i.tocandoHeroe(heroes.get(0));
+			  i.tocandoHeroe(heroes.get(1));
+		  }catch(PartidaException e){}
+	  }
   }
+  public void cargarSorpresa
   public Ventana ventana(int i,int j){
 	  return ventanas.get(i).get(j);
   }
-  
+
   public int[] cantidades(){
-  	int[] cantidades={cantPisos+1,cantVentanas};
+  	int[] cantidades={cantPisos,cantVentanas};
   	return cantidades;
   }
-}
-
-
-=======
-  public int vidriosSinReparar(int i,int j){
-        System.out.println("reparaCon");    
-    System.out.println(i);
- System.out.println(j);   
-       return ventanas.get(i).get(j).vidriosReparar();
+  public void aumentaNivel(){
+	  nivel+=1;
+  }
+  public int nivelDificultad(){
+	  return nivel;
   }
 }
 
->>>>>>> origin/master
+

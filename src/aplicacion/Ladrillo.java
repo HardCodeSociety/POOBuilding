@@ -8,6 +8,7 @@ public class Ladrillo extends Obstaculo{
 	contacto=false;
 	}
 	public void makeVisible(){
+		if(isVisible)mover();
 		if(contacto){
 			contacto=false;
 			makeInvisible();
@@ -22,7 +23,7 @@ public class Ladrillo extends Obstaculo{
 			  }		  
 		  }
 	}
-	public void mover(){
+	protected  void mover(){
 		Random rand= new Random();
 		posJ=(int)(rand.nextInt()*(edificio.cantidades()[1]-1));
 	}
