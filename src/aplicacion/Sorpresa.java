@@ -23,6 +23,7 @@ public abstract class Sorpresa{
 			  int posI=(int)(rand.nextInt()*(edificio.cantidades()[0]-1));
 			  int posJ=(int)(rand.nextInt()*(edificio.cantidades()[1]-1));
 			  ventana=edificio.ventana(posI, posJ);
+			  ventana.conSorpresa(true);
 			  isVisible=true;
 		  }		  
 	  }
@@ -48,4 +49,10 @@ public abstract class Sorpresa{
   public String getNombre(){
 	  return nombre;
   }
+  public Ventana getVentana(){
+	  return ventana;
+  }
+  public boolean visible(){
+		return isVisible;
+	}
 }

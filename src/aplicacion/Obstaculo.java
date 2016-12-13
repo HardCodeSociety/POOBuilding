@@ -28,4 +28,7 @@ public abstract class Obstaculo {
 	  		coordenadas[1]=posJ;
 	  		return coordenadas;
 	}
+	public boolean visible(){
+		return isVisible;
+	}
 }

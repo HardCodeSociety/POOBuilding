@@ -38,7 +38,10 @@ public class Edificio implements Serializable{
     for(int i=0; i<cantPisos;i++){
       ArrayList<Ventana> ventanasPiso=new ArrayList<Ventana>();
       for(int j=0;j<cantVentanas;j++){
-         ventanasPiso.add(new Ventana(2,i,j));
+    	 Ventana ventana=new Ventana(2,i,j);
+         ventanasPiso.add(ventana);
+         if(i==0&&j==2)ventana.esPuerta(true);
+         if(i==1&&j==2)ventana.esCentral(true);
       }
       ventanas.add(ventanasPiso);
     }
@@ -171,11 +174,14 @@ public class Edificio implements Serializable{
   	int[] cantidades={cantPisos,cantVentanas};
   	return cantidades;
   }
-  public void aumentaNivel(){
-	  nivel+=1;
-  }
   public int nivelDificultad(){
 	  return nivel;
+  }
+  public Obstaculo obstaculo(int obstaculo){
+	  return obstaculos.get(obstaculo-1);
+  }
+  public Sorpresa sorpresa(int sorpresa){
+	  return sorpresas.get(sorpresa-1);
   }
 }
 
