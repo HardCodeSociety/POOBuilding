@@ -64,9 +64,12 @@ public class Edificio implements Serializable{
 	  Random rand= new Random();
 	  for(int i=0;i<(nivel*2);i++){
 		  char sentido;
-		  int posI=(int)(rand.nextInt()*(cantPisos-1));
-		  int posJ=(int)(rand.nextInt()*(cantVentanas-1));
-		  int opcion=(int)(rand.nextInt()*2+1);
+		  int posI=(int)(rand.nextDouble()*(cantPisos-1));
+		  System.out.println(posI);
+		  
+		  int posJ=(int)(rand.nextDouble()*(cantVentanas-1));
+		  System.out.println(posJ);
+		  int opcion=(int)(rand.nextDouble()*2+1);
 		  if (opcion==1)sentido='H';
 		  else sentido='V';
 		  try{

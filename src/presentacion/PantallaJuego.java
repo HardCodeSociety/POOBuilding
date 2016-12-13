@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
-import java.lang.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.*;
@@ -45,6 +44,7 @@ public class PantallaJuego extends JDialog {
     private String rutaColor1;
     private String rutaColor2;
     private Partida partida;
+    private boolean gameOver;
    
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
@@ -55,8 +55,8 @@ public class PantallaJuego extends JDialog {
         nombre2=nombres.get(1);
         color1=colores.get(0);
         color2=colores.get(1);
-        if (tipoDeJuego==2)
-            tipoMaquina=nombres.get(2);
+        if (tipoDeJuego==2)tipoMaquina=nombres.get(2);
+        else tipoMaquina="";
         prepareElementos();
         prepareAcciones();
         int[] tipos=new int[3];
@@ -65,6 +65,8 @@ public class PantallaJuego extends JDialog {
         else if (tipoMaquina.equals("calhoun"))tipos[1]=2;
         else tipos[1]=0;
         partida=Partida.demePartida(3,5,tipos);
+        gameOver=false;
+        animacionRalph();
     }
     public void prepareElementos(){
         setTitle("PANTALLA DE JUEGO");
@@ -136,8 +138,7 @@ public class PantallaJuego extends JDialog {
         panelJugadores.add(puntaje2);
         panelJugadores.add(energia1);
         panelJugadores.add(energia2);
-        panelJugadores.addnew ArrayList<String>();
-        ArrayList<Color> colores=n(vidas1);
+        panelJugadores.add(vidas1);
         panelJugadores.add(vidas2);
         panelJugadores.add(poderes1);
         panelJugadores.add(poderes2);
@@ -147,20 +148,6 @@ public class PantallaJuego extends JDialog {
         prepareJugador2();
         prepareRalph();
         prepareVentanas();
-        animacionRalph();
-    }
-    private void romperVentanas(){
-        for(int i=0;i<3;i++){
-            for(int j=0;j<5;j++){
-                if (i==0 && j==2){
-                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/puertaRota.png"));
-                }else if (i==1 && j==2){
-                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaCentroRota.png"));
-                }else{
-                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaRota.png"));
-                }
-            }
-        }
     }
     private void prepareJugador1(){
         if(color1.equals(Color.YELLOW))
@@ -239,6 +226,7 @@ public class PantallaJuego extends JDialog {
         tiempo = new Timer();
         task = new TimerTask() {
                public void run() {
+            	   if(gameOver)pararAnimacion();
                    parar+=1;
                    principal+=1;
                    if (parar>1){
@@ -252,15 +240,17 @@ public class PantallaJuego extends JDialog {
                         }else if(parar<=42){
                             animacionRalphDestruye();
                         }else{
-                            romperVentanas();
+                            actualizar();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
                             jugar=true;
-                            pararAnimacion(); 
                         }
                    }
                }
            };                                        
            tiempo.schedule(task,0,400); 
+    }
+    private void actualizar(){
+    	actualiceJugadores();
     }
     private void animacionRalphLenvantaBrazos(){
         ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
@@ -286,8 +276,6 @@ public class PantallaJuego extends JDialog {
         }
     }
     private void animacionRalphDestruye(){
-        ImageIcon icono1=new ImageIcon("imagenes/ralph/8.png");
-        ImageIcon icono2=new ImageIcon("imagenes/ralph/9.png");
         if (principal<=8){
             ralph.setIcon(new ImageIcon("imagenes/ralph/"+Integer.toString(principal)+".png"));
         }else{
@@ -380,7 +368,8 @@ public class PantallaJuego extends JDialog {
                         reparar(2);
                     } 
                 }
-            }
+            } 
+            
         );
     }
 
@@ -452,68 +441,35 @@ public class PantallaJuego extends JDialog {
     public void moverArriba(int jugador){
         if(jugar){
             if(jugador==1){
-                 int[] posicion=edificio.posicionHeroe(1);
-                 if(posicion[0]<3){
-                    edificio.moverHeroe(1,posicion[0]+1,posicion[1]);
-                 }
+                 
             }else if (jugador==2){
-                int[] posicion=edificio.posicionHeroe(2);
-                if(posicion[0]<3){
-                    edificio.moverHeroe(2,posicion[0]+1,posicion[1]);
-                }
+                
             }
-            actualice();
+            //actualice();
         }
-
     }
     private void moverAbajo(int  jugador){
          if(jugar){
             if(jugador==1){
-                 int[] posicion=edificio.posicionHeroe(1);
-                 if(posicion[0]>0){
-                    edificio.moverHeroe(1,posicion[0]-1,posicion[1]);
-                 }
             }else if (jugador==2){
-                int[] posicion=edificio.posicionHeroe(2);
-                if(posicion[0]>0){
-                    edificio.moverHeroe(2,posicion[0]-1,posicion[1]);
-                }
             }
-            actualice();
+          }
+            actualizar();
         }
-    }
     private void moverIzquierda(int jugador){
         if(jugar){
             if(jugador==1){
-                 int[] posicion=edificio.posicionHeroe(1);
-                 if(posicion[1]>0){
-                    edificio.moverHeroe(1,posicion[0],posicion[1]-1);
-                 }
+                           }
             }else if (jugador==2){
-                int[] posicion=edificio.posicionHeroe(2);
-                if(posicion[1]>0){
-                    edificio.moverHeroe(2,posicion[0],posicion[1]-1);
-                }
-            }
-            actualice();
-        }
+                       }
     }
     private  void moverDerecha(int jugador){
          if(jugar){
             if(jugador==1){
-                 int[] posicion=edificio.posicionHeroe(1);
-                 if(posicion[1]<4){
-                    edificio.moverHeroe(1,posicion[0],posicion[1]+1);
-                 }
+                                 }
             }else if (jugador==2){
-                int[] posicion=edificio.posicionHeroe(2);
-                if(posicion[1]<4){
-                        edificio.moverHeroe(2,posicion[0],posicion[1]+1);
-                }
+                    
             }
-            actualice();
-        }
-
     }
     private void pausaJuego(){
 
@@ -522,43 +478,21 @@ public class PantallaJuego extends JDialog {
 
     }
 
-    private void actualice(){
-        actualizarPos(jugador1,rutaColor1);
-        actualiceBarra(1);
-        actualicePoder(1);
-        actualiceVida(1);
-        actualicePuntaje(1);
-        actualizarPos(jugador2,rutaColor2);
-        actualiceBarra(2);
-        actualicePoder(2);
-        actualiceVida(2);
-        actualicePuntaje(2);
+    private void actualiceJugadores(){
+        //actualizarPos(jugador1,rutaColor1);
+        actualiceEstado(1);
+        //actualizarPos(jugador2,rutaColor2);
+        actualiceEstado(2);
     }   
     private void reparar(int jugador){
-        ImageIcon icono=null;
-        int[] posicion=edificio.posicionHeroe(jugador);
-         System.out.println("pantalla de juego");
-        System.out.println(posicion[0]);
-        System.out.println(posicion[1]);
-        if (posicion[0]!=0){
-            edificio.repara(jugador);
-            int cantidadVidrios=edificio.vidriosSinReparar(posicion[0]-1,posicion[1]);
-            System.out.println("VIDRIOS");
-            System.out.println(cantidadVidrios);
-             if (cantidadVidrios==1){
-                icono=new ImageIcon("imagenes/ventanaRota2.png");        
-            }else if(cantidadVidrios==0){
-                icono=new ImageIcon("imagenes/ventana.png");
-            }
-        ventanas.get(posicion[0]-1).get(posicion[1]).setIcon(icono);    
-        }
-        if(jugador==1){
+         if(jugador==1){
           jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
         }else{
           jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
         }
-        actualice();
+        actualizar();
     }
+    /**
     private void actualizarPos(JLabel jugador,String ruta){
         int[] pos;
         int numJugador;
@@ -590,30 +524,19 @@ public class PantallaJuego extends JDialog {
             jugador.setIcon(new ImageIcon(ruta+"1.png"));
         }
     }
-    private void actualiceBarra(int jugador){
-        int nuevo= edificio.energiaHeroe(jugador);
+    **/
+    private void actualiceEstado(int jugador){
+        int[] estados=partida.estadoJugador(jugador);
         if (jugador==1){
-            energia1.setValue(nuevo);
+            energia1.setValue(estados[0]);
+            puntaje1.setText(Integer.toString(estados[1]));
+            vidas1.setIcon(new ImageIcon(Integer.toString(estados[2])+".png"));
         }else{
-            energia2.setValue(nuevo);
+        	energia2.setValue(estados[0]);
+            puntaje2.setText(Integer.toString(estados[1]));
+            vidas2.setIcon(new ImageIcon(Integer.toString(estados[2])+".png"));
         }
     }
-    private void actualicePoder(int jugador){
-
-    }
-    private void actualiceVida(int jugador){
-
-    }
-    private void actualicePuntaje(int jugador){
-        int nuevo= edificio.puntajeHeroe(jugador);
-        if (jugador==1){
-            puntaje1.setText(Integer.toString(nuevo));
-        }else{
-            puntaje2.setText(Integer.toString(nuevo));
-        }
-    }
-
-
 
 
 

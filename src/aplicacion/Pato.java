@@ -16,11 +16,11 @@ public class Pato extends Obstaculo{
 			makeInvisible();
 		}
 		Random rand= new Random();
-		int opcion=(int)(rand.nextInt()*4+1);
+		int opcion=(int)(rand.nextDouble()*4+1);
 		if(opcion==4){
 			if(!isVisible){	  
-				  posI=(int)(rand.nextInt()*(edificio.cantidades()[0]+1)+1);
-				  opcion=(int)(rand.nextInt()*2+1);
+				  posI=(int)(rand.nextDouble()*(edificio.cantidades()[0]+1)+1);
+				  opcion=(int)(rand.nextDouble()*2+1);
 				  if(opcion==1){
 					  posJ=(edificio.cantidades()[1])-1;
 					  esteOeste=true;
