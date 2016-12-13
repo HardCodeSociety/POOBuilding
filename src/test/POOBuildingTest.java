@@ -1,63 +1,12 @@
-package aplicacion;
-import java.util.*;
+package test;
+import aplicacion.*;
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class POOBuildingTest {
 
-public class POOBuildingTest{
-  public void deberiaPermitirCrearObstaculo(){
-    Partida part= new Partida(true,0);
+	@Test
+	public void test() {
+		assertEquals(1,1);
+	}
 
-  }
-  public void deberiaPermitirTomarObstaculo(){
-
-  }
-  public void deberiaPermitirCrearSorpresa(){
-
-  }
-
-  public void deberiaPermitirTomarSorpresa(){
-
-  }
-
-  public void deberiaPermitirCrearHeroe(){
-
-  }
-
-  public void deberiaPermitirMoverHeroe(){
-
-  }
-
-  public void deberiaPermitirCrearMaquina(){
-
-  }
-
-  public void deberiaMoverseMaquina(){
-
-  }
-
-  public void deberiaSubirConCiguena(){
-
-  }
-
-  public void deberiaDanarseConLadrillo(){
-
-  }
-
-  public void deberiaBajarConPato(){
-
-  }
-
-  public void deberiaSerInmuneKriptonita(){
-
-  }
-
-  public void deberiaRepararMasRapido(){
-
-  }
-
-  public void deberiaIncrementarEnergia(){
-
-  }
-
-  public void noDeberiaIncrementarEnergia(){
-
-  }
 }
