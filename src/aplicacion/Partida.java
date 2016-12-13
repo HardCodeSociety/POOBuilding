@@ -15,7 +15,7 @@ public class Partida {
 	        partida=new Partida(cantPisos,cantVentanas,tiposPartida);
 	    }
 	}
-	public estadoJugador1(){
+	public estadoJugador(int jugador){
 		
 	}
 }

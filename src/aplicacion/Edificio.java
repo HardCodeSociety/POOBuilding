@@ -14,6 +14,7 @@ public class Edificio implements Serializable{
   private int[] tiposPartida;
   private static Edificio edificio=null;
   private int nivel;
+  private boolean gameOver;
   
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
@@ -25,6 +26,7 @@ public class Edificio implements Serializable{
     nivel=1;
     this.tiposPartida=tiposPartida;
     inicio();
+    gameOver=false;
   }
   public static Edificio demeEdificio(int cantPisos,int cantVentanas,int[] tiposPartida){
     if (edificio==null){
@@ -119,7 +121,48 @@ public class Edificio implements Serializable{
 		  }catch(PartidaException e){}
 	  }
   }
-  public void cargarSorpresa
+  public void cargarSorpresas(){
+	  for(Sorpresa i:sorpresas){
+		  i.makeVisible();
+		  try{
+			  i.tocandoHeroe(heroes.get(0));
+			  i.tocandoHeroe(heroes.get(1));
+		  }catch(PartidaException e){}
+	  }
+  }
+  public void romperVentanas(){
+	  for(ArrayList<Ventana> i:ventanas)
+		  for(Ventana j:i)
+			  j.romper();
+  }
+  private boolean verificaVentanas(){
+	  int i=0;
+	  int j=0;
+	  boolean resp=false;
+	  while(i<cantPisos&&!resp){
+		  while(j<cantVentanas&&!resp){
+			  resp=ventanas.get(i).get(j).estaReparada();
+			  j+=1;
+		  }
+		  i+=1;
+	  }
+	  return resp;
+  }
+  public boolean gameOver(){
+	  return gameOver;
+  }
+  public void aumentarNivel(){
+	  if(verificaVentanas())
+		  if(nivel==3) gameOver=true;
+		  else nivel+=1;
+	  
+  }
+  public void cargargameOver(){
+	  int i=0;
+	  while(i<2&&!gameOver)
+		  gameOver=heroes.get(i).estaMuerto();
+	  	  i+=1;
+  }
   public Ventana ventana(int i,int j){
 	  return ventanas.get(i).get(j);
   }
