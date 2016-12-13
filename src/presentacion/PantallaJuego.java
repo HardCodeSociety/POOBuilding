@@ -1,5 +1,5 @@
 package presentacion;
-import aplicacion.Edificio;
+import aplicacion.Partida;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -44,7 +44,7 @@ public class PantallaJuego extends JDialog {
     private boolean jugar=false;
     private String rutaColor1;
     private String rutaColor2;
-    private Edificio edificio;
+    private Partida partida;
    
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
@@ -59,7 +59,12 @@ public class PantallaJuego extends JDialog {
             tipoMaquina=nombres.get(2);
         prepareElementos();
         prepareAcciones();
-        edificio=Edificio.demeEdificio(3,5);
+        int[] tipos=new int[3];
+        tipos[0]=tipoDeJuego;
+        if(tipoMaquina.equals("candy"))tipos[1]=1;
+        else if (tipoMaquina.equals("calhoun"))tipos[1]=2;
+        else tipos[1]=0;
+        partida=Partida.demePartida(3,5,tipos);
     }
     public void prepareElementos(){
         setTitle("PANTALLA DE JUEGO");
@@ -131,7 +136,8 @@ public class PantallaJuego extends JDialog {
         panelJugadores.add(puntaje2);
         panelJugadores.add(energia1);
         panelJugadores.add(energia2);
-        panelJugadores.add(vidas1);
+        panelJugadores.addnew ArrayList<String>();
+        ArrayList<Color> colores=n(vidas1);
         panelJugadores.add(vidas2);
         panelJugadores.add(poderes1);
         panelJugadores.add(poderes2);

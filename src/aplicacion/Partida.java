@@ -1,8 +1,13 @@
 package aplicacion;
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Partida {
+public class Partida implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Edificio edificio;
 	private boolean gameOver; 
 	private static Partida partida;
@@ -11,10 +16,11 @@ public class Partida {
 		    edificio=Edificio.demeEdificio(cantPisos, cantVentanas, tiposPartida);
 		    gameOver=false;
 		  }
-	public void demePartida(int cantPisos, int cantVentanas,int[] tiposPartida){
+	public static Partida demePartida(int cantPisos, int cantVentanas,int[] tiposPartida){
 		if (partida==null){
 	        partida=new Partida(cantPisos,cantVentanas,tiposPartida);
 	    }
+		return partida;
 	}
 	public int[] estadoJugador(int jugador){
 		int[] estado=new int[3];
