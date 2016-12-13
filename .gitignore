@@ -11,11 +11,6 @@
 *.jar
 *.war
 *.ear
-
-<<<<<<< HEAD
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_ho$
-=======
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
->>>>>>> origin/master
+*.project
 hs_err_pid*
 
