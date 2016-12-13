@@ -43,8 +43,10 @@ public class Ventana {
 	public void esPuerta(boolean resp){
 		esPuerta=resp;
 	}
+
 	public boolean estaReparada(){
 		return reparada;
 	}
+
 
 }

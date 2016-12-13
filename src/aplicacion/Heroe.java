@@ -177,9 +177,6 @@ public abstract class Heroe {
     	}
     	return esInmune;
     }
-    /**
-     *Este metodo permite saber si el Heroe esta tocando algun obstaculo
-     **/
     public void ganaEnergia(String sorpresa)throws PartidaException {
     	if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
     	if(energia<50)setEnergia(2*energia);
@@ -214,8 +211,7 @@ public abstract class Heroe {
     	if(causa instanceof Pato)debeCaer();
     	else if(causa instanceof Ladrillo)setEnergia(energia-((edificio.cantidades[0]+1)-posI));
     }
-  public boolean getdebeCaer(){
-    return debeCaer;
-  }
-
+    public boolean getdebeCaer(){
+    	return debeCaer;
+    }
 }

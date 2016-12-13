@@ -93,6 +93,7 @@ public class Edificio implements Serializable{
 
     }
   }
+<<<<<<< HEAD
   public int vidriosSinReparar(int i,int j){   
        return ventanas.get(i).get(j).vidriosReparar();
   }
@@ -107,3 +108,13 @@ public class Edificio implements Serializable{
 }
 
 
+=======
+  public int vidriosSinReparar(int i,int j){
+        System.out.println("reparaCon");    
+    System.out.println(i);
+ System.out.println(j);   
+       return ventanas.get(i).get(j).vidriosReparar();
+  }
+}
+
+>>>>>>> origin/master

@@ -1,5 +1,6 @@
 package aplicacion;
 import java.util.*;
+
 /**
  * @author Andrés Felipe Pardo Mesa
  * @author David Felipe Vaca Santa 
@@ -17,3 +18,4 @@ public static final String ATRIBUTOSFUERADERANGO="Atributos fuera rango";
         super(message);
     }
 }  
+
