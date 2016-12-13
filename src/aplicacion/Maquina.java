@@ -8,9 +8,11 @@ public abstract class Maquina extends Heroe {
 	}
 	protected abstract void analisis()throws PartidaException;
 	protected void automatico() throws PartidaException{
-		Ventana ventana=edificio.ventana(posI, posJ);
-		while(!ventana.estaReparada())
-			reparar(ventana);
+		if(posI!=0){
+			Ventana ventana=edificio.ventana(posI-1, posJ);
+			while(!ventana.estaReparada())
+				reparar(ventana);
+		}
 	}
 	public void ejecuta()throws PartidaException{
 		analisis();

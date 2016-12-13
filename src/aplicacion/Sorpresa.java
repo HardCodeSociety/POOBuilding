@@ -1,30 +1,51 @@
 package aplicacion;
 import java.util.*;
-import java.lang.*;
 
 public abstract class Sorpresa{
-  protected int posX;
-  protected int posY;
+  protected boolean isVisible;
   protected Edificio edificio;
-  public Sorpresa(){
-    Random rand= new Random();
-    posX=(int)(rand.nextInt()*3+0);
-    posY=(int)(rand.nextInt()*4+0);
+  protected Ventana ventana;
+  protected boolean tocandoHeroe;
+  protected String nombre;
+  
+  public Sorpresa(Edificio edificio){
+	this.edificio=edificio;
+	ventana=null;
+    tocandoHeroe=false;
+    isVisible=false;
+    nombre=null;
   }
-  public Sorpresa(int posX, int posY){
-    if (posX > 4 && posY > 5){
-      this.posX=1;
-      this.posY=1;
-    }
-    this.posX=posX;
-    this.posY=posY;
+  public void makeVisible(){
+	  Random rand= new Random();
+	  int opcion=(int)(rand.nextInt()*4+1);
+	  if(opcion==4){
+		  if(!isVisible){		  
+			  int posI=(int)(rand.nextInt()*(edificio.cantidades()[0]-1));
+			  int posJ=(int)(rand.nextInt()*(edificio.cantidades()[1]-1));
+			  ventana=edificio.ventana(posI, posJ);
+			  isVisible=true;
+		  }		  
+	  }
   }
-  abstract public void efecto(Heroe h);
-  abstract public String getNombre();
-  public int[] coordenadas(){
-		int [] coordenadas = new int[2];
-		coordenadas[0]=posX;
-		coordenadas[1]=posY;
-		return coordenadas;
-	}
+  public void makeInvisible(){
+	  isVisible=false;
+	  ventana=null;
+  }
+  public void tocandoHeroe(Heroe jugador)throws PartidaException{
+	  if(isVisible){
+		int[] posicion1 = jugador.getPosicion();
+		int[] posicion2 = ventana.getPosicion();
+		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
+			realizaEfecto(jugador);
+			makeInvisible();
+		}
+	  }
+  }
+  public abstract void realizaEfecto(Heroe jugador)throws PartidaException;
+  public void setNombre(String nombre){
+	  this.nombre=nombre;
+  }
+  public String getNombre(){
+	  return nombre;
+  }
 }

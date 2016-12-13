@@ -1,53 +1,57 @@
 package aplicacion;
 import java.util.*;
-import java.lang.*;
 
 public class Ciguena extends Obstaculo{
-  private int cantVentanas;
-  private int cantPisos;
-  private int posX;
-  private int posY;
-  private boolean sentidoDer= true;
-  private ArrayList <Heroe> heroes= new ArrayList<Heroe>();
-  public Ciguena(int posX, int posY){
-    super(posX,posY);
-
-  }
-  public void muevase(){
-    //cantVentanas=15;
-    //cantPisos=5;
-  	//heroes= super.getHeroes();
-  	//if((posX<cantVentanas) && sentidoDer==true){
-     // posX+=1;
-      //if(posX==cantVentanas){
-       // sentidoDer=false;
-      //}
-    //}else if(posX==cantVentanas && sentidoDer==true){
-      //posX-=1;
-      //sentidoDer=false;
-    //} else if(posX < cantVentanas && sentidoDer==false){
-      //posX-=1;
-    //}else if(posX==0 && sentidoDer==false){
-     // posX+=1;
-      //sentidoDer=true;
-    //}
-  	//for(Heroe her: heroes){
-  		//if ((her.getPosicion()).equals(this.coordenadas())){
-  			//	this.reaccion(her);
-  			//}
-  	//}
-  }
-  public void setPosY(int newPosY){
-    posY= newPosY;
-  }
-
-  public void ascender(int cantPisos){
-    for (int i=posY; i<=cantPisos; i++){
-      this.setPosY(i);
-    } 
-  }
-  public void reaccion(Heroe h){
-    //h.ascender(cantPisos);
-    this.ascender(cantPisos);
-  }
+	private boolean esteOeste;
+	private boolean contacto;
+	public Ciguena(Edificio edificio){
+	super(edificio);
+	esteOeste=false;
+	contacto=false;
+	}
+	public void makeVisible(){
+		if(contacto){
+			contacto=false;
+			makeInvisible();
+		}
+		Random rand= new Random();
+		int opcion=(int)(rand.nextInt()*4+1);
+		if(opcion==4){
+			if(!isVisible){	  
+				  posI=(int)(rand.nextInt()*(edificio.cantidades()[0]+1)+1);
+				  opcion=(int)(rand.nextInt()*2+1);
+				  if(opcion==1){
+					  posJ=(edificio.cantidades()[1])-1;
+					  esteOeste=true;
+				  }else{
+					  posJ=0;
+					  esteOeste=false;
+				  }
+				  isVisible=true;
+			  }		  
+		  }
+	}
+	public void mover(){
+		  if(isVisible){
+			  if (!(posJ-1<0)&&esteOeste)
+				  posJ-=1;
+			  else if(posJ+1>(edificio.cantidades()[1])-1&&!esteOeste)
+				  posJ+=1;
+			  else
+				  makeInvisible();
+		  }
+	}
+	public void sube(){
+		posI=edificio.cantidades()[0]+1;
+	}
+	public void tocandoHeroe(Heroe jugador)throws PartidaException{
+		  if(isVisible){
+			int[] posicion1 = jugador.getPosicion();
+			if(posicion1[0]==posI && posicion1[1]==posJ){
+				contacto=true;
+				sube();
+				jugador.seGolpea(this);
+			}
+		  }
+	}
 }

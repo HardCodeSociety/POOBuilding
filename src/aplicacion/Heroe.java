@@ -12,6 +12,9 @@ public abstract class Heroe {
     protected int vidas;
     protected int puntos;
     protected ArrayList<String>  bonificaciones;
+    protected ArrayList<String> hacenRapido;
+    protected ArrayList<String> hacenInmune;
+    protected ArrayList<String> subenEnergia;
     protected int posI;
     protected int posJ;
     protected boolean esLento;
@@ -32,6 +35,9 @@ public abstract class Heroe {
         puntos=0;
         posI=0;
         bonificaciones=new ArrayList<String>();
+        hacenRapido=new ArrayList<String>();
+        hacenInmune=new ArrayList<String>();
+        subenEnergia=new ArrayList<String>();
         posJ=0;
         esLento=false;
         gameOver=false;
@@ -41,20 +47,29 @@ public abstract class Heroe {
         esInmune=false;
     }
     public void mover(char direccion) throws PartidaException{
+    	esInmune();
+    	removerBonificaciones(subenEnergia);
+    	boolean resp=puedeMoverse(direccion);
     	if(direccion=='U'){
-    		if(posI+1>edificio.cantidades[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
-    		if(esRapido) esRapido=false;
-    		mover(posI+1,posJ);
+    		if(posI+1>edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(esRapido) {
+    			esRapido=false;
+    			removerBonificaciones(hacenRapido);
+    		}
+    		if(resp)mover(posI+1,posJ);
     	}else if(direccion=='D'){
-    		if(posI-1<edificio.cantidades[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
-    		if(esRapido) esRapido=false;
-    		mover(posI-1,posJ);
+    		if(posI-1<edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(esRapido) {
+    			esRapido=false;
+    			removerBonificaciones(hacenRapido);
+    		}
+    		if(resp)mover(posI-1,posJ);
     	}else if(direccion=='L'){
-    		if(posJ-1<edificio.cantidades[1])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
-    		mover(posI,posJ-1);
+    		if(posJ-1<(edificio.cantidades()[1])-1)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(resp)mover(posI,posJ-1);
     	}else if(direccion=='R'){
-    		if(posJ+1>edificio.cantidades[1])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
-    		mover(posI,posJ+1);
+    		if(posJ+1>(edificio.cantidades()[1])-1)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(resp)mover(posI,posJ+1);
     	}else{
     		throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
     	}
@@ -64,17 +79,43 @@ public abstract class Heroe {
      *@param int posX
      *@param int posY
      **/
+    protected void removerBonificaciones(ArrayList<String> especificas){
+    	for(String i:especificas){
+    		bonificaciones.remove(i);
+    	}
+    }
     public void mover(int posI,int posJ)throws PartidaException{
     	if(!gameOver){
-    		if(energia<50){
-    			esLento=true;
-    		}
-    		this.posI=posI;
-    		this.posJ=posJ;
-    		setEnergia(energia-1);
-    		debeMorir();
-    		automatico();
+    			if(energia<50){
+    				esLento=true;
+    			}
+    			this.posI=posI;
+    			this.posJ=posJ;
+    			setEnergia(energia-1);
+    			debeMorir();
+    			automatico();
     	}
+   }
+   public boolean puedeMoverse(char direccion)throws PartidaException{
+	   boolean resp=false;
+	   if(posI>0){
+		   Ventana ventana=edificio.ventana(posI-1, posJ);
+		   Ventana ventana2;
+		   if(direccion=='U'){
+				ventana2=edificio.ventana(posI, posJ);
+				resp=!(ventana2.barrera('H'));
+   		   }else if(direccion=='D'){
+   			    resp=!(ventana.barrera('H'));
+   		   }else if(direccion=='L'){
+   			   resp=!(ventana.barrera('V'));
+   		   }else if(direccion=='R'){
+   			   ventana2=edificio.ventana(posI, posJ+1);
+   			   resp=!(ventana2.barrera('V'));
+   		   }else{
+   			   throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
+   		   }
+	   }
+	   return resp;
    }
    public boolean seMueveLento(){
      return esLento;
@@ -114,12 +155,14 @@ public abstract class Heroe {
 	   esRapido=true;
 	   if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
 	   bonificaciones.add(sorpresa);
+	   hacenRapido.add(sorpresa);
    }
    public void hacerInmune(String sorpresa)throws PartidaException{
 	   contInmunidad=0;
 	   esInmune=true;
 	   if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
 	   bonificaciones.add(sorpresa);
+	   hacenInmune.add(sorpresa);
    }
    public boolean esRapido(){
 	  return esRapido;
@@ -169,17 +212,21 @@ public abstract class Heroe {
     	if(vidas>3||vidas<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
     	this.vidas=vidas;
     }
-    public boolean esInmune(){
-    	if(contInmunidad<2&&esInmune){
-    		contInmunidad+=1;
-    	}else{
-    		esInmune=false;
+    public void esInmune(){
+    	if(esInmune){
+    		if(contInmunidad<2&&esInmune){
+    			contInmunidad+=1;
+    		}else{
+    			esInmune=false;
+    			removerBonificaciones(hacenInmune);
+    		}
     	}
-    	return esInmune;
     }
     public void ganaEnergia(String sorpresa)throws PartidaException {
     	if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
     	if(energia<50)setEnergia(2*energia);
+    	bonificaciones.add(sorpresa);
+    	subenEnergia.add(sorpresa);
     }
     public void seTocan(Heroe heroe2)throws PartidaException{
     	if(!gameOver){
@@ -209,7 +256,12 @@ public abstract class Heroe {
     }
     public void seGolpea(Obstaculo causa)throws PartidaException{
     	if(causa instanceof Pato)debeCaer();
-    	else if(causa instanceof Ladrillo)setEnergia(energia-((edificio.cantidades[0]+1)-posI));
+    	else if(causa instanceof Ladrillo)setEnergia(energia-((edificio.cantidades()[0]+1)-posI));
+    	else if(causa instanceof Ciguena){
+    		esInmune();
+    		removerBonificaciones(subenEnergia);
+    		setPosI(edificio.cantidades()[0]);
+    	}
     }
     public boolean getdebeCaer(){
     	return debeCaer;

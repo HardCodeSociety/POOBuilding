@@ -1,5 +1,4 @@
 package aplicacion;
-import java.util.*;
 
 /**
  * @author Andrés Felipe Pardo Mesa
@@ -8,6 +7,10 @@ import java.util.*;
  **/
 public class PartidaException extends Exception {
 	
+/**
+	 * 
+	 */
+private static final long serialVersionUID = 1L;
 public static final String IMPOSIBLEMOVER="Posicion fuera de rango del Edificio";
 public static final String NOEXISTEDIRECCION="La direccion no existe";
 public static final String ERRORSORPRESA="La sorpresa ya existe";

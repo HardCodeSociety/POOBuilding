@@ -5,23 +5,29 @@ import java.awt.*;
 import java.io.*;
 
 public class Edificio implements Serializable{
-  private ArrayList <Obstaculo> obstaculos;
+  
+  private static final long serialVersionUID = 1L;
+  private ArrayList<Sorpresa> sorpresas;
+  private ArrayList<Obstaculo> obstaculos;
   private ArrayList<Heroe> heroes;
   private ArrayList<ArrayList<Ventana>> ventanas;
   private int cantVentanas;
   private int cantPisos;
+  private int[] tiposPartida;
   private static Edificio edificio=null;
-  private Edificio(int cantPisos, int cantVentanas){
+  private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
     this.cantPisos=cantPisos;
     obstaculos=new  ArrayList<Obstaculo>();
     heroes=new ArrayList<Heroe>();
+    sorpresas=new ArrayList<Sorpresa>();
     ventanas=new ArrayList<ArrayList<Ventana>>();
+    this.tiposPartida=tiposPartida;
     inicio();
   }
-  public static Edificio demeEdificio(int cantPisos,int cantVentanas){
+  public static Edificio demeEdificio(int cantPisos,int cantVentanas,int[] tiposPartida){
     if (edificio==null){
-        edificio=new Edificio(cantPisos,cantVentanas);
+        edificio=new Edificio(cantPisos,cantVentanas,tiposPartida);
     }
     return edificio;
   }
@@ -29,32 +35,37 @@ public class Edificio implements Serializable{
     for(int i=0; i<cantPisos;i++){
       ArrayList<Ventana> ventanasPiso=new ArrayList<Ventana>();
       for(int j=0;j<cantVentanas;j++){
-         ventanasPiso.add(new Ventana());
+         ventanasPiso.add(new Ventana(2,i,j));
       }
       ventanas.add(ventanasPiso);
     }
-    heroes.add(new Heroe());
-    Heroe heroe=new Heroe();
-    heroe.setPosY(4);
+    Usuario heroe=new Usuario(this);
     heroes.add(heroe);
-  }
-  public ArrayList<Obstaculo> getObstaculos(){
-    return obstaculos;
-  }
-  public void setObstaculos(Obstaculo o){
-    obstaculos.add(o);
+    if(tiposPartida[0]==1)heroes.add(new Usuario(this));
+    else if (tiposPartida[1]==1)heroes.add(new Candy(this,heroe));
+    else heroes.add(new Calhoun(this,heroe));
+    obstaculos.add(new Ciguena(this));
+    obstaculos.add(new Pato(this));
+    obstaculos.add(new Ladrillo(this));
+    obstaculos.add(new Ladrillo(this));
+    obstaculos.add(new Ladrillo(this));
+    sorpresas.add(new Pastel(this));
+    sorpresas.add(new Kriptonita(this));
+    sorpresas.add(new Bebida(this));
   }
   public Heroe tomarHeroe(int numero){
     return heroes.get(numero-1);
   }
-  public void moverHeroe(int numero,int x,int y){
-   heroes.get(numero-1).mover(x,y);
-   if(numero==1){
-       heroes.get(numero).seTocan(heroes.get(numero-1));
-   }
-   else if(numero==2){
-      heroes.get(numero-2).seTocan(heroes.get(numero-1));
-   }
+  public void moverHeroe(int numero,char direccion){
+	   try{
+		  heroes.get(numero-1).mover(direccion);
+		  if(numero==1){
+			  heroes.get(numero).seTocan(heroes.get(numero-1));
+		  }
+		  else if(numero==2){
+			  heroes.get(numero-2).seTocan(heroes.get(numero-1));
+		  }
+	   }catch(PartidaException e){}
   }
   public int energiaHeroe(int numero){
     return heroes.get(numero-1).getEnergia();

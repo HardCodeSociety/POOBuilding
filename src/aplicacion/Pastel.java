@@ -1,18 +1,13 @@
 package aplicacion;
-import java.util.*;
-import java.lang.*;
+
 
 public class Pastel extends Sorpresa{
-  private int posX;
-  private int posY;
-  private ArrayList<Heroe> heroes = new ArrayList<Heroe>();
-  public Pastel(int posX, int posY){
-    super(posX,posY);
+	public Pastel(Edificio edificio){
+    super(edificio);
+    nombre="Pastel";
   }
-  public void efecto(Heroe h){
-    h.setBonificaciones("Pastel");
+  public void realizaEfecto(Heroe jugador)throws PartidaException{
+	  jugador.hacerRapido(nombre);
   }
-  public String getNombre(){
-    return "Pastel";
-  }
+
 }

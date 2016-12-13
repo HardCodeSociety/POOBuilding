@@ -1,5 +1,4 @@
-	package aplicacion;
-import java.util.*;
+package aplicacion;
 /**
 *Clase Ventana
 *@autor Andres Felipe Pardo Mesa
@@ -9,18 +8,27 @@ public class Ventana {
 	private boolean reparada;
 	private int numVidrios;
 	private int vidriosReparados;
-	private boolean tieneVecino;
-	private boolean tieneSorpresa;
 	private boolean esPuerta;
 	private boolean conSorpresa;
+	private boolean esCentral;
+	private int posI;
+	private int posJ;
+	private boolean barreraVertical;
+	private boolean barreraHorizontal;
 	/**
 	 * Creador de la clase Ventana
 	 */
-	public Ventana(){
+	public Ventana(int numVidrios,int posI,int posJ){
+		this.posI=posI;
+		this.posJ=posJ;
 		reparada=false;
-		numVidrios= 2;
+		this.numVidrios= numVidrios;
 		vidriosReparados=0;
 		esPuerta=false;
+		conSorpresa=false;
+		esCentral=false;
+		barreraVertical=false;
+		barreraHorizontal=false;
 		}
 	/**
 	 * Nos permite saber la cantidad de vidrios por reparar.
@@ -37,6 +45,12 @@ public class Ventana {
 		if (vidriosReparar()==0)
 			reparada=true;
 	}
+	public void romper(){
+		if(reparada){
+			vidriosReparados=0;
+			reparada=false;
+		}
+	}
 	public void reparaRapido(){
 		reparada=true;
 	}
@@ -47,6 +61,45 @@ public class Ventana {
 	public boolean estaReparada(){
 		return reparada;
 	}
-
-
+	public void esCentral(boolean resp){
+		esCentral=resp;
+	}
+	public void conBarrera(char sentido,boolean resp)throws PartidaException{
+		if(sentido=='H')barreraHorizontal=resp;
+		else if(sentido=='V')barreraVertical=resp;
+		else
+			throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
+	}
+	public boolean puerta(){
+		return  esPuerta;
+	}
+	public boolean central(){
+		return esCentral;
+	}
+	public void conSorpresa(boolean resp){
+		conSorpresa=resp;
+	}
+	public boolean  sorpresa(){
+		return conSorpresa;
+	}
+	public boolean barrera(char sentido)throws PartidaException{
+		boolean resp=false;
+		if(sentido=='H')resp=barreraHorizontal;
+		else if(sentido=='V')resp=barreraVertical;
+		else
+			throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
+		return resp;
+	}
+	public void setPosJ(int nPosJ){
+	     posJ=nPosJ;
+	}
+	public void setPosI(int nPosI){
+		posI=nPosI;
+	}
+	public int[] getPosicion(){
+	    int [] coordenadas = new int[2];
+	  	coordenadas[0]=posI;
+	  	coordenadas[1]=posJ;
+	  	return coordenadas;
+	}
 }
