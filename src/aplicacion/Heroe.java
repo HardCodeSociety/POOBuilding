@@ -47,12 +47,10 @@ public abstract class Heroe {
         esInmune=false;
     }
     public void mover(char direccion) throws PartidaException{
-    	//debeCaer=false;
-    	//esInmune();
-    	//removerBonificaciones(subenEnergia);
-    	boolean resp=true;
-    			//puedeMoverse(direccion);
-    	//System.out.println(direccion);
+    	debeCaer=false;
+    	esInmune();
+    	removerBonificaciones(subenEnergia);
+    	boolean resp=puedeMoverse(direccion);
     	if(direccion=='U'){
     		if(posI+1>edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
     		if(esRapido) {
@@ -88,22 +86,13 @@ public abstract class Heroe {
     	}
     }
     protected void mover(int posI,int posJ)throws PartidaException{
-    //if(!gameOver){
-    			System.out.println("enHeore");
-    			System.out.println(posI);
-    			System.out.println(posJ);
-    			if(energia<50){
-    				esLento=true;
-    			}
+    if(!gameOver){
     			this.posI=posI;
     			this.posJ=posJ;
-    			System.out.println("DESPUES");
-    			System.out.println(posI);
-    			System.out.println(posJ);
     			setEnergia(energia-1);
     			debeMorir();
-    			//automatico();
-    	//}
+    			automatico();
+    	}
    }
    protected boolean puedeMoverse(char direccion)throws PartidaException{
 	   boolean resp=true;
@@ -175,7 +164,9 @@ public abstract class Heroe {
 
    public void debeMorir() throws PartidaException{
       if(!esInmune){
-        setVidas(vidas-1);
+    	if(energia==0){
+    		setVidas(vidas-1);    		
+    	}
         if (vidas==0){
             gameOver=true;
    			setEnergia(100);
@@ -183,16 +174,13 @@ public abstract class Heroe {
       }
     }
 
-    public void setEnergia(int energia)throws PartidaException {
-      if (energia>100||energia<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
+    public void setEnergia(int energia){ 
       this.energia=energia;
     }
-    public void setPuntaje(int puntaje)throws PartidaException{
-    	if(puntaje<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
+    public void setPuntaje(int puntaje){
     	this.puntos=puntaje;
     }
-    public void setVidas(int vidas)throws PartidaException{
-    	if(vidas>3||vidas<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
+    public void setVidas(int vidas){
     	this.vidas=vidas;
     }
     public void esInmune(){
@@ -213,11 +201,11 @@ public abstract class Heroe {
     }
     public void seTocan(Heroe heroe2)throws PartidaException{
     	if(!gameOver){  
-    		int[] posicion1 = this.getPosicion();
+   			int[] posicion1 = this.getPosicion();
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
     			debeCaer=true;
-    			debeCaer();
+    			debeCaer();    				
     			debeMorir();
     		}
     	}
@@ -231,9 +219,9 @@ public abstract class Heroe {
     	    else
     	    	posI=0;
     		if(energia-posI<0)
-    			setEnergia(0);
+    			energia=0;
     		else
-    			setEnergia(energia-posI);
+    			energia=energia-posI;
     	}
     }
     public void seGolpea(Obstaculo causa)throws PartidaException{
@@ -250,6 +238,10 @@ public abstract class Heroe {
     	return gameOver;
     }    
     public boolean seMueveLento(){
+    	System.out.println(energia);
+    	if(energia<50)esLento=true;
+    	else   esLento=false;
+    	System.out.println(esLento);
         return esLento;
     }
     public int getPuntaje(){
@@ -272,9 +264,6 @@ public abstract class Heroe {
       }
      public int[] getPosicion(){
          int [] coordenadas = new int[2];
-         	System.out.println("posicion");
-         	System.out.println(this.posI);
-         	System.out.println(this.posJ);
      		coordenadas[0]=this.posI;
      		coordenadas[1]=this.posJ;
      		return coordenadas;

@@ -34,7 +34,6 @@ public class PantallaJuego extends JDialog {
     private JLabel ralph;
     private Timer tiempo ;
     private TimerTask task;
-    private TimerTask task2;
     private int parar=0;
     private int principal=0;
     private JLabel jugador1;
@@ -241,7 +240,6 @@ public class PantallaJuego extends JDialog {
                             animacionRalphDestruye();
                         }else{
                         	jugar=true;
-                        	pararAnimacion();
                             actualizar();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
                         }
@@ -302,7 +300,7 @@ public class PantallaJuego extends JDialog {
 			     new WindowAdapter(){
                         @Override
 				         public void windowClosing(WindowEvent e){
-                                    System.out.println("entra");
+                               
 					              cerrarVentana();
 				          }
 			    }
@@ -361,7 +359,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_D){
-                        mover(2,'D');
+                        mover(2,'R');
                     } 
                 }
             }   
@@ -467,7 +465,8 @@ public class PantallaJuego extends JDialog {
         jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
     }   
     private void reparar(int jugador){
-         if(jugador==1){
+    	partida.repara(jugador);
+        if(jugador==1){
           jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
         }else{
           jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
@@ -491,10 +490,16 @@ public class PantallaJuego extends JDialog {
         if(pos[0]!=0){
             int i=ventanas.get(pos[0]-1).get(pos[1]).getX();
             int j=ventanas.get(pos[0]-1).get(pos[1]).getY();
-            jugador.setLocation(i+45,(j+7)-(pos[0]-1*2));
+            if(estados[3]==1)
+            	for (int r=0;r<7;r++)jugador.setLocation(i+38+r,(j+r)-(pos[0]-1*2));
+            else jugador.setLocation(i+45,(j+7)-(pos[0]-1*2));
         }else{
             int i=ventanas.get(pos[0]).get(pos[1]).getX();
-            jugador.setLocation(i+45,420);
+            if(estados[3]==1){
+            	for (int r=0;r<7;r++)jugador.setLocation(i+38+r,413+r);
+            	System.out.println("entro");
+            }
+            else jugador.setLocation(i+45,420);
         }
     }
     private void actualiceEstado(int jugador){
