@@ -1,4 +1,5 @@
 package presentacion;
+import aplicacion.Edificio;
 import aplicacion.Partida;
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +40,7 @@ public class PantallaJuego extends JDialog {
     private JLabel jugador1;
     private JLabel jugador2;
     private int animacion;
-    private boolean jugar=true;
+    private boolean jugar=false;
     private String rutaColor1;
     private String rutaColor2;
     private Partida partida;
@@ -153,6 +154,7 @@ public class PantallaJuego extends JDialog {
     }
     private void elementosPanelJuego(){
         prepareJugador1();
+        prepareObstaculos();
         prepareJugador2();
         prepareRalph();
         prepareVentanas();
@@ -229,12 +231,25 @@ public class PantallaJuego extends JDialog {
             factorY=factorY-(95+(i*10));
         }
     }
+   private void romperVentanas(){
+        for(int i=0;i<3;i++){
+            for(int j=0;j<5;j++){
+                if (i==0 && j==2){
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/puertaRota.png"));
+                }else if (i==1 && j==2){
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaCentroRota.png"));
+                }else{
+                    ventanas.get(i).get(j).setIcon(new ImageIcon("imagenes/ventanaRota.png"));
+                }
+            }
+        }
+    }
     private void animacionRalph(){
         animacion=0;
         tiempo = new Timer();
         task = new TimerTask() {
                public void run() {
-            	   if(gameOver)pararAnimacion();
+            	   //if(gameOver)pararAnimacion();
                    parar+=1;
                    principal+=1;
                    if (parar>1){
@@ -248,6 +263,7 @@ public class PantallaJuego extends JDialog {
                         }else if(parar<=42){
                             animacionRalphDestruye();
                         }else{
+                        	romperVentanas();
                         	jugar=true;
                             actualizar();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
@@ -258,17 +274,18 @@ public class PantallaJuego extends JDialog {
            tiempo.schedule(task,0,400); 
     }
     private void actualizar(){
-    	//gameOver=partida.finalizar();
-    	//partida.cargarElementos();
+    	//actualiceEdificio();
     	actualiceJugadores();
-    	//actualiceObstaculos();
-    	//actualiceSorpresas();
-    	//actualiceVentanas();
-
+    	actualiceObstaculos();
+    	actualiceSorpresas();
+    	
 
     }
+    private void actualiceEdificio(){
+    	gameOver=partida.finalizar();
+    }
     private void actualiceVentanas(){
-    	for(int i=0;i<4;i++){
+    	for(int i=0;i<3;i++){
     		for(int j=0; j<5; j++){
     			String estado=partida.estadoVentanas(i,j);
     			ImageIcon icon= new ImageIcon("Imagenes/"+estado);
@@ -279,7 +296,7 @@ public class PantallaJuego extends JDialog {
     private void actualiceSorpresas(){
     	prepareSorpresas();
     	for (int i=0; i<3; i++){
-    		Boolean estado=partida.estadoSorpresa(i);
+    		Boolean estado=partida.estadoSorpresa(i+1);
     		if(estado){
     			ImageIcon icon= new ImageIcon("Sorpresas/"+Integer.toString(i)+".png");
     			sorpresas.get(i).setIcon(icon);
@@ -288,9 +305,9 @@ public class PantallaJuego extends JDialog {
     	}
     }
     private void actualiceObstaculos(){
-    	prepareObstaculos();
+    	
     	for(int i=0; i<5; i++){
-    		Boolean  estado= partida.estadoObstaculo(i);
+    		Boolean  estado= partida.estadoObstaculo(i+1);
     		if(estado){
     			ImageIcon icon= new ImageIcon("Obstaculos/"+Integer.toString(i)+".png");
     			obstaculos.get(i).setIcon(icon);
@@ -506,7 +523,6 @@ public class PantallaJuego extends JDialog {
     public void mover(int jugador,char direccion){
         if(jugar){
         	partida.moverHeroe(jugador,direccion);
-        	actualizar();
         }
      }
     private void pausaJuego(){
@@ -525,14 +541,24 @@ public class PantallaJuego extends JDialog {
         jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
     }   
     private void reparar(int jugador){
-    	partida.repara(jugador);
-        if(jugador==1){
-          jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
-        }else{
-          jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
-        }
-        actualizar();
-    }
+    	  ImageIcon icono=null;
+          int[] posicion=partida.posicionJugador(jugador);
+          if (posicion[0]!=0){
+              partida.repara(jugador);
+              int cantidadVidrios=partida.vidriosSinReparar(posicion[0]-1,posicion[1]);
+              if (cantidadVidrios==1){
+                  icono=new ImageIcon("imagenes/ventanaRota2.png");        
+              }else if(cantidadVidrios==0){
+                  icono=new ImageIcon("imagenes/ventana.png");
+              }
+              ventanas.get(posicion[0]-1).get(posicion[1]).setIcon(icono);    
+          	}
+          	if(jugador==1){
+          		jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
+          	}else{
+          		jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
+          }
+      }
     private void actualizarPos(JLabel jugador,String ruta){
         int[] pos,estados;
         if(jugador.equals(jugador1)){
@@ -557,7 +583,6 @@ public class PantallaJuego extends JDialog {
             int i=ventanas.get(pos[0]).get(pos[1]).getX();
             if(estados[3]==1){
             	for (int r=0;r<7;r++)jugador.setLocation(i+38+r,413+r);
-            	System.out.println("entro");
             }
             else jugador.setLocation(i+45,420);
         }
@@ -568,13 +593,13 @@ public class PantallaJuego extends JDialog {
         if (jugador==1){
             energia1.setValue(estados[0]);
             puntaje1.setText(Integer.toString(estados[1]));
-            //vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
-            //poderes1.setIcon(new ImageIcon("poderes/"+poderes));
+            vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            poderes1.setIcon(new ImageIcon("poderes/"+poderes));
         }else{
         	energia2.setValue(estados[0]);
             puntaje2.setText(Integer.toString(estados[1]));
-            //vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
-            //poderes2.setIcon(new ImageIcon("poderes/"+poderes));
+            vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            poderes2.setIcon(new ImageIcon("poderes/"+poderes));
         }
     }
     

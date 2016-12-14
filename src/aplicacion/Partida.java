@@ -8,13 +8,11 @@ public class Partida implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Edificio edificio;
-	private boolean gameOver; 
+	private Edificio edificio; 
 	private static Partida partida;
 	
 	private Partida(int cantPisos, int cantVentanas,int[] tiposPartida){
 		    edificio=Edificio.demeEdificio(cantPisos, cantVentanas, tiposPartida);
-		    gameOver=false;
 		  }
 	public static Partida demePartida(int cantPisos, int cantVentanas,int[] tiposPartida){
 		if (partida==null){
@@ -44,13 +42,6 @@ public class Partida implements Serializable{
 		else resp=resp+"0.";
 		return resp;
 		
-	}
-	public void cargarElementos(){
-		edificio.aumentarNivel();
-		edificio.cargargameOver();
-		edificio.cargarObstaculos();
-		edificio.cargarSorpresas();
-		gameOver=edificio.gameOver();
 	}
 	public int[] posicionJugador(int jugador){
 		return edificio.tomarHeroe(jugador).getPosicion();
@@ -92,13 +83,17 @@ public class Partida implements Serializable{
 		return posicion;
 	} 
 	public boolean estadoObstaculo(int obstaculo){
+		edificio.cargarSorpresas();
 		return edificio.obstaculo(obstaculo).visible();
 	}
 	public boolean estadoSorpresa(int sorpresa){
+		edificio.cargarObstaculos();
 		return edificio.sorpresa(sorpresa).visible();
 	}
 	public boolean finalizar(){
-		return gameOver;
+		edificio.aumentarNivel();
+		edificio.cargargameOver();
+		return edificio.gameOver();
 	}
 	public void moverHeroe(int numero,char direccion){
 		edificio.moverHeroe(numero, direccion);
@@ -109,5 +104,8 @@ public class Partida implements Serializable{
     public Edificio getEdificio(){
     	return edificio;
     }
+    public int vidriosSinReparar(int i,int j){
+        return edificio.vidriosSinReparar(i, j);
+   }
     
 }

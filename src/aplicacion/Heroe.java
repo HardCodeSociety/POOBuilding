@@ -238,10 +238,8 @@ public abstract class Heroe {
     	return gameOver;
     }    
     public boolean seMueveLento(){
-    	System.out.println(energia);
     	if(energia<50)esLento=true;
     	else   esLento=false;
-    	System.out.println(esLento);
         return esLento;
     }
     public int getPuntaje(){

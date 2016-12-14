@@ -190,6 +190,10 @@ public class Edificio implements Serializable{
   public Sorpresa sorpresa(int sorpresa){
 	  return sorpresas.get(sorpresa-1);
   }
+  public int vidriosSinReparar(int i,int j){
+      
+      return ventanas.get(i).get(j).vidriosReparar();
+ }
 }
 
 
