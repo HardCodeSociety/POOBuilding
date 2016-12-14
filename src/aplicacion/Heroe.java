@@ -47,9 +47,12 @@ public abstract class Heroe {
         esInmune=false;
     }
     public void mover(char direccion) throws PartidaException{
-    	esInmune();
-    	removerBonificaciones(subenEnergia);
-    	boolean resp=puedeMoverse(direccion);
+    	//debeCaer=false;
+    	//esInmune();
+    	//removerBonificaciones(subenEnergia);
+    	boolean resp=true;
+    			//puedeMoverse(direccion);
+    	//System.out.println(direccion);
     	if(direccion=='U'){
     		if(posI+1>edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
     		if(esRapido) {
@@ -58,14 +61,14 @@ public abstract class Heroe {
     		}
     		if(resp)mover(posI+1,posJ);
     	}else if(direccion=='D'){
-    		if(posI-1<edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(posI-1<0)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
     		if(esRapido) {
     			esRapido=false;
     			removerBonificaciones(hacenRapido);
     		}
     		if(resp)mover(posI-1,posJ);
     	}else if(direccion=='L'){
-    		if(posJ-1<(edificio.cantidades()[1])-1)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
+    		if(posJ-1<0)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
     		if(resp)mover(posI,posJ-1);
     	}else if(direccion=='R'){
     		if(posJ+1>(edificio.cantidades()[1])-1)throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
@@ -85,20 +88,26 @@ public abstract class Heroe {
     	}
     }
     protected void mover(int posI,int posJ)throws PartidaException{
-    	if(!gameOver){
+    //if(!gameOver){
+    			System.out.println("enHeore");
+    			System.out.println(posI);
+    			System.out.println(posJ);
     			if(energia<50){
     				esLento=true;
     			}
     			this.posI=posI;
     			this.posJ=posJ;
+    			System.out.println("DESPUES");
+    			System.out.println(posI);
+    			System.out.println(posJ);
     			setEnergia(energia-1);
     			debeMorir();
-    			automatico();
-    	}
+    			//automatico();
+    	//}
    }
    protected boolean puedeMoverse(char direccion)throws PartidaException{
-	   boolean resp=false;
-	   if(posI>0){
+	   boolean resp=true;
+	   /**if(posI>0){
 		   Ventana ventana=edificio.ventana(posI-1, posJ);
 		   Ventana ventana2;
 		   if(direccion=='U'){
@@ -114,7 +123,7 @@ public abstract class Heroe {
    		   }else{
    			   throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
    		   }
-	   }
+	   }**/
 	   return resp;
    }
    
@@ -209,7 +218,6 @@ public abstract class Heroe {
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
     			debeCaer=true;
     			debeCaer();
-    			debeCaer=false;
     			debeMorir();
     		}
     	}
@@ -250,6 +258,9 @@ public abstract class Heroe {
      public int getVidas(){
         return vidas;
      }
+     public boolean caer(){
+    	 return debeCaer;
+     }
      public void setPosJ(int nPosJ){
        posJ=nPosJ;
      }
@@ -261,8 +272,11 @@ public abstract class Heroe {
       }
      public int[] getPosicion(){
          int [] coordenadas = new int[2];
-     		coordenadas[0]=posI;
-     		coordenadas[1]=posJ;
+         	System.out.println("posicion");
+         	System.out.println(this.posI);
+         	System.out.println(this.posJ);
+     		coordenadas[0]=this.posI;
+     		coordenadas[1]=this.posJ;
      		return coordenadas;
      }
      public int getEnergia(){

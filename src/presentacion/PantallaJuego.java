@@ -40,7 +40,7 @@ public class PantallaJuego extends JDialog {
     private JLabel jugador1;
     private JLabel jugador2;
     private int animacion;
-    private boolean jugar=false;
+    private boolean jugar=true;
     private String rutaColor1;
     private String rutaColor2;
     private Partida partida;
@@ -240,9 +240,10 @@ public class PantallaJuego extends JDialog {
                         }else if(parar<=42){
                             animacionRalphDestruye();
                         }else{
+                        	jugar=true;
+                        	pararAnimacion();
                             actualizar();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
-                            jugar=true;
                         }
                    }
                }
@@ -250,8 +251,17 @@ public class PantallaJuego extends JDialog {
            tiempo.schedule(task,0,400); 
     }
     private void actualizar(){
+    	//gameOver=partida.finalizar();
+    	//partida.cargarElementos();
     	actualiceJugadores();
+    	//actualiceVentanas();
+    	//actualiceSorpresas();
+    	//actualiceObstaculos();
     }
+    private void actualiceVentanas(){}
+    private void actualiceSorpresas(){}
+    private void actualiceObstaculos(){}
+    
     private void animacionRalphLenvantaBrazos(){
         ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
         ImageIcon icono2=new ImageIcon("imagenes/ralph/2.png");
@@ -286,7 +296,7 @@ public class PantallaJuego extends JDialog {
         tiempo.cancel();
             task.cancel();
 
-    }
+    }           
     public void prepareAcciones(){
          addWindowListener (
 			     new WindowAdapter(){
@@ -311,11 +321,7 @@ public class PantallaJuego extends JDialog {
         );
 
         prepareAccionesJugador1();
-        if (tipoDeJuego==1){
-        prepareAccionesJugador2();
-        }else{
-            juegoMaquina(tipoMaquina);
-        }
+        if (tipoDeJuego==1)prepareAccionesJugador2();        	
     }
     public void prepareAccionesJugador2(){
          addKeyListener(
@@ -323,7 +329,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if(e.getKeyCode()==KeyEvent.VK_W){
-                        moverArriba(2);
+                        mover(2,'U');
                     } 
                 }
             }
@@ -333,7 +339,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_S){
-                        moverAbajo(2);
+                        mover(2,'D');
                     } 
                 }
             }   
@@ -344,7 +350,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_A){
-                        moverIzquierda(2);
+                        mover(2,'L');
                     } 
                 }
             }   
@@ -355,7 +361,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_D){
-                        moverDerecha(2);
+                        mover(2,'D');
                     } 
                 }
             }   
@@ -381,7 +387,8 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_UP){
-                        moverArriba(1);
+                        mover(1,'U');
+                        actualizar();
                     } 
                 }
             }   
@@ -392,7 +399,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_DOWN){
-                        moverAbajo(1);
+                        mover(1,'D');
                     } 
                 }
             }   
@@ -403,7 +410,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_LEFT){
-                        moverIzquierda(1);
+                        mover(1,'L');
                     } 
                 }
             }   
@@ -414,7 +421,7 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_RIGHT){
-                        moverDerecha(1);
+                        mover(1,'R');
                     } 
                 }
             }   
@@ -438,39 +445,12 @@ public class PantallaJuego extends JDialog {
 				setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 			}
 	}
-    public void moverArriba(int jugador){
+    public void mover(int jugador,char direccion){
         if(jugar){
-            if(jugador==1){
-                 
-            }else if (jugador==2){
-                
-            }
-            //actualice();
+        	partida.moverHeroe(jugador,direccion);
+        	actualizar();
         }
-    }
-    private void moverAbajo(int  jugador){
-         if(jugar){
-            if(jugador==1){
-            }else if (jugador==2){
-            }
-          }
-            actualizar();
-        }
-    private void moverIzquierda(int jugador){
-        if(jugar){
-            if(jugador==1){
-                           }
-            }else if (jugador==2){
-                       }
-    }
-    private  void moverDerecha(int jugador){
-         if(jugar){
-            if(jugador==1){
-                                 }
-            }else if (jugador==2){
-                    
-            }
-    }
+     }
     private void pausaJuego(){
 
     }
@@ -479,10 +459,12 @@ public class PantallaJuego extends JDialog {
     }
 
     private void actualiceJugadores(){
-        //actualizarPos(jugador1,rutaColor1);
+        actualizarPos(jugador1,rutaColor1);
         actualiceEstado(1);
-        //actualizarPos(jugador2,rutaColor2);
+        jugador1.setIcon(new ImageIcon(rutaColor1+"1.png"));
+        actualizarPos(jugador2,rutaColor2);
         actualiceEstado(2);
+        jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
     }   
     private void reparar(int jugador){
          if(jugador==1){
@@ -492,52 +474,45 @@ public class PantallaJuego extends JDialog {
         }
         actualizar();
     }
-    /**
     private void actualizarPos(JLabel jugador,String ruta){
-        int[] pos;
-        int numJugador;
+        int[] pos,estados;
         if(jugador.equals(jugador1)){
-            pos=edificio.posicionHeroe(1);
-             numJugador=1;
+        	estados=partida.estadoJugador(1);
+            pos=partida.posicionJugador(1);
         }else{
-             pos=edificio.posicionHeroe(2);
-             numJugador=2;
+        	estados=partida.estadoJugador(2);
+            pos=partida.posicionJugador(2);
+        }
+        if (estados[4]==1){
+            jugador.setIcon(new ImageIcon(ruta+"3.png"));
+        }else{
+        	jugador.setIcon(new ImageIcon(ruta+"2.png"));
         }
         if(pos[0]!=0){
-            int x=ventanas.get(pos[0]-1).get(pos[1]).getX();
-            int y=ventanas.get(pos[0]-1).get(pos[1]).getY();
-            if (edificio.estaCastigado(numJugador)){
-                jugador.setIcon(new ImageIcon(ruta+"3.png"));
-            }else{
-            jugador.setIcon(new ImageIcon(ruta+"2.png"));
-            }
-            jugador.setLocation(x+45,(y+7)-(pos[0]-1*2));
-            jugador.setIcon(new ImageIcon(ruta+"1.png"));
+            int i=ventanas.get(pos[0]-1).get(pos[1]).getX();
+            int j=ventanas.get(pos[0]-1).get(pos[1]).getY();
+            jugador.setLocation(i+45,(j+7)-(pos[0]-1*2));
         }else{
-             int x=ventanas.get(pos[0]).get(pos[1]).getX();
-            if (edificio.estaCastigado(numJugador)){
-                jugador.setIcon(new ImageIcon(ruta+"3.png"));
-            }else{
-            jugador.setIcon(new ImageIcon(ruta+"2.png"));
-            }
-            jugador.setLocation(x+45,420);
-            jugador.setIcon(new ImageIcon(ruta+"1.png"));
+            int i=ventanas.get(pos[0]).get(pos[1]).getX();
+            jugador.setLocation(i+45,420);
         }
     }
-    **/
     private void actualiceEstado(int jugador){
         int[] estados=partida.estadoJugador(jugador);
+        String poderes=partida.estadoPoder(jugador);
         if (jugador==1){
             energia1.setValue(estados[0]);
             puntaje1.setText(Integer.toString(estados[1]));
-            vidas1.setIcon(new ImageIcon(Integer.toString(estados[2])+".png"));
+            //vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            //poderes1.setIcon(new ImageIcon("poderes/"+poderes));
         }else{
         	energia2.setValue(estados[0]);
             puntaje2.setText(Integer.toString(estados[1]));
-            vidas2.setIcon(new ImageIcon(Integer.toString(estados[2])+".png"));
+            //vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            //poderes2.setIcon(new ImageIcon("poderes/"+poderes));
         }
     }
-
+    
 
 
 

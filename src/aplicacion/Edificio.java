@@ -45,10 +45,14 @@ public class Edificio implements Serializable{
       }
       ventanas.add(ventanasPiso);
     }
-    Usuario heroe=new Usuario(this);
-    heroes.add(heroe);
-    if(tiposPartida[0]==1)heroes.add(new Usuario(this));
-    else if (tiposPartida[1]==1)heroes.add(new Candy(this,heroe));
+    //Usuario heroe=new Usuario(this);
+    //heroes.add(heroe);
+    heroes.add(new Usuario(this));
+    if(tiposPartida[0]==1){
+    	heroes.add(new Usuario(this));
+    }
+    heroes.get(1).setPosJ(cantVentanas-1);
+    /**else if (tiposPartida[1]==1)heroes.add(new Candy(this,heroe));
     else heroes.add(new Calhoun(this,heroe));
     obstaculos.add(new Ciguena(this));
     obstaculos.add(new Pato(this));
@@ -58,17 +62,14 @@ public class Edificio implements Serializable{
     sorpresas.add(new Pastel(this));
     sorpresas.add(new Kriptonita(this));
     sorpresas.add(new Bebida(this));
-    ponerBarreras();
+    ponerBarreras();**/
   }
   private void ponerBarreras(){
 	  Random rand= new Random();
 	  for(int i=0;i<(nivel*2);i++){
 		  char sentido;
 		  int posI=(int)(rand.nextDouble()*(cantPisos-1));
-		  System.out.println(posI);
-		  
 		  int posJ=(int)(rand.nextDouble()*(cantVentanas-1));
-		  System.out.println(posJ);
 		  int opcion=(int)(rand.nextDouble()*2+1);
 		  if (opcion==1)sentido='H';
 		  else sentido='V';
@@ -92,7 +93,7 @@ public class Edificio implements Serializable{
 	  	  else heroes.get(numero-1).seTocan(heroes.get(numero-2));
    	  }
 	  		  
-   }catch(PartidaException e){}
+   }catch(PartidaException e){System.out.println("sfdsf");}
   }
   public Heroe tomarHeroe(int numero){
 	  return heroes.get(numero-1);

@@ -23,10 +23,14 @@ public class Partida implements Serializable{
 		return partida;
 	}
 	public int[] estadoJugador(int jugador){
-		int[] estado=new int[3];
+		int[] estado=new int[5];
 		estado[0]=edificio.tomarHeroe(jugador).getEnergia();
 		estado[1]=edificio.tomarHeroe(jugador).getPuntaje();
 		estado[2]=edificio.tomarHeroe(jugador).getVidas();
+		if(edificio.tomarHeroe(jugador).seMueveLento())estado[3]=1;
+		else estado[3]=0;
+		if(edificio.tomarHeroe(jugador).caer())estado[4]=1;
+		else estado[4]=0;
 		return estado;
 	}
 	public String estadoPoder(int jugador){
