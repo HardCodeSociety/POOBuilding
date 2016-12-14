@@ -265,7 +265,7 @@ public class PantallaJuego extends JDialog {
                         }else{
                         	romperVentanas();
                         	jugar=true;
-                            actualizar();
+                            pararAnimacion();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
                         }
                    }
@@ -523,6 +523,7 @@ public class PantallaJuego extends JDialog {
     public void mover(int jugador,char direccion){
         if(jugar){
         	partida.moverHeroe(jugador,direccion);
+        	actualizar();
         }
      }
     private void pausaJuego(){
@@ -558,6 +559,7 @@ public class PantallaJuego extends JDialog {
           	}else{
           		jugador2.setIcon(new ImageIcon(rutaColor2+"3.png"));
           }
+          actualizar();
       }
     private void actualizarPos(JLabel jugador,String ruta){
         int[] pos,estados;
@@ -599,7 +601,7 @@ public class PantallaJuego extends JDialog {
         	energia2.setValue(estados[0]);
             puntaje2.setText(Integer.toString(estados[1]));
             vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
-            poderes2.setIcon(new ImageIcon("poderes/"+poderes));
+            poderes2.setIcon(new ImageIcon("sorpresas/"+poderes+".png"));
         }
     }
     
