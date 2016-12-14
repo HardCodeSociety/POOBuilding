@@ -15,6 +15,7 @@ public class Edificio implements Serializable{
   private static Edificio edificio=null;
   private int nivel;
   private boolean gameOver;
+  private ArrayList<Ventana> ventanasPiso;
   
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
@@ -36,7 +37,7 @@ public class Edificio implements Serializable{
   }
   public void inicio(){
     for(int i=0; i<cantPisos;i++){
-      ArrayList<Ventana> ventanasPiso=new ArrayList<Ventana>();
+      ventanasPiso=new ArrayList<Ventana>();
       for(int j=0;j<cantVentanas;j++){
     	 Ventana ventana=new Ventana(2,i,j);
          ventanasPiso.add(ventana);
@@ -47,9 +48,12 @@ public class Edificio implements Serializable{
     }
     Usuario heroe=new Usuario(this);
     heroes.add(heroe);
-    if(tiposPartida[0]==1)heroes.add(new Usuario(this));
-    else if (tiposPartida[1]==1)heroes.add(new Candy(this,heroe));
-    else heroes.add(new Calhoun(this,heroe));
+    if(tiposPartida[0]==1){
+    	Usuario heroe2=new Usuario(this);
+    	heroes.add(heroe2);
+    }else if (tiposPartida[1]==1){
+    	heroes.add(new Candy(this,heroe));
+    }else {heroes.add(new Calhoun(this,heroe));}
     obstaculos.add(new Ciguena(this));
     obstaculos.add(new Pato(this));
     obstaculos.add(new Ladrillo(this));
@@ -65,10 +69,7 @@ public class Edificio implements Serializable{
 	  for(int i=0;i<(nivel*2);i++){
 		  char sentido;
 		  int posI=(int)(rand.nextDouble()*(cantPisos-1));
-		  System.out.println(posI);
-		  
 		  int posJ=(int)(rand.nextDouble()*(cantVentanas-1));
-		  System.out.println(posJ);
 		  int opcion=(int)(rand.nextDouble()*2+1);
 		  if (opcion==1)sentido='H';
 		  else sentido='V';
@@ -185,6 +186,9 @@ public class Edificio implements Serializable{
   }
   public Sorpresa sorpresa(int sorpresa){
 	  return sorpresas.get(sorpresa-1);
+  }
+  public ArrayList<Heroe> getHeroes(){
+	  return heroes;
   }
 }
 
