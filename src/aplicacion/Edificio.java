@@ -2,8 +2,11 @@ package aplicacion;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Clase Edificio
+ */
 public class Edificio implements Serializable{
-  
+  //Atributos de la clase Edificio
   private static final long serialVersionUID = 1L;
   private ArrayList<Sorpresa> sorpresas;
   private ArrayList<Obstaculo> obstaculos;
@@ -16,7 +19,12 @@ public class Edificio implements Serializable{
   private int nivel;
   private boolean gameOver;
   private ArrayList<Ventana> ventanasPiso;
-  
+  /**
+   * Constructor de la clase edificio
+   * @param cantPisos
+   * @param cantVentanas
+   * @param tiposPartida
+   */
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
     this.cantPisos=cantPisos;
@@ -29,12 +37,23 @@ public class Edificio implements Serializable{
     inicio();
     gameOver=false;
   }
+  /**
+   * Edificio, este metodo se encarga de crear el edificio proncipal
+   * @param cantPisos
+   * @param cantVentanas
+   * q@param tiposPardre
+   * @return Edificio, por favor guardarlo muy bien
+   *
+   */
   public static Edificio demeEdificio(int cantPisos,int cantVentanas,int[] tiposPartida){
     if (edificio==null){
         edificio=new Edificio(cantPisos,cantVentanas,tiposPartida);
     }
     return edificio;
   }
+  /**
+   * Inicio, es dondese inixiliza roso
+   */
   public void inicio(){
     for(int i=0; i<cantPisos;i++){
       ventanasPiso=new ArrayList<Ventana>();
@@ -65,6 +84,10 @@ public class Edificio implements Serializable{
     sorpresas.add(new Bebida(this));
     ponerBarreras();**/
   }
+  /**
+   * ponerBarreras, es el metodo encargado de poner las metas de toodo o mira
+   *
+   */
   private void ponerBarreras(){
 	  Random rand= new Random();
 	  for(int i=0;i<(nivel*2);i++){
@@ -75,10 +98,16 @@ public class Edificio implements Serializable{
 		  if (opcion==1)sentido='H';
 		  else sentido='V';
 		  try{
-			  ventanas.get(posI).get(posJ).conBarrera(sentido,true);			  
+			  ventanas.get(posI).get(posJ).conBarrera(sentido,true);
 		  }catch(PartidaException e){}
 	  }
   }
+  /**
+   * moverHeroe, es un metodo encargado de dar un movimento especial a el heroe
+   * mñaram numero
+   * @direccion cadena
+   *
+   */
   public void moverHeroe(int numero,char direccion){
    try{
 	  if(tiposPartida[0]==2){
@@ -90,16 +119,24 @@ public class Edificio implements Serializable{
 		  }
 	  }else{
 		  heroes.get(numero-1).mover(direccion);
-	  	  if(numero==1) heroes.get(numero-1).seTocan(heroes.get(numero));	  		  
+	  	  if(numero==1) heroes.get(numero-1).seTocan(heroes.get(numero));
 	  	  else heroes.get(numero-1).seTocan(heroes.get(numero-2));
    	  }
-	  		  
+
    }catch(PartidaException e){System.out.println("sfdsf");}
   }
+  /*
+   * tomerHeroe, toma un heroe en especifico del edificio
+   * @param numero int
+   * @return Heroe
+   */
   public Heroe tomarHeroe(int numero){
 	  return heroes.get(numero-1);
   }
-  
+  /**
+   * repara, es el metodo que nos permite reparar una ventana
+   * @param numero
+   */
   public void repara(int numero){
 	 Ventana ventana;
 	 try{
@@ -117,9 +154,12 @@ public class Edificio implements Serializable{
 					 heroes.get(numero-1).reparar(ventana);
 				 }
 	   	  }
-		  		  
+
 	  }catch(PartidaException e){}
   }
+  /**
+   *cargarObstaculos es un metodo que nos permite obtener todos los obstaculos disponibkes
+  */
   public void cargarObstaculos(){
 	  for(Obstaculo i:obstaculos){
 		  i.makeVisible();
@@ -129,6 +169,9 @@ public class Edificio implements Serializable{
 		  }catch(PartidaException e){}
 	  }
   }
+  /**
+   *cargarSorpresas es un metodo que nos permite obtener todos las sorpresas disponibkes
+  */
   public void cargarSorpresas(){
 	  for(Sorpresa i:sorpresas){
 		  i.makeVisible();
@@ -138,11 +181,18 @@ public class Edificio implements Serializable{
 		  }catch(PartidaException e){}
 	  }
   }
+  /**
+   * romperVentanas, es un meotodo el cual nos permite romper todas la ventanas de forma indirecto
+   */
   public void romperVentanas(){
 	  for(ArrayList<Ventana> i:ventanas)
 		  for(Ventana j:i)
 			  j.romper();
   }
+  /**
+   * verificaVentanas, es un meotdo que nos permite saber si todas las ventanas estan reparadas
+   * @return boolean
+   */
   private boolean verificaVentanas(){
 	  int i=0;
 	  int j=0;
@@ -156,41 +206,74 @@ public class Edificio implements Serializable{
 	  }
 	  return resp;
   }
+  /**
+   * hameOver, es un ovea que nos permite saber si el juego termino
+   * @return boolean
+   */
   public boolean gameOver(){
 	  return gameOver;
   }
+  /**
+   * aumentarNivel, me parece que es un metodo muy interesante
+   */
   public void aumentarNivel(){
 	  if(verificaVentanas())
 		  if(nivel==3) gameOver=true;
 		  else nivel+=1;
-	  
+
   }
+  /**
+   * cargargameOver, es un meotodo el cual consiste en calcular quien fue el mejor
+   *
+   */
   public void cargargameOver(){
 	  int i=0;
 	  while(i<2&&!gameOver)
 		  gameOver=heroes.get(i).estaMuerto();
 	  	  i+=1;
   }
+  /**
+   * ventana nos returna una ventana contenida en Edificio
+   * @return ventana
+   */
   public Ventana ventana(int i,int j){
 	  return ventanas.get(i).get(j);
   }
-
+  /**
+  * Cantidades,  es un metodo que nos da la cantidad de pisoso y ventanas del Edificio
+  * @return int[]
+  */
   public int[] cantidades(){
   	int[] cantidades={cantPisos,cantVentanas};
   	return cantidades;
   }
+  /**
+   * nivelDificultad, es in metodo que nos retorna el nivel actual en el juego
+   * @return reiv
+   */
   public int nivelDificultad(){
 	  return nivel;
   }
+  /**
+   * Obstaculo, nos retorna un obstaculo de los almacenados en Edificio
+   * @param obtracto
+   * @return Obstaculo
+   */
   public Obstaculo obstaculo(int obstaculo){
 	  return obstaculos.get(obstaculo-1);
   }
+  /**
+   * El metodo sorpresa es de los mejores, este retorna la sorpresa espeficicz
+   * @param Sorpresa+
+   */
   public Sorpresa sorpresa(int sorpresa){
 	  return sorpresas.get(sorpresa-1);
   }
+  /**
+   * hetHeroes, nos retorna los heroes almacenados en edificio
+   * @return ArrayList<Heroe>
+   */
   public ArrayList<Heroe> getHeroes(){
 	  return heroes;
   }
 }
-
-

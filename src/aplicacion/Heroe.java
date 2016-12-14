@@ -95,7 +95,7 @@ public abstract class Heroe {
     			}
     			this.posI=posI;
     			this.posJ=posJ;
-    		
+
     			setEnergia(energia-1);
     			debeMorir();
     			//automatico();
@@ -122,7 +122,7 @@ public abstract class Heroe {
 	   }**/
 	   return resp;
    }
-   
+
    protected void automatico()throws PartidaException{}
   /**
   *Este metodo permite a el Heroe reparar una ventana
@@ -154,12 +154,20 @@ public abstract class Heroe {
 	    	}
 	    }
    }
+   /**
+    * hacerRapido consta de un reparador de ventana
+    * @param sorpresa
+    */
    public void hacerRapido(String sorpresa)throws PartidaException{
 	   esRapido=true;
 	   if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
 	   bonificaciones.add(sorpresa);
 	   hacenRapido.add(sorpresa);
    }
+   /**
+    * hacerInmune, hace inmune al heroe por una cantidad de piso especificas
+    * @param sorpresa
+    */
    public void hacerInmune(String sorpresa)throws PartidaException{
 	   contInmunidad=0;
 	   esInmune=true;
@@ -167,7 +175,10 @@ public abstract class Heroe {
 	   bonificaciones.add(sorpresa);
 	   hacenInmune.add(sorpresa);
    }
-  
+  /**
+   * debeMorir, es un meotodo el cual nos permie sabe cuantas vidas lleva
+   *
+   */
 
    public void debeMorir() throws PartidaException{
       if(!esInmune){
@@ -178,19 +189,32 @@ public abstract class Heroe {
         }
       }
     }
-
+    /**setEnergia, es un metodo que nos permite modificar la energia por una introduicida
+    *@param energia int
+    */
     public void setEnergia(int energia)throws PartidaException {
       if (energia>100||energia<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
       this.energia=energia;
     }
+    /**
+     * setPuntaje, hace y realiza un cambio rn puntaje.
+     * @param puntaje int
+     */
     public void setPuntaje(int puntaje)throws PartidaException{
     	if(puntaje<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
     	this.puntos=puntaje;
     }
+    /**
+     * setVidas, se encarga de modificar las vidas actuales teniendo un valor introducido
+     * @param vidas int
+     */
     public void setVidas(int vidas)throws PartidaException{
     	if(vidas>3||vidas<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
     	this.vidas=vidas;
     }
+    /**
+     * esInmune, es una funcion que nos permite saber y retirar el valor de la inmunidad de un heroe
+     */
     public void esInmune(){
     	if(esInmune){
     		if(contInmunidad<2&&esInmune){
@@ -201,14 +225,22 @@ public abstract class Heroe {
     		}
     	}
     }
+    /**
+     * ganaEnergia, es un meotodo que nos permite ganar energia por medio de una bonificacion
+     * @param sorpresa String
+     */
     public void ganaEnergia(String sorpresa)throws PartidaException {
     	if(bonificaciones.contains(sorpresa))throw new PartidaException(PartidaException.ERRORSORPRESA);
     	if(energia<50)setEnergia(2*energia);
     	bonificaciones.add(sorpresa);
     	subenEnergia.add(sorpresa);
     }
+    /**
+     * seTocan, nos permite saber si dos heroes se intersecan
+     * @param heroe2 Heroe
+     */
     public void seTocan(Heroe heroe2)throws PartidaException{
-    	if(!gameOver){  
+    	if(!gameOver){
     		int[] posicion1 = this.getPosicion();
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
@@ -217,11 +249,14 @@ public abstract class Heroe {
     			debeMorir();
     		}
     	}
-    }	 
+    }
+    /**
+     * debeCaer es un metodo que nos permite saber si despues de una colision un heroe debe caer y re restamos de sus Atributos
+     */
     public void debeCaer()throws PartidaException{
     	if(debeCaer){
     		if(posI==0 && posJ>0)
-    			posJ-=1;  
+    			posJ-=1;
     	    else if (posI==0 && posJ==0)
     	    	posJ+=1;
     	    else
@@ -232,6 +267,9 @@ public abstract class Heroe {
     			setEnergia(energia-posI);
     	}
     }
+    /**
+     * seGolpea es un metod que nos hace recibir un golpe dependiendo del obstaculo que nos golpeo
+     */
     public void seGolpea(Obstaculo causa)throws PartidaException{
     	if(causa instanceof Pato)debeCaer();
     	else if(causa instanceof Ladrillo)setEnergia(energia-((edificio.cantidades()[0]+1)-posI));
@@ -242,9 +280,13 @@ public abstract class Heroe {
     	}
     }
     protected void ejecuta()throws PartidaException{}
+    /**
+     *estaMuerto nos dice si un heroe esta vivo o muerto
+     * @return boolean
+     */
     public boolean estaMuerto(){
     	return gameOver;
-    }    
+    }
     public boolean seMueveLento(){
         return esLento;
     }
