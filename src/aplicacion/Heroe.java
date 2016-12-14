@@ -89,10 +89,6 @@ public abstract class Heroe {
     if(!gameOver){
     			this.posI=posI;
     			this.posJ=posJ;
-<<<<<<< HEAD
-
-=======
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     			setEnergia(energia-1);
     			debeMorir();
     			automatico();
@@ -188,29 +184,6 @@ public abstract class Heroe {
         }
       }
     }
-<<<<<<< HEAD
-    /**setEnergia, es un metodo que nos permite modificar la energia por una introduicida
-    *@param energia int
-    */
-    public void setEnergia(int energia)throws PartidaException {
-      if (energia>100||energia<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
-      this.energia=energia;
-    }
-    /**
-     * setPuntaje, hace y realiza un cambio rn puntaje.
-     * @param puntaje int
-     */
-    public void setPuntaje(int puntaje)throws PartidaException{
-    	if(puntaje<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
-    	this.puntos=puntaje;
-    }
-    /**
-     * setVidas, se encarga de modificar las vidas actuales teniendo un valor introducido
-     * @param vidas int
-     */
-    public void setVidas(int vidas)throws PartidaException{
-    	if(vidas>3||vidas<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
-=======
 
     public void setEnergia(int energia){ 
       this.energia=energia;
@@ -219,7 +192,6 @@ public abstract class Heroe {
     	this.puntos=puntaje;
     }
     public void setVidas(int vidas){
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     	this.vidas=vidas;
     }
     /**
@@ -250,13 +222,8 @@ public abstract class Heroe {
      * @param heroe2 Heroe
      */
     public void seTocan(Heroe heroe2)throws PartidaException{
-<<<<<<< HEAD
-    	if(!gameOver){
-    		int[] posicion1 = this.getPosicion();
-=======
     	if(!gameOver){  
    			int[] posicion1 = this.getPosicion();
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
     			debeCaer=true;

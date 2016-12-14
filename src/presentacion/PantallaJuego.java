@@ -415,7 +415,7 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_S){
                         mover(2,'D');
-                    } 
+                  } 
                 }
             }   
 
@@ -595,21 +595,13 @@ public class PantallaJuego extends JDialog {
         if (jugador==1){
             energia1.setValue(estados[0]);
             puntaje1.setText(Integer.toString(estados[1]));
-            vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
-<<<<<<< HEAD
+            //vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes1.setIcon(new ImageIcon("poderes/"+poderes));
-=======
-            poderes1.setIcon(new ImageIcon("poderes/"+poderes));
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
         }else{
         	energia2.setValue(estados[0]);
             puntaje2.setText(Integer.toString(estados[1]));
-            vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
-<<<<<<< HEAD
+            //vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes2.setIcon(new ImageIcon("poderes/"+poderes));
-=======
-            poderes2.setIcon(new ImageIcon("sorpresas/"+poderes+".png"));
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
         }
     }
     

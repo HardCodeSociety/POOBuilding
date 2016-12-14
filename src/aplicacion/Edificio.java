@@ -18,7 +18,6 @@ public class Edificio implements Serializable{
   private static Edificio edificio=null;
   private int nivel;
   private boolean gameOver;
-<<<<<<< HEAD
   private ArrayList<Ventana> ventanasPiso;
   /**
    * Constructor de la clase edificio
@@ -26,9 +25,7 @@ public class Edificio implements Serializable{
    * @param cantVentanas
    * @param tiposPartida
    */
-=======
-  
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
+
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
     this.cantPisos=cantPisos;
@@ -122,13 +119,6 @@ public class Edificio implements Serializable{
 		  }
 	  }else{
 		  heroes.get(numero-1).mover(direccion);
-<<<<<<< HEAD
-	  	  if(numero==1) heroes.get(numero-1).seTocan(heroes.get(numero));
-	  	  else heroes.get(numero-1).seTocan(heroes.get(numero-2));
-   	  }
-
-   }catch(PartidaException e){System.out.println("sfdsf");}
-=======
 		  if(numero==1){
 		       heroes.get(numero).seTocan(heroes.get(numero-1));
 		   }
@@ -138,7 +128,6 @@ public class Edificio implements Serializable{
    	  }
 	  		  
    }catch(PartidaException e){}
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
   }
   /*
    * tomerHeroe, toma un heroe en especifico del edificio
@@ -284,7 +273,6 @@ public class Edificio implements Serializable{
   public Sorpresa sorpresa(int sorpresa){
 	  return sorpresas.get(sorpresa-1);
   }
-<<<<<<< HEAD
   /**
    * hetHeroes, nos retorna los heroes almacenados en edificio
    * @return ArrayList<Heroe>
@@ -292,10 +280,9 @@ public class Edificio implements Serializable{
   public ArrayList<Heroe> getHeroes(){
 	  return heroes;
   }
-=======
+
   public int vidriosSinReparar(int i,int j){
       
       return ventanas.get(i).get(j).vidriosReparar();
  }
->>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
 }
