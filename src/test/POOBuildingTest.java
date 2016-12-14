@@ -104,5 +104,29 @@ public class POOBuildingTest {
 		ArrayList<String> boni= edi.tomarHeroe(1).getBonificaciones();
 		assertTrue(boni.contains("Sorpresa"));
 	}
+	@Test
+	public void deberiaPermitirRepararUnaVentana() throws PartidaException{
+		int[] tipo= {1,0};
+		Partida partida=Partida.demePartida(4,4,tipo);
+		Edificio edi =partida.getEdificio();
+		int[] posi = edi.tomarHeroe(1).getPosicion();
+		Ventana vent=edi.ventana(posi[0], posi[1]);
+		vent.reparaRapido();
+		assertEquals(vent.estaReparada(),true);
+	}
+	@Test
+	public void deberiaTenerEfectoConObstaculos() throws PartidaException{
+		int[] tipo= {1,0};
+		Partida partida=Partida.demePartida(4,4,tipo);
+		Edificio edi =partida.getEdificio();
+		Obstaculo obs= edi.obstaculo(1);
+		int[] posi= edi.tomarHeroe(1).getPosicion();
+		obs.tocandoHeroe(edi.tomarHeroe(1));
+		if(obs.getPosicion()==(posi)){
+			assertNotEquals(obs.getPosicion(), posi);
+		assertNotEquals(obs.getPosicion(),null);
+		}
+	}
 }
+
 

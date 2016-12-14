@@ -563,12 +563,12 @@ public class PantallaJuego extends JDialog {
         if (jugador==1){
             energia1.setValue(estados[0]);
             puntaje1.setText(Integer.toString(estados[1]));
-            //vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes1.setIcon(new ImageIcon("poderes/"+poderes));
         }else{
         	energia2.setValue(estados[0]);
             puntaje2.setText(Integer.toString(estados[1]));
-            //vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
+            vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes2.setIcon(new ImageIcon("poderes/"+poderes));
         }
     }
