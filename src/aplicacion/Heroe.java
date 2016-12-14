@@ -47,12 +47,10 @@ public abstract class Heroe {
         esInmune=false;
     }
     public void mover(char direccion) throws PartidaException{
-    	//debeCaer=false;
-    	//esInmune();
-    	//removerBonificaciones(subenEnergia);
-    	boolean resp=true;
-    			//puedeMoverse(direccion);
-    	//System.out.println(direccion);
+    	debeCaer=false;
+    	esInmune();
+    	removerBonificaciones(subenEnergia);
+    	boolean resp=puedeMoverse(direccion);
     	if(direccion=='U'){
     		if(posI+1>edificio.cantidades()[0])throw new PartidaException(PartidaException.IMPOSIBLEMOVER);
     		if(esRapido) {
@@ -88,18 +86,17 @@ public abstract class Heroe {
     	}
     }
     protected void mover(int posI,int posJ)throws PartidaException{
-    //if(!gameOver){
-
-    			if(energia<50){
-    				esLento=true;
-    			}
+    if(!gameOver){
     			this.posI=posI;
     			this.posJ=posJ;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     			setEnergia(energia-1);
     			debeMorir();
-    			//automatico();
-    	//}
+    			automatico();
+    	}
    }
    protected boolean puedeMoverse(char direccion)throws PartidaException{
 	   boolean resp=true;
@@ -182,13 +179,16 @@ public abstract class Heroe {
 
    public void debeMorir() throws PartidaException{
       if(!esInmune){
-        setVidas(vidas-1);
+    	if(energia==0){
+    		setVidas(vidas-1);    		
+    	}
         if (vidas==0){
             gameOver=true;
    			setEnergia(100);
         }
       }
     }
+<<<<<<< HEAD
     /**setEnergia, es un metodo que nos permite modificar la energia por una introduicida
     *@param energia int
     */
@@ -210,6 +210,16 @@ public abstract class Heroe {
      */
     public void setVidas(int vidas)throws PartidaException{
     	if(vidas>3||vidas<0)throw new PartidaException(PartidaException.ATRIBUTOSFUERADERANGO);
+=======
+
+    public void setEnergia(int energia){ 
+      this.energia=energia;
+    }
+    public void setPuntaje(int puntaje){
+    	this.puntos=puntaje;
+    }
+    public void setVidas(int vidas){
+>>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     	this.vidas=vidas;
     }
     /**
@@ -240,12 +250,17 @@ public abstract class Heroe {
      * @param heroe2 Heroe
      */
     public void seTocan(Heroe heroe2)throws PartidaException{
+<<<<<<< HEAD
     	if(!gameOver){
     		int[] posicion1 = this.getPosicion();
+=======
+    	if(!gameOver){  
+   			int[] posicion1 = this.getPosicion();
+>>>>>>> 84e6753bec4323bdb0f5162501c86ca4110910bf
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
     			debeCaer=true;
-    			debeCaer();
+    			debeCaer();    				
     			debeMorir();
     		}
     	}
@@ -262,9 +277,9 @@ public abstract class Heroe {
     	    else
     	    	posI=0;
     		if(energia-posI<0)
-    			setEnergia(0);
+    			energia=0;
     		else
-    			setEnergia(energia-posI);
+    			energia=energia-posI;
     	}
     }
     /**
@@ -288,6 +303,8 @@ public abstract class Heroe {
     	return gameOver;
     }
     public boolean seMueveLento(){
+    	if(energia<50)esLento=true;
+    	else   esLento=false;
         return esLento;
     }
     public int getPuntaje(){
@@ -310,9 +327,6 @@ public abstract class Heroe {
       }
      public int[] getPosicion(){
          int [] coordenadas = new int[2];
-         	System.out.println("posicion");
-         	System.out.println(this.posI);
-         	System.out.println(this.posJ);
      		coordenadas[0]=this.posI;
      		coordenadas[1]=this.posJ;
      		return coordenadas;
