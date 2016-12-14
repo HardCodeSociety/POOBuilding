@@ -15,6 +15,7 @@ public class Edificio implements Serializable{
   private static Edificio edificio=null;
   private int nivel;
   private boolean gameOver;
+  private ArrayList<Ventana> ventanasPiso;
   
   private Edificio(int cantPisos, int cantVentanas,int[] tiposPartida){
     this.cantVentanas=cantVentanas;
@@ -36,7 +37,7 @@ public class Edificio implements Serializable{
   }
   public void inicio(){
     for(int i=0; i<cantPisos;i++){
-      ArrayList<Ventana> ventanasPiso=new ArrayList<Ventana>();
+      ventanasPiso=new ArrayList<Ventana>();
       for(int j=0;j<cantVentanas;j++){
     	 Ventana ventana=new Ventana(2,i,j);
          ventanasPiso.add(ventana);
@@ -186,6 +187,9 @@ public class Edificio implements Serializable{
   }
   public Sorpresa sorpresa(int sorpresa){
 	  return sorpresas.get(sorpresa-1);
+  }
+  public ArrayList<Heroe> getHeroes(){
+	  return heroes;
   }
 }
 

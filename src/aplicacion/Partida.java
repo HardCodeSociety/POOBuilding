@@ -43,6 +43,7 @@ public class Partida implements Serializable{
 		if(poder.contains("Kriptonita"))resp=resp+"1.";
 		else resp=resp+"0.";
 		return resp;
+		
 	}
 	public void cargarElementos(){
 		edificio.aumentarNivel();
@@ -105,4 +106,8 @@ public class Partida implements Serializable{
     public void repara(int numero){
     	edificio.repara(numero);
     }
+    public Edificio getEdificio(){
+    	return edificio;
+    }
+    
 }
