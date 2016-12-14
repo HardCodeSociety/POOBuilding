@@ -14,10 +14,10 @@ public class Ladrillo extends Obstaculo{
 			makeInvisible();
 		}
 		Random rand= new Random();
-		int opcion=(int)(rand.nextInt()*4+1);
+		int opcion=(int)(rand.nextDouble()*4+1);
 		if(opcion==4){
 			if(!isVisible){	  
-				  posJ=(int)(rand.nextInt()*(edificio.cantidades()[1]-1));
+				  posJ=(int)(rand.nextDouble()*(edificio.cantidades()[1]-1));
 				  posI=(edificio.cantidades()[0]+1);
 				  isVisible=true;
 			  }		  

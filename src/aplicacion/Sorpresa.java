@@ -17,11 +17,11 @@ public abstract class Sorpresa{
   }
   public void makeVisible(){
 	  Random rand= new Random();
-	  int opcion=(int)(rand.nextInt()*4+1);
+	  int opcion=(int)(rand.nextDouble()*4+1);
 	  if(opcion==4){
 		  if(!isVisible){		  
-			  int posI=(int)(rand.nextInt()*(edificio.cantidades()[0]-1));
-			  int posJ=(int)(rand.nextInt()*(edificio.cantidades()[1]-1));
+			  int posI=(int)(rand.nextDouble()*(edificio.cantidades()[0]-1));
+			  int posJ=(int)(rand.nextDouble()*(edificio.cantidades()[1]-1));
 			  ventana=edificio.ventana(posI, posJ);
 			  ventana.conSorpresa(true);
 			  isVisible=true;
