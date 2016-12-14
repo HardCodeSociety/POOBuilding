@@ -44,7 +44,16 @@ public class PantallaJuego extends JDialog {
     private String rutaColor2;
     private Partida partida;
     private boolean gameOver;
-   
+    private JLabel ladrillo1;
+    private JLabel ladrillo2;
+    private JLabel ladrillo3;
+    private JLabel ciguena;
+    private JLabel pato;
+    private JLabel kriptonita;
+    private JLabel pastel;
+    private JLabel bebida; 
+    private ArrayList<JLabel> obstaculos;
+    private ArrayList<JLabel> sorpresas;
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
@@ -252,14 +261,65 @@ public class PantallaJuego extends JDialog {
     	//gameOver=partida.finalizar();
     	//partida.cargarElementos();
     	actualiceJugadores();
-    	//actualiceVentanas();
-    	//actualiceSorpresas();
     	//actualiceObstaculos();
+    	//actualiceSorpresas();
+    	//actualiceVentanas();
+
+
     }
-    private void actualiceVentanas(){}
-    private void actualiceSorpresas(){}
-    private void actualiceObstaculos(){}
-    
+    private void actualiceVentanas(){
+    	for(int i=0;i<4;i++){
+    		for(int j=0; j<5; j++){
+    			String estado=partida.estadoVentanas(i,j);
+    			ImageIcon icon= new ImageIcon("Imagenes/"+estado);
+    			ventanas.get(i).get(j).setIcon(icon);
+    		}	
+    	}
+    }
+    private void actualiceSorpresas(){
+    	prepareSorpresas();
+    	for (int i=0; i<3; i++){
+    		Boolean estado=partida.estadoSorpresa(i);
+    		if(estado){
+    			ImageIcon icon= new ImageIcon("Sorpresas/"+Integer.toString(i)+".png");
+    			sorpresas.get(i).setIcon(icon);
+    		}
+    		actualizarPos(sorpresas.get(i),"Imagenes/");
+    	}
+    }
+    private void actualiceObstaculos(){
+    	prepareObstaculos();
+    	for(int i=0; i<5; i++){
+    		Boolean  estado= partida.estadoObstaculo(i);
+    		if(estado){
+    			ImageIcon icon= new ImageIcon("Obstaculos/"+Integer.toString(i)+".png");
+    			obstaculos.get(i).setIcon(icon);
+    		}
+    		actualizarPos(obstaculos.get(i),"Imagenes/");
+    	}
+    }
+    public void prepareSorpresas(){
+    	sorpresas= new ArrayList<JLabel>();
+    	kriptonita= new JLabel();
+    	pastel = new JLabel();
+    	bebida = new JLabel();
+    	sorpresas.add(kriptonita);
+    	sorpresas.add(pastel);
+    	sorpresas.add(bebida);
+    }
+    public void prepareObstaculos(){
+    	obstaculos= new ArrayList<JLabel>();
+    	pato= new JLabel();
+    	ciguena= new JLabel();
+    	ladrillo1 = new JLabel();
+    	ladrillo2 = new JLabel();
+    	ladrillo3 = new JLabel();
+    	obstaculos.add(pato);
+    	obstaculos.add(ciguena);
+    	obstaculos.add(ladrillo1);
+    	obstaculos.add(ladrillo2);
+    	obstaculos.add(ladrillo3);
+    }
     private void animacionRalphLenvantaBrazos(){
         ImageIcon icono1=new ImageIcon("imagenes/ralph/1.png");
         ImageIcon icono2=new ImageIcon("imagenes/ralph/2.png");

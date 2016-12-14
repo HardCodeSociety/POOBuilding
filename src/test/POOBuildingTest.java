@@ -84,10 +84,25 @@ public class POOBuildingTest {
 		Edificio edi =partida.getEdificio();
 		int[] posicion=edi.tomarHeroe(1).getPosicion();
 		partida.moverHeroe(1,'U');
-		assertEquals(posicion[1]+1,edi.tomarHeroe(1).getPosicion()[1]);
+		int val=(((edi.tomarHeroe(1)).getPosicion())[1]);
+		assertEquals(posicion[0],val);
 	}
 	@Test
-	public void deberia(){
-		
+	public void deberiaCrearCorrectamenteUnHeroe(){
+		int[] tipo= {1,0};
+		Partida partida=Partida.demePartida(4,4,tipo);
+		Edificio edi =partida.getEdificio();
+		Heroe hero= edi.tomarHeroe(1);
+		assertTrue((hero.getEnergia()==99) && (hero.getVidas()==2) && (hero.getPuntaje()==0));
+	}
+	@Test
+	public void deberiaPermitirAgregarBonificaciones() throws PartidaException{
+		int[] tipo= {1,0};
+		Partida partida=Partida.demePartida(4,4,tipo);
+		Edificio edi =partida.getEdificio();
+		(edi.tomarHeroe(1)).hacerInmune("Sorpresa");
+		ArrayList<String> boni= edi.tomarHeroe(1).getBonificaciones();
+		assertTrue(boni.contains("Sorpresa"));
 	}
 }
+
