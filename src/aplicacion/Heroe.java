@@ -89,17 +89,13 @@ public abstract class Heroe {
     }
     protected void mover(int posI,int posJ)throws PartidaException{
     //if(!gameOver){
-    			System.out.println("enHeore");
-    			System.out.println(posI);
-    			System.out.println(posJ);
+
     			if(energia<50){
     				esLento=true;
     			}
     			this.posI=posI;
     			this.posJ=posJ;
-    			System.out.println("DESPUES");
-    			System.out.println(posI);
-    			System.out.println(posJ);
+    		
     			setEnergia(energia-1);
     			debeMorir();
     			//automatico();
