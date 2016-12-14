@@ -101,4 +101,8 @@ public class Partida implements Serializable{
     public void repara(int numero){
     	edificio.repara(numero);
     }
+    public Edificio getEdificio(){
+    	return edificio;
+    }
+    
 }
