@@ -21,13 +21,21 @@ public class PausaJuego extends JDialog{
     private  String nombre2;
     private  Color color1;
     private  Color color2;
-    public PausaJuego(JDialog owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2){
+    private int[] estado;
+    private int[] estado2;
+    private String poderes;
+    private String poderes2;
+    public PausaJuego(JDialog owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2, int[] nEstado1 , String nPoderes1, int[]nEstado2, String nPoderes2){
         super(owner);
         principal=owner;
         nombre1 = nNombre1;
         nombre2 = nNombre2;
         color1 = nColor1;
         color2 = nColor2;
+        estado = nEstado1;
+        poderes = nPoderes1;
+        estado2 = nEstado2;
+        poderes2 = nPoderes2;
         prepareElementos();
         prepareAcciones();
     }
@@ -61,11 +69,11 @@ public class PausaJuego extends JDialog{
       nombreJugador2.setForeground(color2);
       JProgressBar energia1=new JProgressBar(0,100);
       JProgressBar energia2=new JProgressBar(0,100);
-      energia1.setValue(100);
+      energia1.setValue(estado[0]);
       energia1.setOpaque(false);
       energia1.setForeground(color1);
       energia1.setStringPainted(true);
-      energia2.setValue(100);
+      energia2.setValue(estado2[0]);
       energia2.setOpaque(false);
       energia2.setForeground(color2);
       energia2.setStringPainted(true);
@@ -84,12 +92,13 @@ public class PausaJuego extends JDialog{
       poderes1.setIcon(icono);
       poderes2.setIcon(icono);
       icono=new ImageIcon("imagenes/pausa.png");
-      JTextField puntaje1=new JTextField("0");
+      JTextField puntaje1=new JTextField(Integer.toString(estado[1]));
       puntaje1.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
       puntaje1.setEditable(false);
       puntaje1.setBackground(Color.BLACK);
       puntaje1.setForeground(color1);
-      JTextField puntaje2=new JTextField("0");
+
+      JTextField puntaje2=new JTextField(Integer.toString(estado2[1]));
       puntaje2.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
       puntaje2.setEditable(false);
       puntaje2.setBackground(Color.BLACK);
