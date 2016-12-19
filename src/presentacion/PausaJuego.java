@@ -32,6 +32,7 @@ public class PausaJuego extends JDialog{
         prepareAcciones();
     }
     public void prepareElementos(){
+      setFocusable(true);	
       setTitle("Menu de pausa");
       setResizable(false);
       setSize(1366,710);
@@ -123,6 +124,7 @@ public class PausaJuego extends JDialog{
            new KeyAdapter(){
               @Override
               public void keyPressed(KeyEvent e){
+            	  System.out.println("2");
                   if (e.getKeyCode()==KeyEvent.VK_P){
                       cancelar();
                   }
@@ -160,7 +162,8 @@ public class PausaJuego extends JDialog{
       }
     }
     public void cancelar(){
-      setVisible(false);
+    	        dispose();
+
     }
     public void retornar(){
       POOBuildinGUI.main(null);

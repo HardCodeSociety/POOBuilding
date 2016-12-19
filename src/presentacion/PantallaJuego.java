@@ -86,7 +86,7 @@ public class PantallaJuego extends JDialog {
         panelJugadores=new JPanel();
         panelJugadores.setBackground(Color.BLACK);
         panelJuego=new PanelJuego();
-        setFocusable(true);
+        setFocusable(true);	
         panelJuego.setLayout(null);
         panelJuego.setImagen("imagenes/edificio.jpg");
         elementosPanelJuego();
@@ -211,9 +211,12 @@ public class PantallaJuego extends JDialog {
         int factorY=367;
         int factorX;
         for (int i=0;i<4;i++){
+        	String estado;
             factorX=0;
             ArrayList<JLabel> ventanasDePiso =new ArrayList<JLabel>();
             for(int j=0;j<5;j++){
+            	//estado=partida.estadoVentanas(0,0);
+            	//System.out.println(estado);
                 JLabel ventana=new JLabel();
                 if(i==0&&j==2)
                      icono=new ImageIcon("imagenes/puerta.png");
@@ -262,10 +265,10 @@ public class PantallaJuego extends JDialog {
                             principal=4;
                         }else if(parar<=42){
                             animacionRalphDestruye();
+                            romperVentanas();
                         }else{
-                        	romperVentanas();
                         	jugar=true;
-                            pararAnimacion();
+                        	actualizar();
                             ralph.setIcon(new ImageIcon("imagenes/ralph/1.png"));
                         }
                    }

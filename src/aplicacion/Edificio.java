@@ -18,7 +18,6 @@ public class Edificio implements Serializable{
   private static Edificio edificio=null;
   private int nivel;
   private boolean gameOver;
-  private ArrayList<Ventana> ventanasPiso;
   /**
    * Constructor de la clase edificio
    * @param cantPisos
@@ -253,7 +252,7 @@ public class Edificio implements Serializable{
   }
   /**
    * nivelDificultad, es in metodo que nos retorna el nivel actual en el juego
-   * @return reiv
+   * @return int 
    */
   public int nivelDificultad(){
 	  return nivel;
