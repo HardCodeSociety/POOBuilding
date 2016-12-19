@@ -52,7 +52,7 @@ public class PantallaJuego extends JDialog {
     private JLabel pato;
     private JLabel kriptonita;
     private JLabel pastel;
-    private JLabel bebida; 
+    private JLabel bebida;
     private ArrayList<JLabel> obstaculos;
     private ArrayList<JLabel> sorpresas;
 
@@ -104,7 +104,7 @@ public class PantallaJuego extends JDialog {
         nombreJugador2=new JLabel(nombre2);
         nombreJugador1.setFont(fuente);
         nombreJugador2.setFont(fuente);
-		nombreJugador1.setForeground(color1);
+		    nombreJugador1.setForeground(color1);
         nombreJugador2.setForeground(color2);
         energia1=new JProgressBar(0,100);
         energia2=new JProgressBar(0,100);
@@ -270,15 +270,15 @@ public class PantallaJuego extends JDialog {
                         }
                    }
                }
-           };                                        
-           tiempo.schedule(task,0,400); 
+           };
+           tiempo.schedule(task,0,400);
     }
     private void actualizar(){
     	//actualiceEdificio();
     	actualiceJugadores();
     	actualiceObstaculos();
     	actualiceSorpresas();
-    	
+
 
     }
     private void actualiceEdificio(){
@@ -290,7 +290,7 @@ public class PantallaJuego extends JDialog {
     			String estado=partida.estadoVentanas(i,j);
     			ImageIcon icon= new ImageIcon("Imagenes/"+estado);
     			ventanas.get(i).get(j).setIcon(icon);
-    		}	
+    		}
     	}
     }
     private void actualiceSorpresas(){
@@ -305,7 +305,7 @@ public class PantallaJuego extends JDialog {
     	}
     }
     private void actualiceObstaculos(){
-    	
+
     	for(int i=0; i<5; i++){
     		Boolean  estado= partida.estadoObstaculo(i+1);
     		if(estado){
@@ -371,13 +371,13 @@ public class PantallaJuego extends JDialog {
         tiempo.cancel();
             task.cancel();
 
-    }           
+    }
     public void prepareAcciones(){
          addWindowListener (
 			     new WindowAdapter(){
                         @Override
 				         public void windowClosing(WindowEvent e){
-                               
+
 					              cerrarVentana();
 				          }
 			    }
@@ -389,14 +389,14 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_P){
                         pausaJuego();
-                    } 
+                    }
                 }
-            }   
+            }
 
         );
 
         prepareAccionesJugador1();
-        if (tipoDeJuego==1)prepareAccionesJugador2();        	
+        if (tipoDeJuego==1)prepareAccionesJugador2();
     }
     public void prepareAccionesJugador2(){
          addKeyListener(
@@ -405,7 +405,7 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if(e.getKeyCode()==KeyEvent.VK_W){
                         mover(2,'U');
-                    } 
+                    }
                 }
             }
         );
@@ -415,9 +415,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_S){
                         mover(2,'D');
-                  } 
+                  }
                 }
-            }   
+            }
 
         );
         addKeyListener(
@@ -426,9 +426,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_A){
                         mover(2,'L');
-                    } 
+                    }
                 }
-            }   
+            }
 
         );
          addKeyListener(
@@ -437,9 +437,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_D){
                         mover(2,'R');
-                    } 
+                    }
                 }
-            }   
+            }
         );
          addKeyListener(
             new KeyAdapter(){
@@ -447,10 +447,10 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if(e.getKeyCode()==KeyEvent.VK_SPACE){
                         reparar(2);
-                    } 
+                    }
                 }
-            } 
-            
+            }
+
         );
     }
 
@@ -464,9 +464,9 @@ public class PantallaJuego extends JDialog {
                     if (e.getKeyCode()==KeyEvent.VK_UP){
                         mover(1,'U');
                         actualizar();
-                    } 
+                    }
                 }
-            }   
+            }
 
         );
         addKeyListener(
@@ -475,9 +475,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_DOWN){
                         mover(1,'D');
-                    } 
+                    }
                 }
-            }   
+            }
 
         );
         addKeyListener(
@@ -486,9 +486,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_LEFT){
                         mover(1,'L');
-                    } 
+                    }
                 }
-            }   
+            }
 
         );
          addKeyListener(
@@ -497,9 +497,9 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_RIGHT){
                         mover(1,'R');
-                    } 
+                    }
                 }
-            }   
+            }
         );
          addKeyListener(
             new KeyAdapter(){
@@ -507,7 +507,7 @@ public class PantallaJuego extends JDialog {
                 public void keyPressed(KeyEvent e){
                     if(e.getKeyCode()==KeyEvent.VK_SHIFT){
                         reparar(1);
-                    } 
+                    }
                 }
             }
         );
@@ -527,6 +527,12 @@ public class PantallaJuego extends JDialog {
         }
      }
     private void pausaJuego(){
+        PausaJuego pausaJuego= new PausaJuego(this);
+        setVisible(false);
+        pausaJuego.setVisible(true);
+        if(!isVisible()){
+          setVisible(true);
+        }
 
     }
     private void juegoMaquina(String tipoMaquina){
@@ -540,7 +546,7 @@ public class PantallaJuego extends JDialog {
         actualizarPos(jugador2,rutaColor2);
         actualiceEstado(2);
         jugador2.setIcon(new ImageIcon(rutaColor2+"1.png"));
-    }   
+    }
     private void reparar(int jugador){
     	  ImageIcon icono=null;
           int[] posicion=partida.posicionJugador(jugador);
@@ -548,11 +554,11 @@ public class PantallaJuego extends JDialog {
               partida.repara(jugador);
               int cantidadVidrios=partida.vidriosSinReparar(posicion[0]-1,posicion[1]);
               if (cantidadVidrios==1){
-                  icono=new ImageIcon("imagenes/ventanaRota2.png");        
+                  icono=new ImageIcon("imagenes/ventanaRota2.png");
               }else if(cantidadVidrios==0){
                   icono=new ImageIcon("imagenes/ventana.png");
               }
-              ventanas.get(posicion[0]-1).get(posicion[1]).setIcon(icono);    
+              ventanas.get(posicion[0]-1).get(posicion[1]).setIcon(icono);
           	}
           	if(jugador==1){
           		jugador1.setIcon(new ImageIcon(rutaColor1+"3.png"));
@@ -603,8 +609,9 @@ public class PantallaJuego extends JDialog {
             //vidas2.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes2.setIcon(new ImageIcon("poderes/"+poderes));
         }
+
     }
-    
+
 
 
 
