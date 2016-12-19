@@ -162,17 +162,6 @@ public class PausaJuego extends JDialog{
         }
       );
     }
-    public void guardar(){
-      JFileChooser chooser = new JFileChooser();
-      int seleccion = chooser.showSaveDialog(this);
-      if (seleccion == JFileChooser.APPROVE_OPTION) {
-          File file = chooser.getSelectedFile();
-          JOptionPane.showMessageDialog(null,"Guardar esta en construccion. El archivo seleccionado es:  "+file.getName() );
-      }
-    }
-    public void cerrarVentana(){
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-  }
 
     public void cancelar(){
       setVisible(false);

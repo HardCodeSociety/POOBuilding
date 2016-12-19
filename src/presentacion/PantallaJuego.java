@@ -1,4 +1,5 @@
 package presentacion;
+import aplicacion.POOBArchivos;
 import aplicacion.Edificio;
 import aplicacion.Partida;
 import javax.swing.*;
@@ -294,28 +295,32 @@ public class PantallaJuego extends JDialog {
 			int caracteres=archivo.getName().length();
 			if(archivo.getName().substring(caracteres-4,caracteres).equals(".dat")){
 				try{
-					partida.guarde(archivo,partida);
+					POOBArchivos.guarde(archivo,partida);
 				}catch(Exception e){
-					JOptionPane.showMessageDialog(null,"NO SE PUDO GUARDAR EN ESTE ARCHIVO");	
+					JOptionPane.showMessageDialog(null,"NO SE PUDO GUARDAR EN ESTE ARCHIVO");
 				}
 			}else {
 				JOptionPane.showMessageDialog(null,"La extencion debe ser .dat");
 			}
 		}
+
 	}
+
 	public void abrir(){
+
 		File archivo;
 		int i=escoger.showOpenDialog(this);
 		if (i==JFileChooser.APPROVE_OPTION){
 			archivo = escoger.getSelectedFile();
 			try{
-				Partida.cambiePartida(partida.abra(archivo));
+				Partida.cambiePartida(POOBArchivos.abra(archivo));
 				partida=Partida.demePartida(3,5,tipos);
 			}catch(Exception e){
-				JOptionPane.showMessageDialog(null,"NO SE PUEDE ABRIR EL ARCHIVO");	
+				JOptionPane.showMessageDialog(null,"NO SE PUEDE ABRIR EL ARCHIVO");
 			}
 		}
 		actualizar();
+
 	}
     private void actualiceEdificio(){
     	gameOver=partida.finalizar();
@@ -636,6 +641,7 @@ public class PantallaJuego extends JDialog {
         if (jugador==1){
             energia1.setValue(estados[0]);
             puntaje1.setText(Integer.toString(estados[1]));
+            System.out.println(Integer.toString(estados[2]));
             vidas1.setIcon(new ImageIcon("vidas/"+Integer.toString(estados[2])+".png"));
             //poderes1.setIcon(new ImageIcon("poderes/"+poderes));
         }else{

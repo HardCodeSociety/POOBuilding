@@ -145,6 +145,7 @@ public abstract class Heroe {
 	    			setEnergia(energia-5);
 	    			debeMorir();
 	    			setPuntaje(puntos+1);
+            System.out.println(energia);
 	    		}
 	    	}
 	    }
@@ -177,17 +178,17 @@ public abstract class Heroe {
 
    public void debeMorir() throws PartidaException{
       if(!esInmune){
-    	if(energia==0){
-    		setVidas(vidas-1);    		
+      	if(energia==0 || energia<0){
+    		    setVidas(vidas-1);
+            setEnergia(100);
     	}
-        if (vidas==0){
-            gameOver=true;
-   			setEnergia(100);
-        }
+      if (vidas==0){
+          gameOver=true;
+      }
       }
     }
 
-    public void setEnergia(int energia){ 
+    public void setEnergia(int energia){
       this.energia=energia;
     }
     public void setPuntaje(int puntaje){
@@ -224,12 +225,12 @@ public abstract class Heroe {
      * @param heroe2 Heroe
      */
     public void seTocan(Heroe heroe2)throws PartidaException{
-    	if(!gameOver){  
+    	if(!gameOver){
    			int[] posicion1 = this.getPosicion();
     		int[] posicion2 = heroe2.getPosicion();
     		if(posicion1[0]==posicion2[0] && posicion1[1]==posicion2[1]){
     			debeCaer=true;
-    			debeCaer();    				
+    			debeCaer();
     			debeMorir();
     		}
     	}
