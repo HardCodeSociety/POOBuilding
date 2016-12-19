@@ -535,9 +535,6 @@ public class PantallaJuego extends JDialog {
         }
 
     }
-    private void juegoMaquina(String tipoMaquina){
-
-    }
 
     private void actualiceJugadores(){
         actualizarPos(jugador1,rutaColor1);
