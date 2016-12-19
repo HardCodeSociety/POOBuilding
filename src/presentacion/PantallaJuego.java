@@ -527,7 +527,11 @@ public class PantallaJuego extends JDialog {
         }
      }
     private void pausaJuego(){
-        PausaJuego pausaJuego= new PausaJuego(this, nombre1, nombre2, color1, color2);
+        int[] nEstado1=partida.estadoJugador(1);
+        String nPoderes1=partida.estadoPoder(1);
+        int[] nEstado2=partida.estadoJugador(2);
+        String nPoderes2=partida.estadoPoder(2);
+        PausaJuego pausaJuego= new PausaJuego(this, nombre1, nombre2, color1, color2, nEstado1, nPoderes1, nEstado2, nPoderes2);
         setVisible(false);
         pausaJuego.setVisible(true);
         if(!isVisible()){
