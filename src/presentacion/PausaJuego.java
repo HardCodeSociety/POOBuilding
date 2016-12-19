@@ -10,13 +10,14 @@ import java.util.*;
 import java.lang.*;
 
 public class PausaJuego extends JDialog{
-    private JPanel panelBotones;
+	private static final long serialVersionUID = 1L;
+	private JPanel panelBotones;
     private JPanel panelInformacion;
     private JButton guardar;
     private JButton salir;
     private JButton cancelar;
     private JButton menuPrincipal;
-    private JDialog principal;
+    private PantallaJuego principal;
     private  String nombre1;
     private  String nombre2;
     private  Color color1;
@@ -25,7 +26,7 @@ public class PausaJuego extends JDialog{
     private int[] estado2;
     private String poderes;
     private String poderes2;
-    public PausaJuego(JDialog owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2, int[] nEstado1 , String nPoderes1, int[]nEstado2, String nPoderes2){
+    public PausaJuego(PantallaJuego owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2, int[] nEstado1 , String nPoderes1, int[]nEstado2, String nPoderes2){
         super(owner);
         principal=owner;
         nombre1 = nNombre1;
@@ -172,6 +173,7 @@ public class PausaJuego extends JDialog{
     public void cerrarVentana(){
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
   }
+
     public void cancelar(){
       setVisible(false);
       principal.setVisible(true);
@@ -185,6 +187,19 @@ public class PausaJuego extends JDialog{
 							System.exit(0);
 			}
     }
+    public void cerrarVentana(){
+  			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
+  							setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  			}else{
+  				setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+  			}
+  	}
+    public void guardar(){
+    	principal.guardar();
+	}
+	public void abrir(){
+		principal.abrir();
+	}
     public void prepareBotones(){
       Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 25);
       guardar= new JButton("Guardar");

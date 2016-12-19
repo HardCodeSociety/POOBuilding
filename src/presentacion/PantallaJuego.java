@@ -55,6 +55,8 @@ public class PantallaJuego extends JDialog {
     private JLabel bebida;
     private ArrayList<JLabel> obstaculos;
     private ArrayList<JLabel> sorpresas;
+	private JFileChooser escoger;
+	private int[] tipos;
 
     public PantallaJuego(JFrame owner,int tipoDeJuego,ArrayList<String> nombres,ArrayList<Color> colores){
         super(owner);
@@ -68,7 +70,7 @@ public class PantallaJuego extends JDialog {
         else tipoMaquina="";
         prepareElementos();
         prepareAcciones();
-        int[] tipos=new int[3];
+        tipos=new int[3];
         tipos[0]=tipoDeJuego;
         if(tipoMaquina.equals("candy"))tipos[1]=1;
         else if (tipoMaquina.equals("calhoun"))tipos[1]=2;
@@ -284,6 +286,37 @@ public class PantallaJuego extends JDialog {
 
 
     }
+    public void guardar(){
+		File archivo;
+		int i=escoger.showSaveDialog(this);
+		if (i == JFileChooser.APPROVE_OPTION){
+        	archivo = escoger.getSelectedFile();
+			int caracteres=archivo.getName().length();
+			if(archivo.getName().substring(caracteres-4,caracteres).equals(".dat")){
+				try{
+					partida.guarde(archivo,partida);
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"NO SE PUDO GUARDAR EN ESTE ARCHIVO");	
+				}
+			}else {
+				JOptionPane.showMessageDialog(null,"La extencion debe ser .dat");
+			}
+		}
+	}
+	public void abrir(){
+		File archivo;
+		int i=escoger.showOpenDialog(this);
+		if (i==JFileChooser.APPROVE_OPTION){
+			archivo = escoger.getSelectedFile();
+			try{
+				Partida.cambiePartida(partida.abra(archivo));
+				partida=Partida.demePartida(3,5,tipos);
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null,"NO SE PUEDE ABRIR EL ARCHIVO");	
+			}
+		}
+		actualizar();
+	}
     private void actualiceEdificio(){
     	gameOver=partida.finalizar();
     }
