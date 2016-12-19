@@ -1,4 +1,5 @@
 package aplicacion;
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -107,5 +108,13 @@ public class Partida implements Serializable{
     public int vidriosSinReparar(int i,int j){
         return edificio.vidriosSinReparar(i, j);
    }
-    
+    public void guarde(File f, Partida d) throws PartidaException {
+  	  POOBArchivos.guarde(f, d);
+    }
+    public Partida abra(File f) throws PartidaException{
+  	  return POOBArchivos.abra(f);
+    }
+    public static void cambiePartida(Partida npartida){
+  	  partida=npartida;
+    }
 }

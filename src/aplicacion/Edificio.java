@@ -284,4 +284,5 @@ public class Edificio implements Serializable{
       
       return ventanas.get(i).get(j).vidriosReparar();
  }
+ 
 }

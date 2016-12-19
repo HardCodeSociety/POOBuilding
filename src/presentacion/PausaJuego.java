@@ -10,13 +10,14 @@ import java.util.*;
 import java.lang.*;
 
 public class PausaJuego extends JDialog{
-    private JPanel panelBotones;
+	private static final long serialVersionUID = 1L;
+	private JPanel panelBotones;
     private JPanel panelInformacion;
     private JButton guardar;
     private JButton salir;
     private JButton cancelar;
     private JButton menuPrincipal;
-    private JDialog principal;
+    private PantallaJuego principal;
     private  String nombre1;
     private  String nombre2;
     private  Color color1;
@@ -25,7 +26,7 @@ public class PausaJuego extends JDialog{
     private int[] estado2;
     private String poderes;
     private String poderes2;
-    public PausaJuego(JDialog owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2, int[] nEstado1 , String nPoderes1, int[]nEstado2, String nPoderes2){
+    public PausaJuego(PantallaJuego owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2, int[] nEstado1 , String nPoderes1, int[]nEstado2, String nPoderes2){
         super(owner);
         principal=owner;
         nombre1 = nNombre1;
@@ -162,14 +163,6 @@ public class PausaJuego extends JDialog{
         }
       );
     }
-    public void guardar(){
-      JFileChooser chooser = new JFileChooser();
-      int seleccion = chooser.showSaveDialog(this);
-      if (seleccion == JFileChooser.APPROVE_OPTION) {
-          File file = chooser.getSelectedFile();
-          JOptionPane.showMessageDialog(null,"Guardar esta en construccion. El archivo seleccionado es:  "+file.getName() );
-      }
-    }
     public void cancelar(){
     	        dispose();
 
@@ -189,6 +182,12 @@ public class PausaJuego extends JDialog{
   				setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
   			}
   	}
+    public void guardar(){
+    	principal.guardar();
+	}
+	public void abrir(){	
+		principal.abrir();
+	}
     public void prepareBotones(){
       Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 25);
       guardar= new JButton("Guardar");
