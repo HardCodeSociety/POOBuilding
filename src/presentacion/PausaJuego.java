@@ -132,8 +132,8 @@ public class PausaJuego extends JDialog{
            new KeyAdapter(){
               @Override
               public void keyPressed(KeyEvent e){
-                  if (e.getKeyCode()==KeyEvent.VK_P){
-                      cancelar();
+                  if (e.getKeyCode()==KeyEvent.VK_V){
+                    cancelar();
                   }
               }
           }
@@ -168,8 +168,13 @@ public class PausaJuego extends JDialog{
           JOptionPane.showMessageDialog(null,"Guardar esta en construccion. El archivo seleccionado es:  "+file.getName() );
       }
     }
+    public void cerrarVentana(){
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+  }
     public void cancelar(){
       setVisible(false);
+      principal.setVisible(true);
+      dispose();
     }
     public void retornar(){
       POOBuildinGUI.main(null);
@@ -179,13 +184,6 @@ public class PausaJuego extends JDialog{
 							System.exit(0);
 			}
     }
-    public void cerrarVentana(){
-  			if(JOptionPane.showConfirmDialog(null, "Estas seguro?")== JOptionPane.OK_OPTION){
-  							setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  			}else{
-  				setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-  			}
-  	}
     public void prepareBotones(){
       Font fuente = new Font("SEGA LOGO FONT",Font.TRUETYPE_FONT, 25);
       guardar= new JButton("Guardar");

@@ -388,13 +388,11 @@ public class PantallaJuego extends JDialog {
                 @Override
                 public void keyPressed(KeyEvent e){
                     if (e.getKeyCode()==KeyEvent.VK_P){
-                        pausaJuego();
+                          pausaJuego();
+                        }
                     }
                 }
-            }
-
         );
-
         prepareAccionesJugador1();
         if (tipoDeJuego==1)prepareAccionesJugador2();
     }
