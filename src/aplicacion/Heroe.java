@@ -96,14 +96,16 @@ public abstract class Heroe {
    }
    protected boolean puedeMoverse(char direccion)throws PartidaException{
 	   boolean resp=true;
-	   /**if(posI>0){
+	   if(posI>0){
 		   Ventana ventana=edificio.ventana(posI-1, posJ);
 		   Ventana ventana2;
 		   if(direccion=='U'){
-				ventana2=edificio.ventana(posI, posJ);
-				resp=!(ventana2.barrera('H'));
+				if (posI<edificio.cantidades()[0]){
+					ventana2=edificio.ventana(posI, posJ);
+					resp=!(ventana2.barrera('H'));
+				}
    		   }else if(direccion=='D'){
-   			    resp=!(ventana.barrera('H'));
+   			   resp=!(ventana.barrera('H'));
    		   }else if(direccion=='L'){
    			   resp=!(ventana.barrera('V'));
    		   }else if(direccion=='R'){
@@ -112,7 +114,7 @@ public abstract class Heroe {
    		   }else{
    			   throw new PartidaException(PartidaException.NOEXISTEDIRECCION);
    		   }
-	   }**/
+	   }
 	   return resp;
    }
 
