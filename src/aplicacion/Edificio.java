@@ -125,7 +125,7 @@ public class Edificio implements Serializable{
 		      heroes.get(numero-2).seTocan(heroes.get(numero-1));
 		   }
    	  }
-	  		  
+
    }catch(PartidaException e){}
   }
   /*
@@ -252,7 +252,7 @@ public class Edificio implements Serializable{
   }
   /**
    * nivelDificultad, es in metodo que nos retorna el nivel actual en el juego
-   * @return int 
+   * @return int
    */
   public int nivelDificultad(){
 	  return nivel;
@@ -281,7 +281,7 @@ public class Edificio implements Serializable{
   }
 
   public int vidriosSinReparar(int i,int j){
-      
+
       return ventanas.get(i).get(j).vidriosReparar();
  }
 }
