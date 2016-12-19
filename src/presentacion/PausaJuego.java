@@ -21,9 +21,13 @@ public class PausaJuego extends JDialog{
     private  String nombre2;
     private  Color color1;
     private  Color color2;
-    public PausaJuego(JDialog owner){
+    public PausaJuego(JDialog owner, String nNombre1, String nNombre2, Color nColor1, Color nColor2){
         super(owner);
         principal=owner;
+        nombre1 = nNombre1;
+        nombre2 = nNombre2;
+        color1 = nColor1;
+        color2 = nColor2;
         prepareElementos();
         prepareAcciones();
     }
@@ -39,10 +43,66 @@ public class PausaJuego extends JDialog{
       panelInformacion = new JPanel();
       panelInformacion.setLayout(new GridLayout(5,3,100,0));
       panelInformacion.setBorder(BorderFactory.createEmptyBorder(0,200,0,200));
+      preprareInformacion();
       prepareBotones();
-      add(panelInformacion);
-      add(panelBotones);
+      panelInformacion.setBackground(Color.BLACK);
+      add(panelInformacion,BorderLayout.NORTH);
+      add(panelBotones,BorderLayout.CENTER);
 
+    }
+    public void preprareInformacion(){
+      Font fuente = new Font("SEGA LOGO FONventanaT",Font.TRUETYPE_FONT, 14);
+      JLabel nombreJugador1=new JLabel(nombre1);
+      JLabel nombreJugador2=new JLabel(nombre2);
+      nombreJugador1.setFont(fuente);
+      nombreJugador2.setFont(fuente);
+      nombreJugador1.setForeground(color1);
+      nombreJugador2.setForeground(color2);
+      JProgressBar energia1=new JProgressBar(0,100);
+      JProgressBar energia2=new JProgressBar(0,100);
+      energia1.setValue(100);
+      energia1.setOpaque(false);
+      energia1.setForeground(color1);
+      energia1.setStringPainted(true);
+      energia2.setValue(100);
+      energia2.setOpaque(false);
+      energia2.setForeground(color2);
+      energia2.setStringPainted(true);
+      ImageIcon icono=new ImageIcon("imagenes/vidas.png");
+      JLabel vidas1=new JLabel();
+      JLabel vidas2=new JLabel();
+      vidas1.setOpaque(true);
+      vidas2.setOpaque(true);
+      vidas1.setBackground(color1);
+      vidas2.setBackground(color2);
+      vidas1.setIcon(icono);
+      vidas2.setIcon(icono);
+      JLabel poderes1=new JLabel();
+      JLabel poderes2=new JLabel();
+      icono=new ImageIcon("imagenes/poderes.png");
+      poderes1.setIcon(icono);
+      poderes2.setIcon(icono);
+      icono=new ImageIcon("imagenes/pausa.png");
+      JTextField puntaje1=new JTextField("0");
+      puntaje1.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+      puntaje1.setEditable(false);
+      puntaje1.setBackground(Color.BLACK);
+      puntaje1.setForeground(color1);
+      JTextField puntaje2=new JTextField("0");
+      puntaje2.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+      puntaje2.setEditable(false);
+      puntaje2.setBackground(Color.BLACK);
+      puntaje2.setForeground(color2);
+      panelInformacion.add(nombreJugador1);
+      panelInformacion.add(nombreJugador2);
+      panelInformacion.add(puntaje1);
+      panelInformacion.add(puntaje2);
+      panelInformacion.add(energia1);
+      panelInformacion.add(energia2);
+      panelInformacion.add(vidas1);
+      panelInformacion.add(vidas2);
+      panelInformacion.add(poderes1);
+      panelInformacion.add(poderes2);
     }
     public void prepareAcciones(){
       addWindowListener (
